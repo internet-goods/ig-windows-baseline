@@ -39,4 +39,5 @@ Invoke-WebRequest https://www.libreoffice.org/donate/dl/win-x86_64/25.2.1/en-US/
 #harden System
 Set-ProcessMitigation -System -Enable DEP
 Set-ProcessMitigation -System -Enable SEHOP
-Set-ProcessMitigation -System -Enable ASLR
+#ASLR
+Set-ProcessMitigation -System -Enable HighEntropy
