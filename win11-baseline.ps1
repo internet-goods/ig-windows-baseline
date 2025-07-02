@@ -37,4 +37,5 @@ Invoke-WebRequest https://downloads.realvnc.com/download/file/viewer.files/VNC-V
 Invoke-WebRequest https://www.cygwin.com/setup-x86_64.exe
 Invoke-WebRequest https://www.libreoffice.org/donate/dl/win-x86_64/25.2.1/en-US/LibreOffice_25.2.1_Win_x86-64.msi
 #harden System
-Set-ProcessMitigation -System -Enable DEP,SEHOP,HighEntropy,ForceRelocateImages,BottomUp,TerminateOnError,DisableWin32kSystemCalls,DisableExtensionPoints,BlockDynamicCode,StrictHandle
+#winget install --id Microsoft.Powershell --source winget
+#Set-ProcessMitigation -System -Enable DEP,SEHOP,HighEntropy,ForceRelocateImages,BottomUp,TerminateOnError,DisableWin32kSystemCalls,DisableExtensionPoints,BlockDynamicCode,StrictHandle
