@@ -36,3 +36,7 @@ Invoke-WebRequest https://get.videolan.org/vlc/3.0.21/win32/vlc-3.0.21-win32.exe
 Invoke-WebRequest https://downloads.realvnc.com/download/file/viewer.files/VNC-Viewer-7.13.1-Windows.exe?lai_vid=LazLae45JInq&lai_sr=5-9&lai_sl=l
 Invoke-WebRequest https://www.cygwin.com/setup-x86_64.exe
 Invoke-WebRequest https://www.libreoffice.org/donate/dl/win-x86_64/25.2.1/en-US/LibreOffice_25.2.1_Win_x86-64.msi
+#harden System
+Set-ProcessMitigation -System -Enable DEP
+Set-ProcessMitigation -System -Enable SEHOP
+Set-ProcessMitigation -System -Enable ASLR
