@@ -192,12 +192,14 @@ reg add HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Netbt\Parameters /v
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest /v UseLogonCredential /t REG_DWORD /d 0 /f
 #Run as different user must be removed from context menus.</title>
 #Insecure logons to an SMB server must be disabled.</title>
+reg add HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\LanmanWorkstation /v AllowInsecureGuestAuth /t REG_DWORD /d 0 /f
 #Internet connection sharing must be disabled.</title>
 #Hardened UNC Paths must be defined to require mutual authentication and integrity for at least the \\*\SYSVOL and \\*\NETLOGON shares.</title>
 #Simultaneous connections to the internet or a Windows domain must be limited.</title>
 #Connections to non-domain networks when connected to a domain authenticated network must be blocked.</title>
 #Wi-Fi Sense must be disabled.</title>
 #Command line data must be included in process creation events.</title>
+reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 1 /f
 #Windows must be configured to enable Remote host allows delegation of non-exportable credentials.</title>
 #Early Launch Antimalware, Boot-Start Driver Initialization Policy must prevent boot drivers.</title>
 #Group Policy objects must be reprocessed even if they have not changed.</title>
@@ -210,9 +212,11 @@ reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WD
 #Users must be prompted for a password on resume from sleep (on battery).</title>
 #The user must be prompted for a password on resume from sleep (plugged in).</title>
 #Solicited Remote Assistance must not be allowed.</title>
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance /v fAllowToGetHelp /t REG_DWORD /d 0 /f
 #Unauthenticated RPC clients must be restricted from connecting to the RPC server.</title>
 #The setting to allow Microsoft accounts to be optional for modern style apps must be enabled.</title>
 #The Application Compatibility Program Inventory must be prevented from collecting data and sending the information to Microsoft.</title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat /v DisablePropPage /t REG_DWORD /d 1 /f
 #Autoplay must be turned off for non-volume devices.</title>
 #The default autorun behavior must be configured to prevent autorun commands.</title>
 #Autoplay must be disabled for all drives.</title>
@@ -241,6 +245,7 @@ reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WD
 #Users must be notified if a web-based program attempts to install software.</title>
 #Automatically signing in the last interactive user after a system-initiated restart must be disabled.</title>
 #PowerShell script block logging must be enabled on Windows.</title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging /v EnableScriptBlockLogging /d 1 /f
 #PowerShell Transcription must be enabled on Windows.</title>
 #The Windows Remote Management (WinRM) client must not use Basic authentication.</title>
 #The Windows Remote Management (WinRM) client must not allow unencrypted traffic.</title>
