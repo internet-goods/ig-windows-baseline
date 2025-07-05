@@ -68,5 +68,6 @@ git clone https://github.com/SysadminWorld/Bloatynosy
 git clone https://github.com/Scrut1ny/Windows-Debloating-Script
 git clone https://github.com/markkerry/Proactive-Remediations
 git clone https://github.com/azurejoga/Aurora-Windows-Optimizer
+git clone https://github.com/zoicware/RemoveWindowsAI
 #TOP
 git clone https://github.com/TheSPEEDO/URLRunner
