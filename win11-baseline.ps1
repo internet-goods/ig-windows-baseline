@@ -164,11 +164,15 @@ Auditpol /set /subcategory:"System Integrity" /success:enable /failure:enable
 #Windows permissions for the System event log must prevent access by non-privileged accounts.</title>
 #Windows must be configured to audit Other Policy Change Events Successes.</title>
 #Windows must be configured to audit Other Policy Change Events Failures.</title>
+auditpol /set /subcategory:"Other Policy Change Events" /success:enable /failure:enable
 #Windows must be configured to audit other Logon/Logoff Events Successes.</title>
 #Windows must be configured to audit other Logon/Logoff Events Failures.</title>
+uditpol /set /subcategory:"Other Logon/Logoff Events" /success:enable /failure:enable
 #Windows must be configured to audit Detailed File Share Failures.</title>
+auditpol /set /subcategory:"Detailed File Share" /failure:enable
 #Windows must be configured to audit MPSSVC Rule-Level Policy Change Successes.</title>
 #Windows must be configured to audit MPSSVC Rule-Level Policy Change Failures.</title>
+auditpol /set /subcategory:"MPSSVC Rule-Level Policy Change" /success:enable /failure:enable
 #The display of slide shows on the lock screen must be disabled.</title>
 #IPv6 source routing must be configured to highest protection.</title>
 #The system must be configured to prevent IP source routing.</title>
