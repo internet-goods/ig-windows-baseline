@@ -145,7 +145,9 @@ Auditpol /set /subcategory:"Authentication Policy Change" /success:enable /failu
 Auditpol /set /subcategory:"Authorization Policy Change" /success:enable /failure:enable
 #The system must be configured to audit Privilege Use - Sensitive Privilege Use failures.</title>
 #The system must be configured to audit Privilege Use - Sensitive Privilege Use successes.</title>
+auditpol /set /subcategory:'Sensitive Privilege Use' /success:enable /failure:enable
 #The system must be configured to audit System - IPsec Driver failures.</title>
+auditpol /set /subcategory:"IPsec Driver" /failure:enable
 #The system must be configured to audit System - Other System Events successes.</title>
 #The system must be configured to audit System - Other System Events failures.</title>
 Auditpol /set /subcategory:"Other System Events" /success:enable /failure:enable
@@ -157,6 +159,7 @@ Auditpol /set /subcategory:"Security System Extension" /success:enable /failure:
 #The system must be configured to audit System - System Integrity successes.</title>
 Auditpol /set /subcategory:"System Integrity" /success:enable /failure:enable
 #The Application event log size must be configured to 32768 KB or greater.</title>
+
 #The Security event log size must be configured to 1024000 KB or greater.</title>
 #The System event log size must be configured to 32768 KB or greater.</title>
 #Windows permissions for the Application event log must prevent access by non-privileged accounts.</title>
