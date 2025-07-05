@@ -10,7 +10,7 @@ sc upnphost start= disabled
 Install-Module -Name SpeculationControl
 Import-Module -Name SpeculationControl
 #dism
-dism /online /Disable-Feature /FeatureName:Internet-Explorer-Optional-amd64
+
 #auditpol
 auditpol.exe /get /category:* > auditpol_beforehardening.txt
 #dostuff
@@ -121,6 +121,7 @@ Auditpol /set /subcategory:"Security Group Management" /success:enable /failure:
 #The system must be configured to audit Account Management - User Account Management successes.</title>
 Auditpol /set /subcategory:"User Account Management" /success:enable /failure:enable
 #The system must be configured to audit Detailed Tracking - Process Creation successes.</title>
+#The system must be configured to audit Detailed Tracking - Process Creation failures.</title>
 Auditpol /set /subcategory:"Process Creation" /success:enable /failure:enable
 #The system must be configured to audit Logon/Logoff - Account Lockout failures.</title>
 Auditpol /set /subcategory:"Account Lockout" /success:enable
@@ -159,9 +160,11 @@ Auditpol /set /subcategory:"Security System Extension" /success:enable /failure:
 #The system must be configured to audit System - System Integrity successes.</title>
 Auditpol /set /subcategory:"System Integrity" /success:enable /failure:enable
 #The Application event log size must be configured to 32768 KB or greater.</title>
-
+reg add HKLM\SYSTEM\CurrentControlSet\Services\EventLog\Application /v MaxSize /t REG_DWORD /d 32768 /f
 #The Security event log size must be configured to 1024000 KB or greater.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Services\EventLog\Security /v MaxSize /t REG_DWORD /d 1024000 /f
 #The System event log size must be configured to 32768 KB or greater.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Services\EventLog\System /v MaxSize /t REG_DWORD /d 32768 /f
 #Windows permissions for the Application event log must prevent access by non-privileged accounts.</title>
 #Windows permissions for the Security event log must prevent access by non-privileged accounts.</title>
 #Windows permissions for the System event log must prevent access by non-privileged accounts.</title>
@@ -178,11 +181,15 @@ auditpol /set /subcategory:"Detailed File Share" /failure:enable
 auditpol /set /subcategory:"MPSSVC Rule-Level Policy Change" /success:enable /failure:enable
 #The display of slide shows on the lock screen must be disabled.</title>
 #IPv6 source routing must be configured to highest protection.</title>
+reg add HKLM\System\CurrentControlSet\Services\Tcpip6\Parameters /v DisableIpSourcesRouting /t REG_DWORD /d 2 /f
 #The system must be configured to prevent IP source routing.</title>
+reg add HKLM\System\CurrentControlSet\Services\Tcpip\Parameters /v DisableIpSourcesRouting /t REG_DWORD /d 2 /f
 #The system must be configured to prevent Internet Control Message Protocol (ICMP) redirects from overriding Open Shortest Path First (OSPF) generated routes.</title>
 #The system must be configured to ignore NetBIOS name release requests except from WINS servers.</title>
+reg add HKEY_LOCAL_MACHINE\System\CurrentControlSet\Services\Netbt\Parameters /v NoNameReleaseOnDemand /t REG_DWORD /d 1 /f
 #Local administrator accounts must have their privileged token filtered to prevent elevated privileges from being used over the network on domain systems.</title>
 #WDigest Authentication must be disabled.</title>
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecurityProviders\WDigest /v UseLogonCredential /t REG_DWORD /d 0 /f
 #Run as different user must be removed from context menus.</title>
 #Insecure logons to an SMB server must be disabled.</title>
 #Internet connection sharing must be disabled.</title>
@@ -317,5 +324,6 @@ auditpol /set /subcategory:"MPSSVC Rule-Level Policy Change" /success:enable /fa
 #Windows Update must not obtain updates from other PCs on the internet.</title>
 #The Windows Remote Management (WinRM) service must not allow unencrypted traffic.</title>
 #Internet Explorer must be disabled for Windows.</title>
-#The system must be configured to audit Detailed Tracking - Process Creation failures.</title>
+dism /online /Disable-Feature /FeatureName:Internet-Explorer-Optional-amd64
+
 
