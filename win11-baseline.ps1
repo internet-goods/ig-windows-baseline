@@ -39,3 +39,4 @@ Invoke-WebRequest https://www.libreoffice.org/donate/dl/win-x86_64/25.2.1/en-US/
 #harden System
 #winget install --id Microsoft.Powershell --source winget
 #Set-ProcessMitigation -System -Enable DEP,SEHOP,HighEntropy,ForceRelocateImages,BottomUp,TerminateOnError,DisableWin32kSystemCalls,DisableExtensionPoints,BlockDynamicCode,StrictHandle
+git clone https://github.com/simeononsecurity/Windows-Optimize-Harden-Debloat
