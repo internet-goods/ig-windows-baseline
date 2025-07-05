@@ -12,6 +12,7 @@ Install-Module -Name SpeculationControl
 Import-Module -Name SpeculationControl
 #dism
 dism /online /Disable-Feature /FeatureName:Internet-Explorer-Optional-amd64
+
 #auditpol
 auditpol.exe /get /category:* > auditpol_beforehardening.txt
 #dostuff
