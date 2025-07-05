@@ -198,12 +198,14 @@ reg add HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\LanmanWorkstation
 #Simultaneous connections to the internet or a Windows domain must be limited.</title>
 #Connections to non-domain networks when connected to a domain authenticated network must be blocked.</title>
 #Wi-Fi Sense must be disabled.</title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config /v AutoConnectAllowedOEM /t REG_DWORD /d 0 /f
 #Command line data must be included in process creation events.</title>
 reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit /v ProcessCreationIncludeCmdLine_Enabled /t REG_DWORD /d 1 /f
 #Windows must be configured to enable Remote host allows delegation of non-exportable credentials.</title>
 #Early Launch Antimalware, Boot-Start Driver Initialization Policy must prevent boot drivers.</title>
 #Group Policy objects must be reprocessed even if they have not changed.</title>
 #Downloading print driver packages over HTTP must be prevented.</title>
+reg add HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers /v DisableHTTPPrinting /t REG_DWORD /d 1 /f
 #Web publishing and online ordering wizards must be prevented from downloading a list of providers.</title>
 #Printing over HTTP must be prevented.</title>
 #Systems must at least attempt device authentication using certificates.</title>
@@ -228,14 +230,18 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat /v Disa
 #The Microsoft Defender SmartScreen for Explorer must be enabled.</title>
 #Explorer Data Execution Prevention must be enabled.</title>
 #File Explorer heap termination on corruption must be disabled.</title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer /v NoHeapTerminationOnCorruption /t REG_DWORD /d 1 /f
 #File Explorer shell protocol must run in protected mode.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer /v PreXPSP2ShellProtocolBehavior /t REG_DWORD /d 0 /f
 #Windows must be configured to disable Windows Game Recording and Broadcasting.</title>
+reg add HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR /v AppCaptureEnabled /t REG_DWORD /d 0 /f
 #The use of a hardware security device with Windows Hello for Business must be enabled.</title>
 #Windows must be configured to require a minimum pin length of six characters or greater.</title>
 #Passwords must not be saved in the Remote Desktop Client.</title>
 #Local drives must be prevented from sharing with Remote Desktop Session Hosts.</title>
 #Remote Desktop Services must always prompt a client for passwords upon connection.</title>
 #The Remote Desktop Session Host must require secure RPC communications.</title>
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v fEncryptRPCTraffic /t REG_DWORD /d 1 /f
 #Remote Desktop Services must be configured with the client connection encryption set to the required level.</title>
 #Attachments must be prevented from being downloaded from RSS feeds.</title>
 #Basic authentication for RSS feeds over HTTP must not be used.</title>
@@ -245,7 +251,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat /v Disa
 #Users must be notified if a web-based program attempts to install software.</title>
 #Automatically signing in the last interactive user after a system-initiated restart must be disabled.</title>
 #PowerShell script block logging must be enabled on Windows.</title>
-reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging /v EnableScriptBlockLogging /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging /v EnableScriptBlockLogging /t REG_DWORD /d 1 /f
 #PowerShell Transcription must be enabled on Windows.</title>
 #The Windows Remote Management (WinRM) client must not use Basic authentication.</title>
 #The Windows Remote Management (WinRM) client must not allow unencrypted traffic.</title>
@@ -253,12 +259,14 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Script
 #The Windows Remote Management (WinRM) service must not store RunAs credentials.</title>
 #The Windows Remote Management (WinRM) client must not use Digest authentication.</title>
 #Windows must be configured to prevent Windows apps from being activated by voice while the system is locked.</title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy /v LetAppsActivateWithVoice /t REG_DWORD /d 0 /f
 #The convenience PIN for Windows must be disabled.</title>
 #Windows Ink Workspace must be configured to disallow access above the lock.</title>
 #Windows Kernel (Direct Memory Access) DMA Protection must be enabled.</title>
 #The IG Root CA certificates must be installed in the Trusted Root Store.</title>
 #The built-in administrator account must be disabled.</title>
 #The built-in guest account must be disabled.</title>
+net user Guest /active:no
 #Local accounts with blank passwords must be restricted to prevent access from the network.</title>
 #The built-in administrator account must be renamed.</title>
 #The built-in guest account must be renamed.</title>
@@ -269,12 +277,18 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Script
 #The computer account password must not be prevented from being reset.</title>
 #The maximum age for machine account passwords must be configured to 30 days or less.</title>
 #The system must be configured to require a strong session key.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v RequireStrongKey /t REG_DWORD /d 1 /f
 #The machine inactivity limit must be set to 15 minutes, locking the system with the screensaver.</title>
 #Caching of logon credentials must be limited.</title>
 #The Smart Card removal option must be configured to Force Logoff or Lock Workstation.</title>
 #The Windows SMB client must be configured to always perform SMB packet signing.</title>
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManWorkstation\Parameters /v EnableSecuritySignature /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManWorkstation\Parameters /v RequireSecuritySignature /t REG_DWORD /d 1 /f
 #Unencrypted passwords must not be sent to third-party SMB Servers.</title>
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManWorkstation\Parameters /v EnablePlainTextPassword /t REG_DWORD /d 0 /f
 #The Windows SMB server must be configured to always perform SMB packet signing.</title>
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters /v EnableSecuritySignature /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters /v RequireSecuritySignature /t REG_DWORD /d 1 /f
 #Anonymous enumeration of SAM accounts must not be allowed.</title>
 #Anonymous enumeration of shares must be restricted.</title>
 #The system must be configured to prevent anonymous users from having the same rights as the Everyone group.</title>
