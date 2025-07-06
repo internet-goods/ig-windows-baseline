@@ -38,7 +38,15 @@ winget install --id Git.Git -e --source winget
 #RIPInvoke-WebRequest https://www.cygwin.com/setup-x86_64.exe
 #Invoke-WebRequest https://www.libreoffice.org/donate/dl/win-x86_64/25.2.1/en-US/LibreOffice_25.2.1_Win_x86-64.msi
 #Set-ProcessMitigation -System -Enable DEP,SEHOP,HighEntropy,ForceRelocateImages,BottomUp,TerminateOnError,DisableWin32kSystemCalls,DisableExtensionPoints,BlockDynamicCode,StrictHandle
-#git
+Set-ProcessMitigation -System -Enable DEP
+bcdedit.exe /set "{current}" nx AlwaysOn
+Set-ProcessMitigation -System -Enable SEHOP
+#Control flow guard (CFG)
+Set-ProcessMitigation -System -Enable CFG
+#ASLR
+Set-ProcessMitigation -System -Eanble HighEntropy,ForceRelocateImages,BottomUp
+#Heap integrity
+Set-ProcessMitigation -System -Enable TerminateOnError
 
 #downloads
 Invoke-WebRequest https://github.com/mitre/saf/releases/download/1.4.21/saf-v1.4.21-x64.exe
