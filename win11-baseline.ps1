@@ -48,22 +48,11 @@ winget install --id Git.Git -e --source winget
 #RIPInvoke-WebRequest https://www.cygwin.com/setup-x86_64.exe
 #Invoke-WebRequest https://www.libreoffice.org/donate/dl/win-x86_64/25.2.1/en-US/LibreOffice_25.2.1_Win_x86-64.msi
 #Set-ProcessMitigation -System -Enable DEP,SEHOP,HighEntropy,ForceRelocateImages,BottomUp,TerminateOnError,DisableWin32kSystemCalls,DisableExtensionPoints,BlockDynamicCode,StrictHandle
-Set-ProcessMitigation -System -Enable DEP
-bcdedit.exe /set "{current}" nx AlwaysOn
-Set-ProcessMitigation -System -Enable SEHOP
-#Control flow guard (CFG)
-Set-ProcessMitigation -System -Enable CFG
-#ASLR
-Set-ProcessMitigation -System -Eanble HighEntropy,ForceRelocateImages,BottomUp
-#Heap integrity
-Set-ProcessMitigation -System -Enable TerminateOnError
 
 #downloads
 Invoke-WebRequest https://github.com/mitre/saf/releases/download/1.4.21/saf-v1.4.21-x64.exe
 Invoke-WebRequest https://download.sysinternals.com/files/ProcessExplorer.zip
 Invoke-WebRequest https://github.com/git-for-windows/git/releases/download/v2.48.1.windows.1/Git-2.48.1-64-bit.exe
-
-
 Invoke-WebRequest https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/scc-5.10.1_Windows_bundle.zip
 Invoke-WebRequest https://raw.githubusercontent.com/gnh1201/welsonjs/014c1eaa59acdb35d603af0dfee1ef20110def96/app/assets/bat/clean_chrome_pup.bat
 Invoke-WebRequest https://raw.githubusercontent.com/dennyhalim/cfg/c9e53971aad5c5dd1fe38fabdee4724ce2b2eb6b/apps/securedns.cmd
@@ -108,7 +97,10 @@ Uninstall-WindowsFeature -Name Telnet-Client
 #The TFTP Client must not be installed on the system.</title>
 Disable-WindowsOptionalFeature -Online -FeatureName "TFTPClient" -Remove
 #Data Execution Prevention (DEP) must be configured to at least OptOut.</title>
+Set-ProcessMitigation -System -Enable DEP
+bcdedit.exe /set "{current}" nx AlwaysOn
 #Structured Exception Handling Overwrite Protection (SEHOP) must be enabled.</title>
+Set-ProcessMitigation -System -Enable SEHOP
 #The Windows PowerShell 2.0 feature must be disabled on the system.</title>
 Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowershellV2 -Remove 
 #The Server Message Block (SMB) v1 protocol must be disabled on the system.</title>
@@ -880,6 +872,7 @@ Disable-WindowsOptionalFeature -FeatureName "InkAndHandwritingServices" -Online 
 #2202   MS Security Guide       NetBT NodeType configuration
 #2203   MS Security Guide       WDigest Authentication
 #2209   MS Security Guide       Enable Structured Exception Handling Overwrite Protection (SEHOP)
+#DUPE
 #2210   MS Security Guide       Limits print driver installation to Administrators
 #2211   MS Security Guide       Configure RPC packet level privacy setting for incoming connections
 #2212   MS Security Guide       Manage processing of Queue-specific files
@@ -903,18 +896,25 @@ Disable-WindowsOptionalFeature -FeatureName "InkAndHandwritingServices" -Online 
 #2409   System Services Xbox Live Networking Service (XboxNetApiSvc)
 #2410   System Services Xbox Live Networking Service (XboxNetApiSvc) (Service Startup type)
 #1950   Microsoft Defender Exploit Guard        Exploit protection: Control flow guard (CFG)
+Set-ProcessMitigation -System -Enable CFG
 #1951   Microsoft Defender Exploit Guard        Exploit protection: Data Execution Prevention (DEP)
+#DUPE
 #1952   Microsoft Defender Exploit Guard        Exploit protection: Override Data Execution Prevention (DEP)
 #1954   Microsoft Defender Exploit Guard        Exploit protection: Force randomization for images (Mandatory ASLR)
+Set-ProcessMitigation -System -Enable ForceRelocateImages
 #1955   Microsoft Defender Exploit Guard        Exploit protection: Override force randomization for images (Mandatory ASLR)
 #1956   Microsoft Defender Exploit Guard        Exploit protection: Randomize memory allocations (Bottom-up ASLR)
+Set-ProcessMitigation -System -Enable BottomUp
 #1957   Microsoft Defender Exploit Guard        Exploit protection: Override randomize memory allocations (Bottom-up ASLR)
 #1958   Microsoft Defender Exploit Guard        Exploit protection: High-entropy ASLR
+Set-ProcessMitigation -System -Enable HighEntropy
 #1959   Microsoft Defender Exploit Guard        Exploit protection: Override high-entropy ASLR
 #1960   Microsoft Defender Exploit Guard        Exploit protection: Validate exception chains (SEHOP)
+#DUPE
 #1961   Microsoft Defender Exploit Guard        Exploit protection: Validate exception chains (SEHOP (Telemetry only)
 #1962   Microsoft Defender Exploit Guard        Exploit protection: Override validate exception chains (SEHOP)
 #1963   Microsoft Defender Exploit Guard        Exploit protection: Validate heap integrity
+Set-ProcessMitigation -System -Enable TerminateOnError
 #1964   Microsoft Defender Exploit Guard        Exploit protection: Override validate heap integrity
 #1953   Microsoft Defender Exploit Guard        Force use of Data Execution Prevention (DEP)
 #2300   Windows Firewall        HardeningKitty-Block-TCP-NetBIOS
