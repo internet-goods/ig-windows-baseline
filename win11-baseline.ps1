@@ -293,11 +293,14 @@ reg add HKLM\Software\Policies\Microsoft\WindowsInkWorkspace /v AllowWindowsInkW
 reg add "HKLM\Software\Policies\Microsoft\Windows\Kernel DMA Protection" /v DeviceEnumerationPolicy /t REG_DWORD /d 0 /f
 #The IG Root CA certificates must be installed in the Trusted Root Store.</title>
 #The built-in administrator account must be disabled.</title>
+net user administrator /active:no
 #The built-in guest account must be disabled.</title>
 net user Guest /active:no
 #Local accounts with blank passwords must be restricted to prevent access from the network.</title>
 #The built-in administrator account must be renamed.</title>
+wmic useraccount where name='Administrator' rename 'IGAdministrator'
 #The built-in guest account must be renamed.</title>
+wmic useraccount where name='Guest' rename 'IGGuest'
 #Audit policy using subcategories must be enabled.</title>
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa /v SCENoApplyLegacyAuditPolicy /t REG_DWORD /d 1 /f
 #Outgoing secure channel traffic must be encrypted or signed.</title>
