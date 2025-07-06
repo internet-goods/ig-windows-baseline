@@ -403,5 +403,25 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimizat
 #The Windows Remote Management (WinRM) service must not allow unencrypted traffic.</title>
 #Internet Explorer must be disabled for Windows.</title>
 dism /online /Disable-Feature /FeatureName:Internet-Explorer-Optional-amd64
+#Windows Defender Firewall with Advanced Security must be enabled when connected to a domain.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must be enabled when connected to a private network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must be enabled when connected to a public network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must block unsolicited inbound connections when connected to a domain.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must allow outbound connections, unless a rule explicitly blocks the connection when connected to a domain.</xccdf:title>
+#Windows Defender Firewall with Advanced Security log size must be configured for domain connections.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must log dropped packets when connected to a domain.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must log successful connections when connected to a domain.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must block unsolicited inbound connections when connected to a private network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must allow outbound connections, unless a rule explicitly blocks the connection when connected to a private network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security log size must be configured for private network connections.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must log dropped packets when connected to a private network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must log successful connections when connected to a private network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must block unsolicited inbound connections when connected to a public network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must allow outbound connections, unless a rule explicitly blocks the connection when connected to a public network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security local firewall rules must not be merged with Group Policy settings when connected to a public network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security local connection rules must not be merged with Group Policy settings when connected to a public network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security log size must be configured for public network connections.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must log dropped packets when connected to a public network.</xccdf:title>
+#Windows Defender Firewall with Advanced Security must log successful connections when connected to a public network.</xccdf:title>
 
 
