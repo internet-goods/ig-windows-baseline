@@ -672,6 +672,7 @@ Invoke-HardeningKitty -EmojiSupport
 #1620   Administrative Templates: System        Device Guard: Security Services Running: HVCI
 #1623   Administrative Templates: System        Device Guard: Require UEFI Memory Attributes Table (Policy)
 #1621   Administrative Templates: System        Device Guard: Secure Launch Configuration (Policy)
+reg add HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\SystemGuard /v Enabled /t REG_DWORD /d 1 /f
 #1622   Administrative Templates: System        Device Guard: Windows Defender Application Control deployed (Policy)
 #1630   Administrative Templates: System        Early Launch Antimalware: Boot-Start Driver Initialization Policy
 #1631   Administrative Templates: System        Group Policy: Process even if the Group Policy objects have not changed
@@ -694,12 +695,15 @@ Invoke-HardeningKitty -EmojiSupport
 #1688   Administrative Templates: System        Sleep Settings: Allow standby states (S1-S3) when sleeping (on battery)
 #1690   Administrative Templates: System        Remote Assistance: Configure Offer Remote Assistance
 #1691   Administrative Templates: System        Remote Assistance: Configure Solicited Remote Assistance
+#DUPE
 #1692   Administrative Templates: System        Remote Procedure Call: Enable RPC Endpoint Mapper Client Authentication
 #1693   Administrative Templates: System        Remote Procedure Call: Restrict Unauthenticated RPC clients
 #1694   Administrative Templates: System        Security Settings: Enable svchost.exe mitigation options
 #1695   Administrative Templates: System        Windows Performance PerfTrack: Enable/Disable PerfTrack
 #1696   Administrative Templates: System        User Profiles: Turn off the advertising ID
+#HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo /v Enabled
 #1697   Administrative Templates: System        Time Providers: Enable Windows NTP Client
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProviders\NtpClient /v Enabled /t REG_DWORD /d 1 /f
 #1698   Administrative Templates: System        Time Providers: Enable Windows NTP Server
 #1700   Administrative Templates: Windows Components    App Package Deployment: Allow a Windows app to share application data between users
 #1701   Administrative Templates: Windows Components    App Privacy: Let Windows apps activate with voice while the system is locked
@@ -726,6 +730,7 @@ Invoke-HardeningKitty -EmojiSupport
 #1763   Administrative Templates: Windows Components    BitLocker Drive Encryption: Operating System Drives: Configure minimum PIN length for startup
 #1720   Administrative Templates: Windows Components    Cloud Content: Do not show Windows tips
 #1721   Administrative Templates: Windows Components    Cloud Content: Turn off Microsoft consumer experiences
+#DUPE
 #1722   Administrative Templates: Windows Components    Credential User Interface: Do not display the password reveal button
 #1724   Administrative Templates: Windows Components    Credential User Interface: Enumerate administrator accounts on elevation
 #1725   Administrative Templates: Windows Components    Data Collection and Preview Builds: Allow Diagnostic Data
@@ -823,9 +828,12 @@ Invoke-HardeningKitty -EmojiSupport
 #1738   Administrative Templates: Windows Components    Remote Desktop Session Host: Security: Require secure RPC communication
 #1739   Administrative Templates: Windows Components    Remote Desktop Session Host: Security: Set client connection encryption level
 #1740   Administrative Templates: Windows Components    Search: Allow Cloud Search
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v AllowCloudSearch /t REG_DWORD /d 0 /f
 #1741   Administrative Templates: Windows Components    Search: Allow Cortana
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v AllowCortana /t REG_DWORD /d 0 /f
 #1742   Administrative Templates: Windows Components    Search: Allow Cortana above lock screen
 #1743   Administrative Templates: Windows Components    Search: Allow indexing of encrypted files
+#DUPE
 #1744   Administrative Templates: Windows Components    Search: Allow search and Cortana to use location
 #1745   Administrative Templates: Windows Components    Search: Set what information is shared in Search
 #1746   Administrative Templates: Windows Components    Windows Error Reporting: Disable Windows Error Reporting
@@ -1196,12 +1204,18 @@ cd "Wynis\System Audit"
 #2;(L1) Ensure 'Encryption Oracle Remediation' is set to 'Enabled: Force Updated Clients', value must be 0 ;not configure
 #2;(L1) Ensure 'Remote host allows delegation of non-exportable credentials' is set to 'Enabled', value must be 1 ;not configure
 #DG18.9.5.1;(L1)Ensure 'Turn On Virtualization Based Security' is set to 'Enabled' (Scored), value must be 1 ;not configure
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard /v EnableVirtualizationBasedSecurity /t REG_DWORD /d 1 /f
 #DG18.9.5.2;(L1)Ensure 'Turn On Virtualization Based Security: Select Platform Security Level' is set to 'Secure Boot and DMA Protection', value must be 1 ;not configure
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard /v RequirePlatformSecurityFeatures /t REG_DWORD /d 1 /f
 #DG18.9.5.3;(L1)Ensure 'Turn On Virtualization Based Security: Virtualization Based Protection of Code Integrity' is set to 'Enabled with UEFI lock' (Scored), value must be 1 ;not configure
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard /v HypervisorEnforcedCodeIntegrity /t REG_DWORD /d 1 /f
 #DG18.9.5.4;(L1)Ensure 'Turn On Virtualization Based Security: Require UEFI Memory Attributes Table' is set to 'True (checked)', value must be 1 ;not configure
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard /v HVCIMATRequired /t REG_DWORD /d 1 /f
 #DG18.9.5.5;(L1)Ensure 'Turn On Virtualization Based Security: Credential Guard Configuration' is set to 'Enabled with UEFI lock', value must be 1 ;not configure
 #DG18.9.5.6;(L1)Ensure 'Turn On Virtualization Based Security: Credential Guard Configuration' is set to 'Enabled with UEFI lock', value must be 1 ;not configure
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard /v LsaCfgFlags /t REG_DWORD /d 1 /f
 #DG18.9.5.7;(L1)Ensure 'Turn On Virtualization Based Security: Kernel-mode Hardware-enforced Stack Protection' is set to 'Enabled: Enabled in enforcement mode', value must be 1 ;not configure
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard\Scenarios\KernelShadowStacks /t REG_DWORD /d 1 /f
 #DIR18.9.7.1.1;(L1)Ensure 'Prevent installation of devices that match any of these device IDs' is set to 'Enabled', value must be 1 ;not configure
 #DIR18.9.7.1.2;Ensure 'Prevent installation of devices that match any of these device IDs' is set to 'Enabled', value must be PCI\CC_0C0A ;not configure
 #DIR18.9.7.1.3;(L1)Ensure 'Prevent installation of devices that match any of these device IDs' is set to 'Enabled', value must be PCI\CC_0C0A ;not configure
@@ -1228,7 +1242,9 @@ cd "Wynis\System Audit"
 #LOGON18.9.27.6;(L1)Ensure 'Turn off picture password sign-in' is set to 'Enabled', value must be1 ;
 #LOGON18.9.27.7;(L1)Ensure 'Turn on convenience PIN sign-in' is set to 'Disabled', value must be 0 ;
 #OP18.9.30.1;(L2) Ensure 'Allow Clipboard synchronization across devices' is set to 'Disabled', value must be 0 ;
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System /v AllowCrossDeviceClipboard /t REG_DWORD /d 0 /f
 #OP18.9.30.2;(L2) Ensure 'Allow upload of User Activities' is set to 'Disabled', value must be 0 ;
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System /v PublishUserActivities /t REG_DWORD /d 0 /f
 #SLEEP18.9.32.6.1;(L1) Ensure 'Allow network connectivity during connected-standby (on battery)' is set to 'Disabled', value must be 0 ;not configure
 #SLEEP18.9.32.6.2;(L1) Ensure 'Allow network connectivity during connected-standby (plugged in)' is set to 'Disabled', value must be 0 ;not configure
 #SLEEP18.9.32.6.3;(L1) Ensure 'Allow standby states (S1-S3) when sleeping (on battery)' is set to 'Disabled', value must be 0 ;not configure
@@ -1237,12 +1253,14 @@ cd "Wynis\System Audit"
 #SLEEP18.9.32.6.6;(L1) Ensure 'Require a password when a computer wakes (plugged in)' is set to 'Enabled', value must be 1 ;not configure
 #RA18.9.34.1;(L1) Ensure 'Configure Offer Remote Assistance' is set to 'Disabled, value must be 0 ;
 #RA18.9.34.2;(L1) Ensure 'Configure Solicited Remote Assistance' is set to 'Disabled'', value must be 0 ;
+#DUPE
 #RPC18.9.35.1;(L1) Ensure 'Enable RPC Endpoint Mapper Client Authentication' is set to 'Enabled, value must be 1 ;not configure
 #RPC18.9.35.2;(L1) Ensure 'Restrict Unauthenticated RPC clients' is set to 'Enabled: Authenticated', value must be 1 ;not configure
 #MSDT18.9.46.5.1;(L2) Ensure 'Microsoft Support Diagnostic Tool: Turn on MSDT interactive communication with support provider' is set to 'Disabled, value must be 0 ;not configure
 #WPP18.9.46.11.1;(L2) Ensure 'Enable/Disable PerfTrack' is set to 'Disabled', value must be 0 ;not configure
 #UP18.9.48.1;(L2) Ensure 'Turn off the advertising ID' is set to 'Enabled', value must be 1 ;not configure
 #TP18.9.50.1.1;(L2) Ensure 'Enable Windows NTP Client' is set to 'Enabled', value must be 1 ;not configure
+#DUPE
 #TP18.9.50.1.2;(L2) Ensure 'Enable Windows NTP Server' is set to 'Disabled', value must be 0 ;not configure
 #APD18.10.3.1;(L2) Ensure Allow a Windows app to share application data between users, value must be 0 ;not configure
 #APD18.10.3.2;Ensure 'Prevent non-admin users from installing packaged Windows apps' is set to 'Enabled', value must be 1 ;
@@ -1299,6 +1317,7 @@ cd "Wynis\System Audit"
 #CLOUD18.10.12.1;(L2)Ensure 'Turn off cloud consumer account state content' is set to 'Enabled', value must be 1 ;not configure
 #CLOUD18.10.12.2;(L2)Ensure 'Turn off cloud optimized content' is set to 'Enabled', value must be 1 ;not configure
 #CLOUD18.10.12.3;(L1)Ensure 'Turn off Microsoft consumer experiences' is set to 'Enabled', value must be 1 ;not configure
+#DUPE
 #CONNECT18.10.13.1;(L1)Ensure Require pin for pairing is set to Enabled, value must be 1 ;not configure
 #CUI18.10.14.1;(L1)Ensure 'Do not display the password reveal button' is set to 'Enabled', value must be 1 ;not configure
 #CUI18.10.14.2;(L1)Ensure 'Enumerate administrator accounts on elevation' is set to 'Disabled', value must be 0 ;not configure
@@ -1309,7 +1328,9 @@ cd "Wynis\System Audit"
 #DCPB18.10.15.4;(L1)Ensure 'Do not show feedback notifications' is set to 'Enabled, value must be 1;
 #DCPB18.10.15.5;(L1)Ensure 'Enable OneSettings Auditing' is set to 'Enabled', value must be 1 ;
 #DCPB18.10.15.6;(L1)Ensure 'Limit Diagnostic Log Collection is set to 'Enabled', value must be 1 ;
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection /v LimitDiagnosticLogCollection /t REG_DWORD /d 1 /f
 #DCPB18.10.15.7;(L1)Ensure 'Limit Dump Collection' is set to 'Enabled', value must be 1 ;
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection /v LimitDumpCollection /t REG_DWORD /d 1 /f
 #DCPB18.10.15.8;(L1)Ensure 'Toggle user control over Insider builds'is set to 'Disabled, value must be 0 ;not configure
 #DO18.10.16;Ensure 'Download Mode' is NOT set to 'Enabled: Internet' , value must be anything other than 3;not configure
 #DAI18.10.17.1;(L1)Ensure 'Enable App Installer' is set to 'Disabled, value must be 0 ;not configure
@@ -1380,6 +1401,7 @@ cd "Wynis\System Audit"
 #OCR18.10.59.3;(L1)Ensure 'Allow Cortana' is set to 'Disabled', value must be 0 ;not configure
 #OCR18.10.59.4;(L1)Ensure 'Allow Cortana above lock screen' is set to 'Disabled', value must be 0 ;not configure
 #OCR18.10.59.5;(L1)Ensure 'Allow indexing of encrypted files' is set to 'Disabled', value must be 0 ;not configure
+#DUPE
 #OCR18.10.59.6;(L1)Ensure 'Allow search and Cortana to use location' is set to 'Disabled', value must be 0 ;not configure
 #OCR18.10.59.7;(L2)'Ensure 'Allow search highlights' is set to 'Disabled', value must be 0 ;not configure
 #SPP18.10.63.1;(L2)Ensure 'Turn off KMS Client Online AVS Validation' is set to 'Enabled', value must be 1 ;not configure
