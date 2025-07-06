@@ -925,7 +925,7 @@ auditpol.exe /get /category:* > auditpol_afterhardening.txt
 
 git clone https://github.com/Sneakysecdoggo/Wynis
 cd "Wynis\System Audit"
-.\WynisWIN11-CISv0.9.ps1"
+.\WynisWIN11-CISv0.9.ps1
 
 #PP-1.1.1;(L1)Ensure 'Enforce password history' is set to '24 or more password(s), value must be 24 or More;PasswordHistorySize = 0
 #PP-1.1.2;(L1)Maximum password age is set to 365 or fewer days, value must be 365 or less but not 0;MaximumPasswordAge = 42
