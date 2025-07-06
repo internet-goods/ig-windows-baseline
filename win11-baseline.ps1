@@ -216,7 +216,9 @@ reg add HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers /v Di
 #Solicited Remote Assistance must not be allowed.</title>
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance /v fAllowToGetHelp /t REG_DWORD /d 0 /f
 #Unauthenticated RPC clients must be restricted from connecting to the RPC server.</title>
+Set-ItemProperty "HKLM:\Software\Policies\Microsoft\Windows NT\Rpc" -Name RestrictRemoteClients -Value 2
 #The setting to allow Microsoft accounts to be optional for modern style apps must be enabled.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v MSAOptional /t REG_DWORD /d 1 /f
 #The Application Compatibility Program Inventory must be prevented from collecting data and sending the information to Microsoft.</title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat /v DisablePropPage /t REG_DWORD /d 1 /f
 #Autoplay must be turned off for non-volume devices.</title>
@@ -224,11 +226,14 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat /v Disa
 #Autoplay must be disabled for all drives.</title>
 #Enhanced anti-spoofing for facial recognition must be enabled on Windows.</title>
 #Microsoft consumer experiences must be turned off.</title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent /v DisableWindowsConsumerFeatures /t REG_DWORD /d 1 /f
 #Administrator accounts must not be enumerated during elevation.</title>
 #Windows Telemetry must not be configured to Full.</title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection /v AllowTelemetry /t REG_DWORD /d 0 /f
 #Windows Update for workstations must not obtain updates from other PCs on the internet.</title>
 #The Microsoft Defender SmartScreen for Explorer must be enabled.</title>
 #Explorer Data Execution Prevention must be enabled.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer /v NoDataExecutionPrevention /t REG_DWORD /d 0 /f
 #File Explorer heap termination on corruption must be disabled.</title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer /v NoHeapTerminationOnCorruption /t REG_DWORD /d 1 /f
 #File Explorer shell protocol must run in protected mode.</title>
@@ -271,7 +276,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Script
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy /v LetAppsActivateWithVoice /t REG_DWORD /d 0 /f
 #The convenience PIN for Windows must be disabled.</title>
 #Windows Ink Workspace must be configured to disallow access above the lock.</title>
-
+reg add HKLM\Software\Policies\Microsoft\WindowsInkWorkspace /v AllowWindowsInkWorkspace /t REG_DWORD /d 1 /f
 #Windows Kernel (Direct Memory Access) DMA Protection must be enabled.</title>
 #The IG Root CA certificates must be installed in the Trusted Root Store.</title>
 #The built-in administrator account must be disabled.</title>
@@ -293,6 +298,7 @@ eg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v Sign Secure
 reg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v RequireStrongKey /t REG_DWORD /d 1 /f
 #The machine inactivity limit must be set to 15 minutes, locking the system with the screensaver.</title>
 #Caching of logon credentials must be limited.</title>
+reg add "HKEY_LOCAL_MACHINE\Software\Microsoft\Windows NT\CurrentVersion\Winlogon" /v CachedLogonsCount /t REG_DWORD /d 0 /f
 #The Smart Card removal option must be configured to Force Logoff or Lock Workstation.</title>
 reg add HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon /v SCRemoveOption -t REG_SZ /d 2 /f
 #The Windows SMB client must be configured to always perform SMB packet signing.</title>
@@ -309,6 +315,7 @@ reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RestrictAnonymousSAM /t REG
 reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RestrictAnonymous /t REG_DWORD /d 2 /f
 #The system must be configured to prevent anonymous users from having the same rights as the Everyone group.</title>
 #Anonymous access to Named Pipes and Shares must be restricted.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters /v RestrictNullSessAccess /t REG_DWORD /d 1 /f
 #Remote calls to the Security Account Manager (SAM) must be restricted to Administrators.</title>
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa /v RestrictRemoteSAM /t REG_SZ /d "O:BAG:BAD:(A;;RC;;;BA)" /f
 #NTLM must be prevented from falling back to a Null session.</title>
@@ -316,14 +323,22 @@ reg add HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0 /v allown
 #PKU2U authentication using online identities must be prevented.</title>
 reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa\pku2u /v AllowOnlineID /t REG_DWORD /d 0 /f
 #Kerberos encryption types must be configured to prevent the use of DES and RC4 encryption suites.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Kerberos\Parameters /v REG_DWORD /d 0x7ffffff8 /f
 #The system must be configured to prevent the storage of the LAN Manager hash of passwords.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v NoLMHash /t REG_DWORD /d 1 /f
 #The LanMan authentication level must be set to send NTLMv2 response only, and to refuse LM and NTLM.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v LmCompatibilityLevel /t REG_DWORD /d 5 /f
 #The system must be configured to the required LDAP client signing level.</title>
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LDAP /v LDAPClientIntegrity /t REG_DWORD /d 2 /f
 #The system must be configured to meet the minimum session security requirement for NTLM SSP based clients.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0 /v NTLMMinClientSec /t REG_DWORD /d 0x20080000 /f
 #The system must be configured to meet the minimum session security requirement for NTLM SSP based servers.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0 /v NTLMMinServerSec /t REG_DWORD /d 0x20080000 /f
 #The system must be configured to use FIPS-compliant algorithms for encryption, hashing, and signing.</title>
+reg add HKLM\System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolic /v Enabled /t REG_DWORD /d 1 /f
 #The default permissions of global system objects must be increased.</title>
 #User Account Control approval mode for the built-in Administrator must be enabled.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v FilterAdministratorToken /t REG_DWORD /d 1 /f
 #User Account Control must prompt administrators for consent on the secure desktop.</title>
 #Windows must use multifactor authentication for local and network access to privileged and non-privileged accounts.</title>
 #User Account Control must automatically deny elevation requests for standard users.</title>
@@ -360,6 +375,7 @@ reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa\pku2u /v AllowOnlineID /t REG_
 #The "Restore files and directories" user right must only be assigned to the Administrators group.</title>
 #The "Take ownership of files or other objects" user right must only be assigned to the Administrators group.</title>
 #Windows Update must not obtain updates from other PCs on the internet.</title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimization /v DODownloadMode /t REG_DWORD /d 0 /f
 #The Windows Remote Management (WinRM) service must not allow unencrypted traffic.</title>
 #Internet Explorer must be disabled for Windows.</title>
 dism /online /Disable-Feature /FeatureName:Internet-Explorer-Optional-amd64
