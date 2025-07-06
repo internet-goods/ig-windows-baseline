@@ -238,18 +238,27 @@ reg add HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR /v A
 #The use of a hardware security device with Windows Hello for Business must be enabled.</title>
 #Windows must be configured to require a minimum pin length of six characters or greater.</title>
 #Passwords must not be saved in the Remote Desktop Client.</title>
+reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services" /v DisablePasswordSaving /t REG_DWORD /d 1 /f
 #Local drives must be prevented from sharing with Remote Desktop Session Hosts.</title>
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v fDisableCdm /t REG_DWORD /d 1 /f
 #Remote Desktop Services must always prompt a client for passwords upon connection.</title>
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v fPromptForPassword /t REG_DWORD /d 1 /f
 #The Remote Desktop Session Host must require secure RPC communications.</title>
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v fEncryptRPCTraffic /t REG_DWORD /d 1 /f
 #Remote Desktop Services must be configured with the client connection encryption set to the required level.</title>
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v MinEncryptionLevel /t REG_DWORD /d 3 /f
 #Attachments must be prevented from being downloaded from RSS feeds.</title>
 #Basic authentication for RSS feeds over HTTP must not be used.</title>
 #Indexing of encrypted files must be turned off.</title>
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v AllowIndexingEncryptedStoresOrItems /t REG_DWORD /d 0 /f
 #Users must be prevented from changing installation options.</title>
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer" /v EnableUserControl /t REG_DWORD /d 0 /f
 #The Windows Installer feature "Always install with elevated privileges" must be disabled.</title>
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer" /v AlwaysInstallElevated /t REG_DWORD /d 0 /f
 #Users must be notified if a web-based program attempts to install software.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v SafeForScripting /t REG_DWORD /d 0 /f
 #Automatically signing in the last interactive user after a system-initiated restart must be disabled.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription  /v EnableTranscripting /t REG_DWORD /d 1 /f
 #PowerShell script block logging must be enabled on Windows.</title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging /v EnableScriptBlockLogging /t REG_DWORD /d 1 /f
 #PowerShell Transcription must be enabled on Windows.</title>
@@ -262,6 +271,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Script
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy /v LetAppsActivateWithVoice /t REG_DWORD /d 0 /f
 #The convenience PIN for Windows must be disabled.</title>
 #Windows Ink Workspace must be configured to disallow access above the lock.</title>
+
 #Windows Kernel (Direct Memory Access) DMA Protection must be enabled.</title>
 #The IG Root CA certificates must be installed in the Trusted Root Store.</title>
 #The built-in administrator account must be disabled.</title>
@@ -272,8 +282,11 @@ net user Guest /active:no
 #The built-in guest account must be renamed.</title>
 #Audit policy using subcategories must be enabled.</title>
 #Outgoing secure channel traffic must be encrypted or signed.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v RequireSignOrSeal /t REG_DWORD /d 1 /f
 #Outgoing secure channel traffic must be encrypted.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v SealSecureChannel /t REG_DWORD /d 1 /f
 #Outgoing secure channel traffic must be signed.</title>
+eg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v Sign SecureChannel /t REG_DWORD /d 1 /f
 #The computer account password must not be prevented from being reset.</title>
 #The maximum age for machine account passwords must be configured to 30 days or less.</title>
 #The system must be configured to require a strong session key.</title>
@@ -281,6 +294,7 @@ reg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v RequireStr
 #The machine inactivity limit must be set to 15 minutes, locking the system with the screensaver.</title>
 #Caching of logon credentials must be limited.</title>
 #The Smart Card removal option must be configured to Force Logoff or Lock Workstation.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon /v SCRemoveOption -t REG_SZ /d 2 /f
 #The Windows SMB client must be configured to always perform SMB packet signing.</title>
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManWorkstation\Parameters /v EnableSecuritySignature /t REG_DWORD /d 1 /f
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManWorkstation\Parameters /v RequireSecuritySignature /t REG_DWORD /d 1 /f
@@ -290,12 +304,17 @@ reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManWorkstation\P
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters /v EnableSecuritySignature /t REG_DWORD /d 1 /f
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters /v RequireSecuritySignature /t REG_DWORD /d 1 /f
 #Anonymous enumeration of SAM accounts must not be allowed.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RestrictAnonymousSAM /t REG_DWORD /d 1 /f
 #Anonymous enumeration of shares must be restricted.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RestrictAnonymous /t REG_DWORD /d 2 /f
 #The system must be configured to prevent anonymous users from having the same rights as the Everyone group.</title>
 #Anonymous access to Named Pipes and Shares must be restricted.</title>
 #Remote calls to the Security Account Manager (SAM) must be restricted to Administrators.</title>
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa /v RestrictRemoteSAM /t REG_SZ /d "O:BAG:BAD:(A;;RC;;;BA)" /f
 #NTLM must be prevented from falling back to a Null session.</title>
+reg add HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0 /v allownullsessionfallback /t REG_DWORD /d 0 /f
 #PKU2U authentication using online identities must be prevented.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa\pku2u /v AllowOnlineID /t REG_DWORD /d 0 /f
 #Kerberos encryption types must be configured to prevent the use of DES and RC4 encryption suites.</title>
 #The system must be configured to prevent the storage of the LAN Manager hash of passwords.</title>
 #The LanMan authentication level must be set to send NTLMv2 response only, and to refuse LM and NTLM.</title>
