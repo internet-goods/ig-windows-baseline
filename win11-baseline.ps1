@@ -222,9 +222,13 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v MSAOpt
 #The Application Compatibility Program Inventory must be prevented from collecting data and sending the information to Microsoft.</title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat /v DisablePropPage /t REG_DWORD /d 1 /f
 #Autoplay must be turned off for non-volume devices.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\Explorer /v NoAutoplayfornonVolume /t REG_DWORD /d 1 /f
 #The default autorun behavior must be configured to prevent autorun commands.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer /v NoAutorun /t REG_DWORD /d 1 /f
 #Autoplay must be disabled for all drives.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\policies\Explorer /v NoDriveTypeAutoRun /t REG_DWORD /d 0x000000ff /f
 #Enhanced anti-spoofing for facial recognition must be enabled on Windows.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\Biometrics\FacialFeatures /v EnhancedAntiSpoofing /t REG_DWORD /d 1 /f
 #Microsoft consumer experiences must be turned off.</title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent /v DisableWindowsConsumerFeatures /t REG_DWORD /d 1 /f
 #Administrator accounts must not be enumerated during elevation.</title>
@@ -253,7 +257,9 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v fEncr
 #Remote Desktop Services must be configured with the client connection encryption set to the required level.</title>
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v MinEncryptionLevel /t REG_DWORD /d 3 /f
 #Attachments must be prevented from being downloaded from RSS feeds.</title>
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds" /v DisableEnclosureDownload /t REG_DWORD /d 1 /f
 #Basic authentication for RSS feeds over HTTP must not be used.</title>
+reg add "HKLM\SOFTWARE\Policies\Microsoft\Internet Explorer\Feeds" /v AllowBasicAuthInClear /t REG_DWORD /d 0 /f
 #Indexing of encrypted files must be turned off.</title>
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v AllowIndexingEncryptedStoresOrItems /t REG_DWORD /d 0 /f
 #Users must be prevented from changing installation options.</title>
@@ -268,16 +274,22 @@ reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription  /v En
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging /v EnableScriptBlockLogging /t REG_DWORD /d 1 /f
 #PowerShell Transcription must be enabled on Windows.</title>
 #The Windows Remote Management (WinRM) client must not use Basic authentication.</title>
+reg add HKLM\Software\Policies\Microsoft\Windows\WinRM\Client /v AllowBasic /t REG_DWORD /d 0 /f
 #The Windows Remote Management (WinRM) client must not allow unencrypted traffic.</title>
+reg add HKLM\Software\Policies\Microsoft\Windows\WinRM\Client /v AllowUnencryptedTraffic /t REG_DWORD /d 0 /f
 #The Windows Remote Management (WinRM) service must not use Basic authentication.</title>
-#The Windows Remote Management (WinRM) service must not store RunAs credentials.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service /v AllowBasic /t REG_DWORD /d 0 /f
+#The Windowr Remote Management (WinRM) service must not store RunAs credentials.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\WinRM\Service /v DisableRunAs /t REG_DWORD /d 1 /f
 #The Windows Remote Management (WinRM) client must not use Digest authentication.</title>
+reg add HKLM\Software\Policies\Microsoft\Windows\WinRM\Client /v AllowDigest /t REG_DWORD /d 0 /f
 #Windows must be configured to prevent Windows apps from being activated by voice while the system is locked.</title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy /v LetAppsActivateWithVoice /t REG_DWORD /d 0 /f
 #The convenience PIN for Windows must be disabled.</title>
 #Windows Ink Workspace must be configured to disallow access above the lock.</title>
 reg add HKLM\Software\Policies\Microsoft\WindowsInkWorkspace /v AllowWindowsInkWorkspace /t REG_DWORD /d 1 /f
 #Windows Kernel (Direct Memory Access) DMA Protection must be enabled.</title>
+reg add "HKLM\Software\Policies\Microsoft\Windows\Kernel DMA Protection" /v DeviceEnumerationPolicy /t REG_DWORD /d 0 /f
 #The IG Root CA certificates must be installed in the Trusted Root Store.</title>
 #The built-in administrator account must be disabled.</title>
 #The built-in guest account must be disabled.</title>
@@ -286,13 +298,15 @@ net user Guest /active:no
 #The built-in administrator account must be renamed.</title>
 #The built-in guest account must be renamed.</title>
 #Audit policy using subcategories must be enabled.</title>
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa /v SCENoApplyLegacyAuditPolicy /t REG_DWORD /d 1 /f
 #Outgoing secure channel traffic must be encrypted or signed.</title>
 reg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v RequireSignOrSeal /t REG_DWORD /d 1 /f
 #Outgoing secure channel traffic must be encrypted.</title>
 reg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v SealSecureChannel /t REG_DWORD /d 1 /f
 #Outgoing secure channel traffic must be signed.</title>
-eg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v Sign SecureChannel /t REG_DWORD /d 1 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v SignSecureChannel /t REG_DWORD /d 1 /f
 #The computer account password must not be prevented from being reset.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v DisablePasswordChange /t REG_DWORD /d 0 /f
 #The maximum age for machine account passwords must be configured to 30 days or less.</title>
 #The system must be configured to require a strong session key.</title>
 reg add HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters /v RequireStrongKey /t REG_DWORD /d 1 /f
@@ -314,6 +328,7 @@ reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RestrictAnonymousSAM /t REG
 #Anonymous enumeration of shares must be restricted.</title>
 reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v RestrictAnonymous /t REG_DWORD /d 2 /f
 #The system must be configured to prevent anonymous users from having the same rights as the Everyone group.</title>
+reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v EveryoneIncludesAnonymous /t REG_DWORD /d 0 /f
 #Anonymous access to Named Pipes and Shares must be restricted.</title>
 reg add HKLM\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters /v RestrictNullSessAccess /t REG_DWORD /d 1 /f
 #Remote calls to the Security Account Manager (SAM) must be restricted to Administrators.</title>
@@ -337,15 +352,20 @@ reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0 /v NTLMMinServerSec /t 
 #The system must be configured to use FIPS-compliant algorithms for encryption, hashing, and signing.</title>
 reg add HKLM\System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolic /v Enabled /t REG_DWORD /d 1 /f
 #The default permissions of global system objects must be increased.</title>
+reg aDd HKLM\SYSTEM\CurrentControlSet\Control\Session Manager /v ProtectionMode /t REG_DWORD /d 1 /f
 #User Account Control approval mode for the built-in Administrator must be enabled.</title>
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v FilterAdministratorToken /t REG_DWORD /d 1 /f
 #User Account Control must prompt administrators for consent on the secure desktop.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorAdmin /t REG_DWORD /d 2 /f
 #Windows must use multifactor authentication for local and network access to privileged and non-privileged accounts.</title>
 #User Account Control must automatically deny elevation requests for standard users.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v ConsentPromptBehaviorUser /t REG_DWORD /d 0 /f
 #User Account Control must be configured to detect application installations and prompt for elevation.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableInstallerDetection /t REG_DWORD /d 1 /f
 #User Account Control must only elevate UIAccess applications that are installed in secure locations.</title>
 #User Account Control must run all administrators in Admin Approval Mode, enabling UAC.</title>
 #User Account Control must virtualize file and registry write failures to per-user locations.</title>
+reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v EnableVirtualization /t REG_DWORD /d 1 /f
 #The "Access Credential Manager as a trusted caller" user right must not be assigned to any groups or accounts.</title>
 #The "Access this computer from the network" user right must only be assigned to the Administrators and Remote Desktop Users groups.</title>
 #The "Act as part of the operating system" user right must not be assigned to any groups or accounts.</title>
