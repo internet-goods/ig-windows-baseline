@@ -44,8 +44,8 @@ winget install --id Git.Git -e --source winget
 Invoke-WebRequest https://github.com/mitre/saf/releases/download/1.4.21/saf-v1.4.21-x64.exe
 Invoke-WebRequest https://download.sysinternals.com/files/ProcessExplorer.zip
 Invoke-WebRequest https://github.com/git-for-windows/git/releases/download/v2.48.1.windows.1/Git-2.48.1-64-bit.exe
-git clome https://github.com/Sneakysecdoggo/Wynis
-git clone https://github.com/scipag/HardeningKitty
+
+
 Invoke-WebRequest https://dl.dod.cyber.mil/wp-content/uploads/stigs/zip/scc-5.10.1_Windows_bundle.zip
 Invoke-WebRequest https://raw.githubusercontent.com/gnh1201/welsonjs/014c1eaa59acdb35d603af0dfee1ef20110def96/app/assets/bat/clean_chrome_pup.bat
 Invoke-WebRequest https://raw.githubusercontent.com/dennyhalim/cfg/c9e53971aad5c5dd1fe38fabdee4724ce2b2eb6b/apps/securedns.cmd
@@ -506,3 +506,11 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v QuicAllowed /t REG
 #V-245539	Medium	Session only based cookies must be enabled.
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultCookiesSetting /t REG_DWORD /d 4 /f
 
+#assessments
+git clone https://github.com/scipag/HardeningKitty
+Import-Module HardeningKitty\HardeningKitty.psm1
+Invoke-HardeningKitty -EmojiSupport
+
+git clone https://github.com/Sneakysecdoggo/Wynis
+cd "Wynis\System Audit"
+.\WynisWIN11-CISv0.9.ps1"
