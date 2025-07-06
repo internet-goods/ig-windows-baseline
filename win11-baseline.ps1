@@ -874,6 +874,7 @@ Disable-WindowsOptionalFeature -FeatureName "InkAndHandwritingServices" -Online 
 #2209   MS Security Guide       Enable Structured Exception Handling Overwrite Protection (SEHOP)
 #DUPE
 #2210   MS Security Guide       Limits print driver installation to Administrators
+reg add "HKLM\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint" /v RestrictDriverInstallationToAdministrators /t REG_DWORD /d 1 /f
 #2211   MS Security Guide       Configure RPC packet level privacy setting for incoming connections
 #2212   MS Security Guide       Manage processing of Queue-specific files
 #2204   MSS (Legacy)    MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)
@@ -1071,6 +1072,7 @@ cd "Wynis\System Audit"
 #DUPE
 #SS5.7;(L1)Ensure 'Infrared monitor service (irmon)' is set to 'Disabled', value must be 4 or not installed;It s not installed
 #SS5.8;(L1)Ensure 'Internet Connection Sharing (ICS) (SharedAccess) ' is set to 'Disabled', value must be 4 or not installed;3
+Disable-ICS
 #SS5.9;(L2)Ensure 'Link-Layer Topology Discovery Mapper (lltdsvc)' is set to 'Disabled', value must be 4 or not installed;3
 #SS5.10;(L1)Ensure 'LxssManager (LxssManager)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;It s not installed
 #SS5.11;(L1)Ensure 'Microsoft FTP Service (FTPSVC)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;It s not installed
