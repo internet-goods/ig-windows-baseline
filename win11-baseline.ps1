@@ -226,11 +226,13 @@ reg add HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\System\Audit /v 
 #Early Launch Antimalware, Boot-Start Driver Initialization Policy must prevent boot drivers.</title>
 #Group Policy objects must be reprocessed even if they have not changed.</title>
 #Downloading print driver packages over HTTP must be prevented.</title>
-reg add HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers /v DisableHTTPPrinting /t REG_DWORD /d 1 /f
+reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers" /v DisableWebPnPDownload /t REG_DWORD /d 1 /f
 #Web publishing and online ordering wizards must be prevented from downloading a list of providers.</title>
 #Printing over HTTP must be prevented.</title>
+reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers" /v DisableHTTPPrinting /t REG_DWORD /d 1 /f
 #Systems must at least attempt device authentication using certificates.</title>
 #The network selection user interface (UI) must not be displayed on the logon screen.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\System /v DontDisplayNetworkSelectionUI /t REG_DWORD /d 1 /f
 #Local users on domain-joined computers must not be enumerated.</title>
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\System /v EnumerateLocalUsers /t REG_DWORD /d 0 /f
 #Users must be prompted for a password on resume from sleep (on battery).</title>
@@ -291,10 +293,10 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer" /v AlwaysInstallEle
 #Users must be notified if a web-based program attempts to install software.</title>
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v SafeForScripting /t REG_DWORD /d 0 /f
 #Automatically signing in the last interactive user after a system-initiated restart must be disabled.</title>
-reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription  /v EnableTranscripting /t REG_DWORD /d 1 /f
 #PowerShell script block logging must be enabled on Windows.</title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging /v EnableScriptBlockLogging /t REG_DWORD /d 1 /f
 #PowerShell Transcription must be enabled on Windows.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\Transcription  /v EnableTranscripting /t REG_DWORD /d 1 /f
 #The Windows Remote Management (WinRM) client must not use Basic authentication.</title>
 reg add HKLM\Software\Policies\Microsoft\Windows\WinRM\Client /v AllowBasic /t REG_DWORD /d 0 /f
 #The Windows Remote Management (WinRM) client must not allow unencrypted traffic.</title>
@@ -649,6 +651,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Sy
 #2112   Administrative Templates: PowerShellCore        Turn on PowerShell Script Block Logging (Invocation)
 #2113   Administrative Templates: PowerShellCore        Turn on PowerShell Script Block Logging (PowerShell Policy)
 #2116   Administrative Templates: PowerShellCore        Turn on PowerShell Transcription
+#DUPE
 #2114   Administrative Templates: PowerShellCore        Turn on PowerShell Transcription (Invocation)
 #2115   Administrative Templates: PowerShellCore        Turn on PowerShell Transcription (PowerShell Policy)
 #1772   Administrative Templates: Printers      Configure Redirection Guard
@@ -825,7 +828,9 @@ reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProvide
 #1965   Microsoft Defender Exploit Guard        Network Protection: Prevent users and apps from accessing dangerous websites
 #1767   Administrative Templates: Windows Components    News and interests: Enable news and interests on the taskbar
 #1733   Administrative Templates: Windows Components    OneDrive: Prevent the usage of OneDrive for file storage
+winget uninstall Microsoft.OneDrive
 #1734   Administrative Templates: Windows Components    Remote Desktop Connection Client: Do not allow passwords to be saved
+#DUPE
 #1735   Administrative Templates: Windows Components    Remote Desktop Session Host: Allow users to connect remotely by using Remote Desktop Services
 #1736   Administrative Templates: Windows Components    Remote Desktop Session Host: Device and Resource Redirection: Do not allow drive redirection
 #1737   Administrative Templates: Windows Components    Remote Desktop Session Host: Security: Always prompt for password upon connection
@@ -843,7 +848,9 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search" 
 #1746   Administrative Templates: Windows Components    Windows Error Reporting: Disable Windows Error Reporting
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f
 #1747   Administrative Templates: Windows Components    Windows Game Recording and Broadcasting: Enables or disables Windows Game Recording and Broadcasting
+#DUPE
 #1748   Administrative Templates: Windows Components    Windows Ink Workspace: Allow Windows Ink Workspace
+Disable-WindowsOptionalFeature -FeatureName "InkAndHandwritingServices" -Online -NoRestart
 #1749   Administrative Templates: Windows Components    Windows Installer: Always install with elevated privileges
 #1750   Administrative Templates: Windows Components    Windows Installer: Allow user control over installs
 #1751   Administrative Templates: Windows Components    Windows Installer: Prevent Internet Explorer security prompt for Windows Installer scripts
@@ -864,6 +871,7 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting" 
 #2100   PowerShell      Turn on PowerShell Script Block Logging
 #2101   PowerShell      Turn on PowerShell Script Block Logging (Invocation)
 #2102   PowerShell      Turn on PowerShell Transcription
+#DUPE
 #2107   PowerShell      Turn on PowerShell Transcription (Invocation)
 #2103   PowerShell      Disable PowerShell version 2
 #2104   PowerShell      Disable PowerShell version 2 (root)
@@ -1353,6 +1361,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection /v
 #DO18.10.16;Ensure 'Download Mode' is NOT set to 'Enabled: Internet' , value must be anything other than 3;not configure
 #DAI18.10.17.1;(L1)Ensure 'Enable App Installer' is set to 'Disabled, value must be 0 ;not configure
 #DAI18.10.17.2;Ensure Ensure 'Enable App Installer Experimental Features' is set to 'Disabled', value must be 0 ;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Appx /v EnableExperimentalFeatures /t REG_DWORD /d 0 /f
 #DAI18.10.17.3;Ensure Ensure 'Enable App Installer Hash Override' is set to 'Disabled', value must be 0 ;not configure
 #DAI18.10.17.4;Ensure Ensure 'Enable App Installer Hash Override' is set to 'Disabled', value must be 0 ;not configure
 #APP18.10.26.1.1;(L1)Ensure 'Application: Control Event Log behavior when the log file reaches its maximum size' is set to 'Disabled', value must be 0 ;not configure
@@ -1369,7 +1378,9 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection /v
 #FE18.10.29.5;(L1)Ensure 'Turn off shell protocol protected mode' is set to 'Disabled', value must be 0 ;
 #HOME18.10.33.1;(L1)Ensure 'Prevent the computer from joining a homegroup' is set to 'Enabled', value must be 1;not configure
 #WLP18.10.37.2;(L2)Ensure 'Turn off location' is set to 'Enabled'', value must be 1 ;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore /v location /t REG_DWORD /d Deny /f
 #MES18.10.41.1;(L2)Ensure 'Allow Message Service Cloud Sync' is set to 'Disabled', value must be 0 ;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Messaging /v AllowMessageSync /t REG_DWORD /d 0 /f
 #MA18.10.42.1;(L1)Ensure 'Block all consumer Microsoft account user authentication' is set to 'Enabled', value must be 1 ;not configure
 #MDA18.10.43.5.1;(L1)Ensure 'Configure local setting override for reporting to Microsoft MAPS' is set to 'Disabled', value must be 0 ;not configure
 #MDA18.10.43.5.2; (L2)Ensure 'Join Microsoft MAPS' is set to 'Disabled', value must be 0 ;not configure
@@ -1437,16 +1448,21 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection /v
 #ME18.10.76.3.1;(L1)Ensure Configure Windows Defender SmartScreen is set to 'Enabled', value must be 1;not configure
 #ME18.10.76.3.1;(L1)Ensure Prevent bypassing Windows Defender SmartScreen prompts for sites is set to 'Enabled', value must be 1;not configure
 #WGRB18.10.78.1;(L1)Ensure 'Enables or disables Windows Game Recording and Broadcasting' is set to 'Disabled', value must be 0 ;not configure
+#DUPE
 #WGRB18.10.78.1;(L1)Ensure 'Enable ESS with Supported Peripherals' is set to 'Enabled: 1', value must be 1 ;not configure
 #WIW18.10.80.1;(L2)Ensure 'Allow suggested apps in Windows Ink Workspace' is set to 'Disabled, value must be 0 ;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsInkWorkspace /v AllowWindowsInkWorkspace /t REG_DWORD /d 0 /f
 #WIW18.10.80.2;(L1) Ensure 'Allow Windows Ink Workspace' is set to 'Enabled: On, but disallow access above lock' OR 'Disabled' but not 'Enabled: On', value must be 0 or 1 but not 2 ;not configure
+#DUPE
 #WI18.10.81.1;Ensure 'Allow user control over installs' is set to 'Disabled', value must be 0 ;not configure
 #WI18.10.81.2;(L1)Ensure 'Always install with elevated privileges' is set to 'Disabled', value must be 0 ;not configure
 #WI18.10.81.3;(L2)Ensure 'Prevent Internet Explorer security prompt for Windows Installer scripts' is set to 'Disabled', value must be 0 ;not configure
 #WLO18.10.82.1;(L1)Ensure ''Enable MPR notifications for the system' is set to 'Disabled', value must be 0 ;
 #WLO18.10.82.2;(L1)Ensure 'Sign-in last interactive user automatically after a system-initiated restart' is set to 'Disabled', value must be 1 ;
 #WP18.10.87.1;Ensure 'Turn on PowerShell Script Block Logging' is set to 'Enabled', value must be 1 ;not configure
-#WP18.10.87.2;Ensure 'urn on PowerShell Transcription' is set to 'Enabled', value must be 1;not configure
+#DUPE
+#WP18.10.87.2;Ensure 'Turn on PowerShell Transcription' is set to 'Enabled', value must be 1;not configure
+#DUPE
 #WRR18.10.89.1.1;(L1)Ensure 'Allow Basic authentication' is set to 'Disabled', value must be 0;not configure
 #WRR18.10.89.1.2;(L1)Ensure 'Allow unencrypted traffic' is set to 'Disabled', value must be 0;not configure
 #WRR18.10.89.1.3;(L1)Ensure 'Disallow Digest authentication' is set to 'Enabled', value must be 0;not configure
