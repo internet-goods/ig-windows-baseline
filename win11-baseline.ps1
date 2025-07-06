@@ -6,6 +6,17 @@ sc DoSvc stop
 sc DoSvc start= disabled
 sc upnphost stop
 sc upnphost start= disabled
+
+sc XboxGipSvc stop
+sc XboxGipSvc start= disabled
+sc XblAuthManager stop
+sc XblAuthManager start= disabled
+sc XblGameSave stop
+sc XblGameSave start= disabled
+sc XboxNetApiSvc stop
+sc XboxNetApiSvc start= disabled
+sc xbgm stop
+sc xbgm start=disabled
 #modules
 Install-Module -Name SpeculationControl
 Import-Module -Name SpeculationControl
@@ -13,8 +24,7 @@ Import-Module -Name SpeculationControl
 
 #auditpol
 auditpol.exe /get /category:* > auditpol_beforehardening.txt
-#dostuff
-auditpol.exe /get /category:* > auditpol_afterhardening.txt
+
 #instrumentation
 #Invoke-WebRequest https://pkg.osquery.io/windows/osquery-5.16.0.msi
 #https://www.blumira.com/blog/enable-sysmon
@@ -81,6 +91,9 @@ git clone https://github.com/azurejoga/Aurora-Windows-Optimizer
 git clone https://github.com/zoicware/RemoveWindowsAI
 #TOP
 git clone https://github.com/TheSPEEDO/URLRunner
+
+
+
 #STIG
 #Domain-joined systems must use Windows Enterprise Edition 64-bit version.</title>
 #Windows information systems must use BitLocker to encrypt all disks to protect the confidentiality and integrity of all information at rest.</title>
@@ -519,6 +532,18 @@ git clone https://github.com/scipag/HardeningKitty
 Import-Module HardeningKitty\HardeningKitty.psm1
 Invoke-HardeningKitty -EmojiSupport
 
+auditpol.exe /get /category:* > auditpol_afterhardening.txt
+
 git clone https://github.com/Sneakysecdoggo/Wynis
 cd "Wynis\System Audit"
 .\WynisWIN11-CISv0.9.ps1"
+
+cd ../..
+#https://learn.microsoft.com/en-us/answers/questions/241800/completely-disable-and-remove-xbox-apps-and-relate
+reg add HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassID\Windows.GameBar.PresenceServer.Internal.PresenceWriter /v ActivationType /t REG_DWORD /d 0 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Service\xbgm
+Get-AppxPackage -allusers Microsoft.XboxGamingOverlay | Remove-AppxPackage
+Get-AppxPackage Microsoft.XboxApp | Remove-AppxPackage
+Get-AppxPackage XboxOneSmartGlass | Remove-AppxPackage
+Get-AppxPackage Microsoft.XboxSpeechToTextOverlay | Remove-AppxPackage
+Get-AppxPackage Microsoft.XboxIdentityProvider | Remove-AppxPackage
