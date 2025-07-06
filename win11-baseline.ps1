@@ -566,6 +566,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Sy
 #1318   Security Options        Network security: Restrict NTLM: Audit NTLM authentication in this domain
 #1319   Security Options        Network security: Restrict NTLM: Outgoing NTLM traffic to remote servers
 #1320   Security Options        Shutdown: Allow system to be shut down without having to log on
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v shutdownwithoutlogon /t REG_DWORD /d 0 /f
 #1321   Security Options        User Account Control: Admin Approval Mode for the Built-in Administrator account
 #1322   Security Options        User Account Control: Behavior of the elevation prompt for administrators in Admin Approval Mode
 #1323   Security Options        User Account Control: Behavior of the elevation prompt for standard users
@@ -632,14 +633,19 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Sy
 #1524   Advanced Audit Policy Configuration     Security System Extension
 #1525   Advanced Audit Policy Configuration     System Integrity
 #1600   Administrative Templates: Control Panel Personalization: Prevent enabling lock screen camera
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\Personalization /v NoLockScreenCamera /t REG_DWORD /d 1 /f
 #1601   Administrative Templates: Network       DNS Client: Turn off multicast name resolution (LLMNR)
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v EnableMulticast /t REG_DWORD /d 0 /f
 #1602   Administrative Templates: Network       Lanman Workstation: Enable insecure guest logons
 #1603   Administrative Templates: Network       Turn off Microsoft Peer-to-Peer Networking Services
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent /v DisableWindowsConsumerFeatures /t REG_DWORD /d 1 /f
 #1604   Administrative Templates: Network       WLAN Settings: Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services
 #2108   Administrative Templates: PowerShellCore        Turn on PowerShell Module Logging
+#DUPE
 #2109   Administrative Templates: PowerShellCore        Turn on PowerShell Module Logging (PowerShell Policy)
 #2110   Administrative Templates: PowerShellCore        Turn on PowerShell Module Logging - Module Names
 #2111   Administrative Templates: PowerShellCore        Turn on PowerShell Script Block Logging
+#DUPE
 #2112   Administrative Templates: PowerShellCore        Turn on PowerShell Script Block Logging (Invocation)
 #2113   Administrative Templates: PowerShellCore        Turn on PowerShell Script Block Logging (PowerShell Policy)
 #2116   Administrative Templates: PowerShellCore        Turn on PowerShell Transcription
@@ -688,17 +694,21 @@ reg add HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\SystemGuard 
 #1662   Administrative Templates: System        Logon: Do not display network selection UI
 #1670   Administrative Templates: System        Mitigation Options: Untrusted Font Blocking
 #1680   Administrative Templates: System        OS Policies: Allow Clipboard synchronization across devices
+#DUPE
 #1685   Administrative Templates: System        Sleep Settings: Require a password when a computer wakes (plugged in)
 #1686   Administrative Templates: System        Sleep Settings: Require a password when a computer wakes (on battery)
 #1687   Administrative Templates: System        Sleep Settings: Allow standby states (S1-S3) when sleeping (plugged in)
 #1688   Administrative Templates: System        Sleep Settings: Allow standby states (S1-S3) when sleeping (on battery)
 #1690   Administrative Templates: System        Remote Assistance: Configure Offer Remote Assistance
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Remote Assistance /v fAllowFullControl /t REG_DWORD /d 0 /f
 #1691   Administrative Templates: System        Remote Assistance: Configure Solicited Remote Assistance
 #DUPE
 #1692   Administrative Templates: System        Remote Procedure Call: Enable RPC Endpoint Mapper Client Authentication
 #1693   Administrative Templates: System        Remote Procedure Call: Restrict Unauthenticated RPC clients
+#DUPE
 #1694   Administrative Templates: System        Security Settings: Enable svchost.exe mitigation options
 #1695   Administrative Templates: System        Windows Performance PerfTrack: Enable/Disable PerfTrack
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\PerfTrack -v EnablePerfTrack /t REG_DWORD /d 0 /f
 #1696   Administrative Templates: System        User Profiles: Turn off the advertising ID
 #HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo /v Enabled
 #1697   Administrative Templates: System        Time Providers: Enable Windows NTP Client
@@ -706,10 +716,13 @@ reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProvide
 #1698   Administrative Templates: System        Time Providers: Enable Windows NTP Server
 #1700   Administrative Templates: Windows Components    App Package Deployment: Allow a Windows app to share application data between users
 #1701   Administrative Templates: Windows Components    App Privacy: Let Windows apps activate with voice while the system is locked
+#DUPE
 #1702   Administrative Templates: Windows Components    App runtime: Block launching Universal Windows apps with Windows Runtime API access from hosted content
 #1703   Administrative Templates: Windows Components    Application Compatibility: Turn off Application Telemetry
 #1704   Administrative Templates: Windows Components    AutoPlay Policies: Turn off Autoplay
+#DUPE
 #1705   Administrative Templates: Windows Components    AutoPlay Policies: Disallow Autoplay for non-volume devices
+#DUPE
 #1706   Administrative Templates: Windows Components    AutoPlay Policies: Set the default behavior for AutoRun
 #1707   Administrative Templates: Windows Components    Biometrics: Allow the use of biometrics
 #1773   Administrative Templates: Windows Components    Biometrics: Facial Features: Configure enhanced anti-spoofing
@@ -717,6 +730,7 @@ reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProvide
 #1761   Administrative Templates: Windows Components    BitLocker Drive Encryption: Choose drive encryption method and cipher strength (for operating system drives)
 #1762   Administrative Templates: Windows Components    BitLocker Drive Encryption: Drive encryption method (for operating system drives)
 #1709   Administrative Templates: Windows Components    BitLocker Drive Encryption: Disable new DMA devices when this computer is locked
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\FVE /v DisableExternalDMAUnderLock /t REG_DWORD /d 1 /f
 #1710   Administrative Templates: Windows Components    BitLocker Drive Encryption: Operating System Drives: Allow Secure Boot for integrity validation
 #1711   Administrative Templates: Windows Components    BitLocker Drive Encryption: Operating System Drives: Require additional authentication at startup
 #1715   Administrative Templates: Windows Components    BitLocker Drive Encryption: Operating System Drives: Require additional authentication at startup: Allow BitLocker without a compatible TPM
@@ -755,6 +769,7 @@ reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\TimeProvide
 #1815   Microsoft Defender Antivirus    Exclusions: Process Exclusions (Intune)
 #1811   Microsoft Defender Antivirus    Exclusions: Process Exclusions
 #1816   Microsoft Defender Antivirus    MAPS: Join Microsoft MAPS
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender" /v DisableMAPSReporting /t REG_DWORD /d 1 /f
 #1817   Microsoft Defender Antivirus    MAPS: Configure the 'Block at First Sight' feature
 #1818   Microsoft Defender Antivirus    MAPS: Send file samples when further analysis is required
 #1819   Microsoft Defender Antivirus    MpEngine: Enable file hash computation feature
@@ -871,6 +886,7 @@ Disable-WindowsOptionalFeature -FeatureName "InkAndHandwritingServices" -Online 
 #2201   MS Security Guide       Lsass.exe audit mode
 #2202   MS Security Guide       NetBT NodeType configuration
 #2203   MS Security Guide       WDigest Authentication
+#DUPE
 #2209   MS Security Guide       Enable Structured Exception Handling Overwrite Protection (SEHOP)
 #DUPE
 #2210   MS Security Guide       Limits print driver installation to Administrators
@@ -878,8 +894,11 @@ reg add "HKLM\Software\Policies\Microsoft\Windows NT\Printers\PointAndPrint" /v 
 #2211   MS Security Guide       Configure RPC packet level privacy setting for incoming connections
 #2212   MS Security Guide       Manage processing of Queue-specific files
 #2204   MSS (Legacy)    MSS: (SafeDllSearchMode) Enable Safe DLL search mode (recommended)
+reg add "HKLM\System\CurrentControlSet\Control\Session Manager" /v SafeDllSearchMode /t REG_DWORD /d 1 /f
 #2205   MSS (Legacy)    MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)
+#DUPE
 #2206   MSS (Legacy)    MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)
+#DUPE
 #2207   MSS (Legacy)    MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes
 #2208   MSS (Legacy)    MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers
 #2400   Scheduled Task  XblGameSave Standby Task
@@ -952,6 +971,7 @@ cd "Wynis\System Audit"
 #PP-1.1.1;(L1)Ensure 'Enforce password history' is set to '24 or more password(s), value must be 24 or More;PasswordHistorySize = 0
 #PP-1.1.2;(L1)Maximum password age is set to 365 or fewer days, value must be 365 or less but not 0;MaximumPasswordAge = 42
 #PP-1.1.3;(L1)Minimum password age is set to 1 or more day(s), value must be 1 or more but not 0;MinimumPasswordAge = 0
+#DUPE
 #PP-1.1.4;(L1)Minimum password length is set to 14 or more character(s), value must be 14 or more;MinimumPasswordLength = 0
 #PP-1.1.5;(L1)Password must meet complexity requirements is set to Enabled, value must be 1;PasswordComplexity = 0
 #PP-1.1.6;(L1)Relax minimum password length limits' is set to Enabled, value must be 1 (Warning this may cause compatibility issues);not configure
@@ -1167,6 +1187,7 @@ Set-Service SSDPSRV -StartupType Disabled
 #AAS17.9.4;(L1)Ensure 'Audit Security System Extension' is set to 'Success and Failure;  Security System Extension               No Auditing
 #AAS17.9.5;(L1)Ensure 'Audit System Integrity' is set to 'Success and Failure';  System Integrity                        Success and Failure
 #PA18.1.1.1;(L1)Ensure 'Prevent enabling lock screen camera' is set to 'Enabled, value must 1 ;not configure
+#DUPE
 #PA18.1.1.2;(L1)Ensure 'Prevent enabling lock screen slide show' is set to 'Enabled', value must 1 ;not configure
 #PA18.1.2.2;(L1)Ensure 'Allow users to enable online speech recognition services' is set to 'Disabled', value must 0 ;not configure
 #PA18.1.3;(L2)Ensure Allow Online Tips'' is set to 'Disabled', value must 0 ;
@@ -1183,9 +1204,12 @@ Set-Service SSDPSRV -StartupType Disabled
 #MSSG18.4.5;(L1)Ensure 'Enable Structured Exception Handling Overwrite Protection (SEHOP)' is set to 'Enabled', value must be 0;
 #MSSG18.4.6;(L1)Ensure 'NetBT NodeType configuration' is set to 'Enabled: P-node (recommended), value must be 2;
 #MSSG18.4.7;(L1)Ensure 'WDigest Authentication' is set to 'Disabled', value must be 0;
+#DUPE
 #MSSL18.5.1;(L1)Ensure 'MSS: (AutoAdminLogon) Enable Automatic Logon (not recommended)' is set to 'Disabled, value must be 0 or empty;
 #MSSL18.5.2;(L1)Ensure 'MSS: (DisableIPSourceRouting IPv6) IP source routing protection level (protects against packet spoofing)' is set to 'Enabled: Highest protection, source routing is completely disabled, value must be 2;
+#DUPE
 #MSSL18.5.3;(L1)Ensure 'MSS: (DisableIPSourceRouting) IP source routing protection level (protects against packet spoofing)' is set to 'Enabled: Highest protection, source routing is completely disabled, value must be 2;
+#DUPE
 #MSSL18.5.4;(L2)Ensure 'MSS: (DisableSavePassword) Prevent the dial-up password from being saved' is set to 'Enabled', source routing is completely disabled, value must be 1;
 #MSSL18.5.5;(L1)Ensure 'MSS: (EnableICMPRedirect) Allow ICMP redirects to override OSPF generated routes' is set to 'Disabled, value must be 0;
 #MSSL18.5.6;(L2)Ensure 'MSS: (KeepAliveTime) How often keep-alive packets are sent in milliseconds' is set to 'Enabled: 300,000 or 5 minutes, value must be 300000;
@@ -1199,18 +1223,22 @@ Set-Service SSDPSRV -StartupType Disabled
 #DNSCA18.6.4.1;(L1) Ensure 'Configure DNS over HTTPS (DoH) name resolution' is set to 'Enabled: Allow DoH' or higher, value must be 2 OR 3 could cause issue in domain joined environment ;not configure
 #DNSCA18.6.4.2;(L1) Ensure 'Configure NetBIOS settings' is set to 'Enabled: Disable NetBIOS name resolution on public networks, value must be 0;not configure
 #DNSCA18.6.4.3;(L1)Ensure 'Turn off multicast name resolution' is set to 'Enabled' (MS Only), value must be 0 ;not configure
+#DUPE
 #FONT18.6.5.1;(L2)Ensure 'Enable Font Providers' is set to 'Disabled, value must be 0 ;
 #LW18.6.8.1;(L1)Ensure 'Enable insecure guest logons' is set to 'Disabled', value must be 0 ;not configure
 #LLTDIO18.6.9.1;(L2)Ensure 'Turn on Mapper I/O (LLTDIO) driver' is set to 'Disabled', value must be 0 ;not configure
 #LLTDIO18.6.9.2;(L2)Ensure 'Turn on Responder (RSPNDR) driver' is set to 'Disabled'', value must be 0 ;not configure
 #PPNS18.6.10.2;(L2)Ensure 'Turn off Microsoft Peer-to-Peer Networking Services' is set to 'Enabled', value must be 1 ;0
+#DUPE
 #NC18.6.11.2;(L1)Ensure 'Prohibit installation and configuration of Network Bridge on your DNS domain network' is set to 'Enabled', value must be 1 ;
 #NC18.6.11.3;(L1)Ensure 'Prohibit use of Internet Connection Sharing on your DNS domain network' is set to 'Enabled', value must be 1 ;
 #NC18.6.11.4;(L1)Ensure 'Require domain users to elevate when setting a network's location' is set to 'Enabled, value must be 1 ;
 #NP18.6.14.1;(L1)Ensure 'Hardened UNC Paths' is set to 'Enabled, with Require Mutual Authentication and Require Integrity set for all NETLOGON and SYSVOL shares', RequireMutualAuthentication=1, RequireIntegrity=1 ;\\*\SYSVOL:|
 #IPV618.6.19.2.1;(L2)Disable IPv6 (Ensure TCPIP6 Parameter 'DisabledComponents' is set to '0xff (255)'), value must be 255 ;
+reg add "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" /v DisabledComponents /t REG_DWORD /d 255 /f
 #WCN18.6.20.1;(L2)Ensure 'Configuration of wireless settings using Windows Connect Now' is set to 'Disabled, value must be 1 ;\\*\SYSVOL:|
 #WCN18.6.20.2;(L2)Ensure 'Prohibit access of the Windows Connect Now wizards' is set to 'Enabled, value must be 1 ;not configure
+reg add HKLM\Software\Policies\Microsoft\Windows\WCN\UI /v DisableWcnUi /t REG_DWORD /d 1 /f
 #WCM18.6.21.1;(L1)Ensure Minimize the number of simultaneous connections to the Internet or a Windows Domain' is set to 'Enabled: 3 = Prevent Wi-Fi when on Ethernet', value must be 3 ;
 #WCM18.6.21.2;(L1)Ensure 'Prohibit connection to non-domain networks when connected to domain authenticated network' is set to 'Enabled'', value must be 1 ;
 #WLAN18.6.23.2.1;(L1)Ensure 'Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services' is set to 'Disabled', value must be 0 ;
@@ -1280,12 +1308,15 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System /v Publish
 #SLEEP18.9.32.6.5;(L1) Ensure 'Require a password when a computer wakes (on battery)' is set to 'Enabled', value must be 1 ;not configure
 #SLEEP18.9.32.6.6;(L1) Ensure 'Require a password when a computer wakes (plugged in)' is set to 'Enabled', value must be 1 ;not configure
 #RA18.9.34.1;(L1) Ensure 'Configure Offer Remote Assistance' is set to 'Disabled, value must be 0 ;
+#DUPE
 #RA18.9.34.2;(L1) Ensure 'Configure Solicited Remote Assistance' is set to 'Disabled'', value must be 0 ;
 #DUPE
 #RPC18.9.35.1;(L1) Ensure 'Enable RPC Endpoint Mapper Client Authentication' is set to 'Enabled, value must be 1 ;not configure
 #RPC18.9.35.2;(L1) Ensure 'Restrict Unauthenticated RPC clients' is set to 'Enabled: Authenticated', value must be 1 ;not configure
+#DUPE
 #MSDT18.9.46.5.1;(L2) Ensure 'Microsoft Support Diagnostic Tool: Turn on MSDT interactive communication with support provider' is set to 'Disabled, value must be 0 ;not configure
 #WPP18.9.46.11.1;(L2) Ensure 'Enable/Disable PerfTrack' is set to 'Disabled', value must be 0 ;not configure
+#DUPE
 #UP18.9.48.1;(L2) Ensure 'Turn off the advertising ID' is set to 'Enabled', value must be 1 ;not configure
 #TP18.9.50.1.1;(L2) Ensure 'Enable Windows NTP Client' is set to 'Enabled', value must be 1 ;not configure
 #DUPE
@@ -1293,11 +1324,14 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System /v Publish
 #APD18.10.3.1;(L2) Ensure Allow a Windows app to share application data between users, value must be 0 ;not configure
 #APD18.10.3.2;Ensure 'Prevent non-admin users from installing packaged Windows apps' is set to 'Enabled', value must be 1 ;
 #APP18.10.4.1;(L1) Ensure 'Let Windows apps activate with voice while the system is locked' is set to 'Enabled: Force Deny', value must be 0 ;not configure
+#DUPE
 #AR18.10.5.1;(L1) Ensure 'Allow Microsoft accounts to be optional' is set to 'Enabled', value must be 1 ;
 #AR18.10.5.2;(L2)Ensure 'Block launching Windows Store apps with Windows Runtime API access from hosted content.' is set to 'Enabled', value must be 1 ;
 #AP18.10.7.1;(L1)Ensure 'Disallow Autoplay for non-volume devices' is set to 'Enabled', value must be 1 ;not configure
+#DUPE
 #AP18.10.7.2;(L1)Ensure 'Set the default behavior for AutoRun' is set to 'Enabled: Do not execute any autorun commands', value must be 1 ;
 #AP18.10.7.3;(L1)Ensure 'Turn off Autoplay' is set to 'Enabled: All drives'', value must be B5 ;
+#DUPE
 #FF18.10.8.1.1;(L1)Ensure 'Use enhanced anti-spoofing when available' is set to 'Enabled', value must be 1 ;not configure
 #BDE18.10.9.1.1;(L1)Ensure 'Allow access to BitLocker-protected fixed data drives from earlier versions of Windows' is set to 'Disabled', value must be 1 ;not configure
 #BDE18.10.9.1.2;(L1)Ensure 'Choose how BitLocker-protected fixed drives can be recovered' is set to 'Enabled', value must be 1 ;not configure
@@ -1341,20 +1375,27 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System /v Publish
 #RDD18.10.9.3.14;(L1)Ensure 'Deny write access to removable drives not protected by BitLocker' is set to 'Enabled'', value must be 1 ;not configure
 #RDD18.10.9.3.15;(L1)Ensure 'Deny write access to removable drives not protected by BitLocker: Do not allow write access to devices configured in another organization' is set to 'Enabled: False', value must be 0 ;not configure
 #RDD18.10.9.4;(L1)Ensure 'Disable new DMA devices when this computer is locked' is set to 'Enabled', value must be 1 ;not configure
+#DUPE
 #CAM18.10.10.1;(L2)Ensure 'Allow Use of Camera' is set to 'Disabled', value must be 0 ;not configure
+reg add HKLM\SOFTWARE\Policies\Microsoft\Camera /v AllowCamera /t REG_DWORD /d 0 /f
 #CLOUD18.10.12.1;(L2)Ensure 'Turn off cloud consumer account state content' is set to 'Enabled', value must be 1 ;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent /v DisableConsumerAccountStateContent /t REG_DWORD /d 1 /f
 #CLOUD18.10.12.2;(L2)Ensure 'Turn off cloud optimized content' is set to 'Enabled', value must be 1 ;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent /v DisableCloudOptimizedContent /t REG_DWORD /d 1 /f
 #CLOUD18.10.12.3;(L1)Ensure 'Turn off Microsoft consumer experiences' is set to 'Enabled', value must be 1 ;not configure
 #DUPE
 #CONNECT18.10.13.1;(L1)Ensure Require pin for pairing is set to Enabled, value must be 1 ;not configure
 #CUI18.10.14.1;(L1)Ensure 'Do not display the password reveal button' is set to 'Enabled', value must be 1 ;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CredUI /v DisablePasswordReveal /t REG_DWORD /d 1 /f
 #CUI18.10.14.2;(L1)Ensure 'Enumerate administrator accounts on elevation' is set to 'Disabled', value must be 0 ;not configure
 #CUI18.10.14.3;(L1)Ensure 'Prevent the use of security questions for local accounts' is set to 'Enabled', value must be 1 ;
 #DCPB18.10.15.1;(L1)Ensure'Allow Diagnostic Data' is set to 'Enabled: Diagnostic data off (not recommended)' or 'Enabled: Send required diagnostic data'' , value must be 0(recommended) or 1;
 #DCPB18.10.15.2;(L2)Ensure 'Configure Authenticated Proxy usage for the Connected User Experience and Telemetry service' is set to 'Enabled: Disable Authenticated Proxy usage', value must be 1;
 #DCPB18.10.15.3;(L1) Ensure 'Disable OneSettings Downloads' is set to 'Enabled', value must be 1 ;
 #DCPB18.10.15.4;(L1)Ensure 'Do not show feedback notifications' is set to 'Enabled, value must be 1;
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection /v DoNotShowFeedbackNotifications /t REG_DWORD /d 1 /f
 #DCPB18.10.15.5;(L1)Ensure 'Enable OneSettings Auditing' is set to 'Enabled', value must be 1 ;
+reg add HKLM\Software\Policies\Microsoft\Windows\DataCollection /v EnableOneSettingsAuditing /t REG_DWORD /d 1 /f
 #DCPB18.10.15.6;(L1)Ensure 'Limit Diagnostic Log Collection is set to 'Enabled', value must be 1 ;
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection /v LimitDiagnosticLogCollection /t REG_DWORD /d 1 /f
 #DCPB18.10.15.7;(L1)Ensure 'Limit Dump Collection' is set to 'Enabled', value must be 1 ;
@@ -1384,6 +1425,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityA
 #MES18.10.41.1;(L2)Ensure 'Allow Message Service Cloud Sync' is set to 'Disabled', value must be 0 ;not configure
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Messaging /v AllowMessageSync /t REG_DWORD /d 0 /f
 #MA18.10.42.1;(L1)Ensure 'Block all consumer Microsoft account user authentication' is set to 'Enabled', value must be 1 ;not configure
+#DUPE
 #MDA18.10.43.5.1;(L1)Ensure 'Configure local setting override for reporting to Microsoft MAPS' is set to 'Disabled', value must be 0 ;not configure
 #MDA18.10.43.5.2; (L2)Ensure 'Join Microsoft MAPS' is set to 'Disabled', value must be 0 ;not configure
 #MDA18.10.43.6.1.1;(L1)Ensure 'Configure Attack Surface Reduction rules' is set to 'Enabled', value must be 1 ;not configure
@@ -1430,18 +1472,21 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Messaging /v Allo
 #RSS18.10.58.1;(L1)Ensure 'Prevent downloading of enclosures' is set to 'Enabled', value must be 1 ;not configure
 #OCR18.10.59.2;(L2)Ensure 'Allow Cloud Search' is set to 'Enabled: Disable Cloud Search', value must be 0 ;not configure
 #OCR18.10.59.3;(L1)Ensure 'Allow Cortana' is set to 'Disabled', value must be 0 ;not configure
+#DUPE
 #OCR18.10.59.4;(L1)Ensure 'Allow Cortana above lock screen' is set to 'Disabled', value must be 0 ;not configure
 #OCR18.10.59.5;(L1)Ensure 'Allow indexing of encrypted files' is set to 'Disabled', value must be 0 ;not configure
 #DUPE
 #OCR18.10.59.6;(L1)Ensure 'Allow search and Cortana to use location' is set to 'Disabled', value must be 0 ;not configure
 #OCR18.10.59.7;(L2)'Ensure 'Allow search highlights' is set to 'Disabled', value must be 0 ;not configure
 #SPP18.10.63.1;(L2)Ensure 'Turn off KMS Client Online AVS Validation' is set to 'Enabled', value must be 1 ;not configure
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform" /v NoGenTicket /t REG_DWORD /d 1 /f
 #STORE18.10.66.1;(L2)Ensure 'Disable all apps from Windows Store' is set to 'Enabled', value must be 1 ;not configure
 #STORE18.10.66.2;(L1) Ensure 'Only display the private store within the Microsoft Store' is set to 'Enabled', value must be 1 ;not configure
 #STORE18.10.66.3;(L1) Ensure 'Turn off Automatic Download and Install of updates' is set to 'Disabled', value must be 0 ;not configure
 #STORE18.10.66.4; (L1)Ensure 'Turn off the offer to update to the latest version of Windows' is set to 'Enabled, value must be 1 ;not configure
 #STORE18.10.66.5;(L2)Ensure 'Turn off the Store application' is set to 'Enabled', value must be 1 ;not configure
 #WID18.10.72.1;(L1)Ensure 'Allow widgets' is set to 'Disabled', value must be 0 ;not configure
+winget uninstall "windows web experience pack"
 #WDS18.10.72.1;(L1)Ensure 'Notify Malicious' is set to 'Enabled', value must be 1;not configure
 #WDS18.10.72.2;(L1)Ensure 'Notify Password Reuse' is set to 'Enabled', value must be 1;not configure
 #WDS18.10.72.3;(L1)Ensure 'Notify Unsafe App'' is set to 'Enabled', value must be 1;not configure
@@ -1487,19 +1532,19 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsInkWorkspace /v AllowWindow
 #PERS19.1.3.3;(L1)Ensure 'Screen saver timeout' is set to 'Enabled: 900 seconds or fewer, but not 0', value must be 900 or less but not 0;not configure
 #NOTIF19.5.1.1;(L1)Ensure 'Turn off toast notifications on the lock screen' is set to 'Enabled, value must be 1;not configure
 #ICC19.6.6.1.1;(L2)Ensure 'Turn off Help Experience Improvement Program' is set to 'Enabled', value must be 1;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\SQMClient /v CEIPEnable /t REG_DWORD /d 0 /f
 #ATTM19.7.4.1;(L1)Ensure 'Do not preserve zone information in file attachments' is set to 'Disabled', value must be 0;not configure
 #ATTM19.7.4.2;(L1)Ensure 'Notify antivirus programs when opening attachments' is set to 'Enabled', value must be 1;not configure
 #CLOUDC19.7.7.1;(L1)Ensure 'Configure Windows spotlight on lock screen' is set to Disabled, value must be 0;
 #CLOUDC19.7.7.2;(L1)Ensure 'Do not suggest third-party content in Windows spotlight' is set to 'Enabled', value must be 1;
 #CLOUDC19.7.7.3;(L2)Ensure 'Do not use diagnostic data for tailored experiences' is set to 'Enabled'', value must be 1;
+#HKLU TailoredExperiencesWithDiagnosticDataEnabled
 #CLOUDC19.7.7.4;(L2)Ensure 'Turn off all Windows spotlight features' is set to 'Enabled', value must be 1;
+#HKLUDisableSpotlightCollectionOnDesktop
 #CLOUDC19.7.7.5;(L1)Ensure 'Turn off Spotlight collection on Desktop' is set to 'Enabled', value must be 1;
 #NSHARE19.7.25.1;(L1)Ensure 'Prevent users from sharing files within their profile.' is set to 'Enabled', value must be 1;not configure
 #UWI19.7.40.1;(L1)Ensure 'Always install with elevated privileges' is set to 'Disabled', value must be 0;not configure
 #PLB19.7.42.2.1;(L2)Ensure 'Prevent Codec Download' is set to 'Enabled', value must be 1;not configure
-
-
-
 
 cd ../..
 #https://learn.microsoft.com/en-us/answers/questions/241800/completely-disable-and-remove-xbox-apps-and-relate
