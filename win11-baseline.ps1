@@ -211,6 +211,7 @@ reg add HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Printers /v Di
 #Systems must at least attempt device authentication using certificates.</title>
 #The network selection user interface (UI) must not be displayed on the logon screen.</title>
 #Local users on domain-joined computers must not be enumerated.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\System /v EnumerateLocalUsers /t REG_DWORD /d 0 /f
 #Users must be prompted for a password on resume from sleep (on battery).</title>
 #The user must be prompted for a password on resume from sleep (plugged in).</title>
 #Solicited Remote Assistance must not be allowed.</title>
