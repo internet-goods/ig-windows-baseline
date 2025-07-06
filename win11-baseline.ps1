@@ -403,6 +403,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimizat
 #The Windows Remote Management (WinRM) service must not allow unencrypted traffic.</title>
 #Internet Explorer must be disabled for Windows.</title>
 dism /online /Disable-Feature /FeatureName:Internet-Explorer-Optional-amd64
+#firewall
 #Windows Defender Firewall with Advanced Security must be enabled when connected to a domain.</xccdf:title>
 #Windows Defender Firewall with Advanced Security must be enabled when connected to a private network.</xccdf:title>
 #Windows Defender Firewall with Advanced Security must be enabled when connected to a public network.</xccdf:title>
@@ -423,5 +424,84 @@ dism /online /Disable-Feature /FeatureName:Internet-Explorer-Optional-amd64
 #Windows Defender Firewall with Advanced Security log size must be configured for public network connections.</xccdf:title>
 #Windows Defender Firewall with Advanced Security must log dropped packets when connected to a public network.</xccdf:title>
 #Windows Defender Firewall with Advanced Security must log successful connections when connected to a public network.</xccdf:title>
-
+#chrome STIG
+#V-221558	Medium	Firewall traversal from remote host must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v RemoteAccessHostFirewallTraversal /t REG_DWORD /d 0 /f
+#V-221559	Medium	Site tracking users location must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultGeolocationSetting /t REG_DWORD /d 2 /f
+#V-221561	Medium	Sites ability to show pop-ups must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultPopupsSetting /t REG_DWORD /d 2 /f
+#V-221562	Medium	Extensions installation must be blocklisted by default.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v ExtensionInstallBlocklist /t REG_DWORD /d 1 /f
+#V-221563	Low	Extensions that are approved for use must be allowlisted.
+#V-221564	Medium	The default search providers name must be set.
+#V-221565	Medium	The default search provider URL must be set to perform encrypted searches.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultSearchProviderSearchURL /t REG_DWORD /d "https://www.google.com/search?q={searchTerms}" /f
+#V-221566	Medium	Default search provider must be enabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultSearchProviderName /t REG_DWORD /d "Google Encrypted" /f
+#V-221567	Medium	The Password Manager must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v PasswordManagerEnabled /t REG_DWORD /d 0 /f
+#V-221570	Medium	Background processing must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v BackgroundModeEnabled /t REG_DWORD /d 0 /f
+#V-221571	Medium	Google Data Synchronization must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v SyncDisabled /t REG_DWORD /d 1 /f
+#V-221572	Medium	The URL protocol schema javascript must be disabled.
+#V-221573	Medium	Cloud print sharing must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v CloudPrintProxyEnabled /t REG_DWORD /d 0 /f
+#V-221574	Medium	Network prediction must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v NetworkPredictionOptions /t REG_DWORD /d 2 /f
+#V-221575	Medium	Metrics reporting to Google must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v MetricsReportingEnabled /t REG_DWORD /d 0 /f
+#V-221576	Medium	Search suggestions must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v SearchSuggestEnabled /t REG_DWORD /d 0 /f
+#V-221577	Medium	Importing of saved passwords must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v ImportSavedPasswords /t REG_DWORD /d 0 /f
+#V-221578	Medium	Incognito mode must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v IncognitoModeAvailability /t REG_DWORD /d 1 /f
+#V-221579	Medium	Online revocation checks must be performed.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v EnableOnlineRevocationChecks /t REG_DWORD /d 1 /f
+#V-221580	Medium	Safe Browsing must be enabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v SafeBrowsingProtectionLevel /t REG_DWORD /d 1 /f
+#V-221581	Medium	Browser history must be saved.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v SavingBrowserHistoryDisabled /t REG_DWORD /d 0 /f
+#V-221584	Medium	The version of Google Chrome running on the system must be a supported version.
+#V-221586	Medium	Deletion of browser history must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v AllowDeletingBrowserHistory /t REG_DWORD /d 0 /f
+#V-221587	Medium	Prompt for download location must be enabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v PromptForDownloadLocation /t REG_DWORD /d 1 /f
+#V-221588	Medium	Download restrictions must be configured.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DownloadRestrictions /t REG_DWORD /d 2 /f
+#V-221590	Medium	Safe Browsing Extended Reporting must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v SafeBrowsingExtendedReportingEnabled /t REG_DWORD /d 0 /f
+#V-221591	Medium	WebUSB must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultWebUsbGuardSetting /t REG_DWORD /d 2 /f
+#V-221592	Medium	Chrome Cleanup must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v ChromeCleanupEnabled /t REG_DWORD /d 0 /f
+#V-221593	Medium	Chrome Cleanup reporting must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v ChromeCleanupReportingEnabled /t REG_DWORD /d 0 /f
+#V-221594	Medium	Google Cast must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v EnableMediaRouter /t REG_DWORD /d 0 /f
+#V-221595	Medium	Autoplay must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v AutoplayAllowed /t REG_DWORD /d 0 /f
+#V-221596	Medium	URLs must be allowlisted for Autoplay use.
+#V-221597	Medium	Anonymized data collection must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v UrlKeyedAnonymizedDataCollectionEnabled /t REG_DWORD /d 0 /f
+#V-221598	Medium	Collection of WebRTC event logs must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v WebRtcEventLogCollectionAllowed /t REG_DWORD /d 0 /f
+#V-221599	Low	Chrome development tools must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DeveloperToolsAvailability /t REG_DWORD /d 0 /f
+#V-226401	Medium	Guest Mode must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v BrowserGuestModeEnabled /t REG_DWORD /d 0 /f
+#V-226402	Medium	AutoFill for credit cards must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v AutofillCreditCardEnabled /t REG_DWORD /d 0 /f
+#V-226403	Medium	AutoFill for addresses must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v AutofillAddressEnabled /t REG_DWORD /d 0 /f
+#V-226404	Medium	Import AutoFill form data must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v ImportAutofillFormData /t REG_DWORD /d 0 /f
+#V-241787	Medium	Web Bluetooth API must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultWebBluetoothGuardSetting REG_DWORD /d 2 /f
+#V-245538	Medium	Use of the QUIC protocol must be disabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v QuicAllowed /t REG_DWORD /d 0 /f
+#V-245539	Medium	Session only based cookies must be enabled.
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultCookiesSetting /t REG_DWORD /d 4 /f
 
