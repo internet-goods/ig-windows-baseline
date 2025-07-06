@@ -92,8 +92,6 @@ git clone https://github.com/zoicware/RemoveWindowsAI
 #TOP
 git clone https://github.com/TheSPEEDO/URLRunner
 
-
-
 #STIG
 #Domain-joined systems must use Windows Enterprise Edition 64-bit version.</title>
 #Windows information systems must use BitLocker to encrypt all disks to protect the confidentiality and integrity of all information at rest.</title>
@@ -134,6 +132,7 @@ net accounts /minpwage:1
 net accounts /minpwlen:14
 #The built-in Microsoft password complexity filter must be enabled.</title>
 #Reversible password encryption must be disabled.</title>
+reg add HKLM\System\CurrentControlSet\Control\Lsa /v fReversiblePasswordEncryption /t REG_DWORD /d 0 /f
 #The system must be configured to audit Account Logon - Credential Validation failures.</title>
 #The system must be configured to audit Account Logon - Credential Validation successes.</title>
 Auditpol /set /subcategory:"Credential Validation" /success:enable /failure:enable
@@ -425,7 +424,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimizat
 #The Windows Remote Management (WinRM) service must not allow unencrypted traffic.</title>
 #Internet Explorer must be disabled for Windows.</title>
 dism /online /Disable-Feature /FeatureName:Internet-Explorer-Optional-amd64
-#firewall
+#firewall STIG
 #Windows Defender Firewall with Advanced Security must be enabled when connected to a domain.</xccdf:title>
 #Windows Defender Firewall with Advanced Security must be enabled when connected to a private network.</xccdf:title>
 #Windows Defender Firewall with Advanced Security must be enabled when connected to a public network.</xccdf:title>
@@ -533,6 +532,7 @@ Import-Module HardeningKitty\HardeningKitty.psm1
 Invoke-HardeningKitty -EmojiSupport
 #1000   Features        SMBv1 Support
 #1103   Account Policies        Store passwords using reversible encryption
+#DUPE
 #1101   Account Policies        Account lockout duration
 #1100   Account Policies        Account lockout threshold
 #1104   Account Policies        Allow Administrator account lockout
@@ -545,6 +545,7 @@ Invoke-HardeningKitty -EmojiSupport
 #1205   User Rights Assignment  Deny log on as a service
 #1206   User Rights Assignment  Deny log on through Remote Desktop Services
 #1300   Security Options        Accounts: Block Microsoft accounts
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v NoConnectedUser /t REG_DWORD /d 3 /f
 #1301   Security Options        Audit: Force audit policy subcategory settings to override audit policy category settings
 #1302   Security Options        Interactive logon: Do not require CTRL+ALT+DEL
 #1303   Security Options        Interactive logon: Don't display last signed-in
@@ -554,9 +555,12 @@ Invoke-HardeningKitty -EmojiSupport
 #1307   Security Options        Microsoft network server: Digitally sign communications (always)
 #1308   Security Options        Microsoft network server: Digitally sign communications (if client agrees)
 #1309   Security Options        Network access: Do not allow anonymous enumeration of SAM accounts
+#DUPE
 #1310   Security Options        Network access: Do not allow anonymous enumeration of SAM accounts and shares
+#DUPE
 #1311   Security Options        Network access: Do not allow storage of passwords and credentials for network authentication
 #1324   Security Options        Network access: Restrict anonymous access to Named Pipes and Shares
+#DUPE
 #1325   Security Options        Network access: Restrict clients allowed to make remote calls to SAM
 #1312   Security Options        Network security: Allow LocalSystem NULL session fallback
 #1326   Security Options        Network security: Do not store LAN Manager hash value on next password change
@@ -837,6 +841,7 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search" 
 #1744   Administrative Templates: Windows Components    Search: Allow search and Cortana to use location
 #1745   Administrative Templates: Windows Components    Search: Set what information is shared in Search
 #1746   Administrative Templates: Windows Components    Windows Error Reporting: Disable Windows Error Reporting
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f
 #1747   Administrative Templates: Windows Components    Windows Game Recording and Broadcasting: Enables or disables Windows Game Recording and Broadcasting
 #1748   Administrative Templates: Windows Components    Windows Ink Workspace: Allow Windows Ink Workspace
 #1749   Administrative Templates: Windows Components    Windows Installer: Always install with elevated privileges
@@ -942,6 +947,7 @@ cd "Wynis\System Audit"
 #PP-1.1.5;(L1)Password must meet complexity requirements is set to Enabled, value must be 1;PasswordComplexity = 0
 #PP-1.1.6;(L1)Relax minimum password length limits' is set to Enabled, value must be 1 (Warning this may cause compatibility issues);not configure
 #PP-1.1.7;(L1)Store passwords using reversible encryption is set to Disabled, value must be 0;ClearTextPassword = 0
+#DUPE
 #ALP-1.2.1;(L1)Account lockout duration is set to 15 or more minute(s);Lockout duration (minutes):                           30
 #ALP-1.2.2;(L1)Ensure Account lockout threshold is set to 5 or fewer invalid logon attempt(s), but not 0;Lockout threshold:                                    Never
 #ALP-1.2.3;(L1)Allow Administrator account lockout is set to Enabled, value must be 1;
@@ -1014,13 +1020,16 @@ cd "Wynis\System Audit"
 #MNS2.3.9.4;(L1)Ensure Microsoft network server: Disconnect clients when logon hours expire is set to Enabled,must be 1 ;1
 #NA2.3.10.1;(L1)Ensure Network access: Allow anonymous SID/Name translation is set to Disabled,must be 0 ;
 #NA2.3.10.2;(L1)Ensure Network access: Do not allow anonymous enumeration of SAM accounts is set to Enabled,must be 1 ;1
+#DUPE
 #NA2.3.10.3;(L1)Ensure Network access: Do not allow anonymous enumeration of SAM accounts and shares' is set to 'Enabled',must be 1 ;0
+#DUPE
 #NA2.3.10.4;(L1)Network access: Do not allow storage of passwords and credentials for network authentication is set to Enabled,must be 1 ;0
 #NA2.3.10.5;(L1)Ensure Network access: Let Everyone permissions apply to anonymous users is set to Disabled,must be 0 ;0
 #NA2.3.10.6;(L1)Configure Network access: Named Pipes that can be accessed anonymously,must be empty ; SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe SoftAPPipe ExtendzUtilityPipe
 #NA2.3.10.7;(L1)Network access: Remotely accessible registry paths, musbe System\CurrentControlSet\Control\ProductOptions | System\CurrentControlSet\Control\Server Applications |Software\Microsoft\Windows NT\CurrentVersion ;System\CurrentControlSet\Control\ProductOptions System\CurrentControlSet\Control\Server Applications Software\Microsoft\Windows NT\CurrentVersion
 #NA2.3.10.8;(L1)Network access: Remotely accessible registry paths and sub-paths:, check 2.3.10.8 part for the liste;Check NetworkAcces-Allowpath.txt
 #NA2.3.10.9;Ensure Network access: Restrict anonymous access to Named Pipes and Shares is set to Enabled,value must be 1;1
+#DUPE
 #NA2.3.10.10;(L1)Ensure Network access: Restrict clients allowed to make remote calls to SAM is set to Administrators: Remote Access: Allow;
 #NA2.3.10.11;(L1)Ensure 'Network access: Shares that can be accessed anonymously' is set to 'None, value must be empty or {};
 #NA2.3.10.12;(L1)Ensure Network access: Sharing and security model for local accounts is set to Classic - local users authenticate as themselves,value must be 0;0
@@ -1051,11 +1060,13 @@ cd "Wynis\System Audit"
 #SS5.4;(L2)Ensure 'Downloaded Maps Manager (MapsBroker)' is set to 'Disabled', value must be 4 or not installed;2
 #SS5.5;(L2)Ensure 'Geolocation Service (lfsvc)' is set to 'Disabled', value must be 4 or not installed;3
 #SS5.6;(L1)Ensure 'IIS Admin Service (IISADMIN)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;It s not installed
+#DUPE
 #SS5.7;(L1)Ensure 'Infrared monitor service (irmon)' is set to 'Disabled', value must be 4 or not installed;It s not installed
 #SS5.8;(L1)Ensure 'Internet Connection Sharing (ICS) (SharedAccess) ' is set to 'Disabled', value must be 4 or not installed;3
 #SS5.9;(L2)Ensure 'Link-Layer Topology Discovery Mapper (lltdsvc)' is set to 'Disabled', value must be 4 or not installed;3
 #SS5.10;(L1)Ensure 'LxssManager (LxssManager)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;It s not installed
 #SS5.11;(L1)Ensure 'Microsoft FTP Service (FTPSVC)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;It s not installed
+Uninstall-WindowsFeature -Name Web-FTP-Server
 #SS5.12;(L2)Ensure 'Microsoft iSCSI Initiator Service (MSiSCSI)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;3
 #SS5.14;(L2)Ensure 'Peer Name Resolution Protocol (PNRPsvc)' is set to 'Disabled'or 'Not Installed', value must be 4 or not installed;It s not installed
 #SS5.15;(L2)Ensure 'Peer Networking Grouping (p2psvc)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;It s not installed
@@ -1072,9 +1083,13 @@ cd "Wynis\System Audit"
 #SS5.26;(L1)Ensure 'Routing and Remote Access (RemoteAccess)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;4
 #SS5.27;(L2)Ensure 'Server (LanmanServer)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;2
 #SS5.28;(L1)Ensure 'Simple TCP/IP Services (simptcp)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;It s not installed
+#DUPE
 #SS5.29;(L2)Ensure 'SNMP Service (SNMP)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;It s not installed
+Uninstall-WindowsFeature -Name SNMP-Service -IncludeManagementTools
 #SS5.30;(L1)Ensure 'Special Administration Console Helper (sacsvr)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;It s not installed
 #SS5.31;(L1)Ensure 'SSDP Discovery (SSDPSRV)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;3
+Stop-Service SSDPSRV
+Set-Service SSDPSRV -StartupType Disabled
 #SS5.32;(L1)Ensure 'UPnP Device Host (upnphost)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;3
 #SS5.33;(L1)Ensure 'Web Management Service (WMSvc)' is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;It s not installed
 #SS5.34;(L2)Ensure 'Windows Error Reporting Service (WerSvc) is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;3
@@ -1201,8 +1216,11 @@ cd "Wynis\System Audit"
 #PRINT18.7.11;(L1)Ensure 'Point and Print Restrictions: When updating drivers for an existing connection' is set to 'Enabled: Show warning and elevation prompt',value must be 0 ;not configure
 #NOTI18.8.1.1;(L2) Ensure 'Turn off notifications network usage' is set to 'Enabled',value must be 1 ;not configure
 #APC18.9.3.1;(L1) Ensure 'Include command line in process creation events' is set to 'Enabled',value must be 1 ;
+#DUPE
 #2;(L1) Ensure 'Encryption Oracle Remediation' is set to 'Enabled: Force Updated Clients', value must be 0 ;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\CredSSP\Parameters /v AllowEncryptionOracle /t REG_DWORD /d 2 /f
 #2;(L1) Ensure 'Remote host allows delegation of non-exportable credentials' is set to 'Enabled', value must be 1 ;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CredentialsDelegation /v AllowProtectedCreds /t REG_DWORD /d 1 /f
 #DG18.9.5.1;(L1)Ensure 'Turn On Virtualization Based Security' is set to 'Enabled' (Scored), value must be 1 ;not configure
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard /v EnableVirtualizationBasedSecurity /t REG_DWORD /d 1 /f
 #DG18.9.5.2;(L1)Ensure 'Turn On Virtualization Based Security: Select Platform Security Level' is set to 'Secure Boot and DMA Protection', value must be 1 ;not configure
