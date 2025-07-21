@@ -97,6 +97,9 @@ Uninstall-WindowsFeature -Name Telnet-Client
 #The TFTP Client must not be installed on the system.</title>
 Disable-WindowsOptionalFeature -Online -FeatureName "TFTPClient" -Remove
 #Data Execution Prevention (DEP) must be configured to at least OptOut.</title>
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/olafhartong/sysmon-modular/master/sysmonconfig.xml -OutFile sysmonconfig.xml
+Invoke-WebRequest -Uri https://raw.githubusercontent.com/igamenovoer/gamebar-uninstaller/refs/heads/main/gamebar-uninstaller.ps1 -OutFile gamebar-uninstaller.ps1
+
 Set-ProcessMitigation -System -Enable DEP
 bcdedit.exe /set "{current}" nx AlwaysOn
 #Structured Exception Handling Overwrite Protection (SEHOP) must be enabled.</title>
