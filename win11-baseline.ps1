@@ -32,6 +32,7 @@ auditpol.exe /get /category:* > auditpol_beforehardening.txt
 #sysmon64.exe –accepteula –i config.xml
 #winget
 Invoke-WebRequest -Uri https://aka.ms/getwinget -OutFile winget.msixbundle
+Invoke-WebRequest -Uri https://github.com/rcmaehl/WhyNotWin11/releases/download/2.6.1.1/WhyNotWin11.exe -OutFile WhyNotWin11.exe 
 Add-AppxPackage winget.msixbundle
 winget install --id Microsoft.Powershell --source winget
 winget install --id Git.Git -e --source winget
@@ -355,7 +356,7 @@ reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa /v EveryoneIncludesAnonymous /
 reg add HKLM\SYSTEM\CurrentControlSet\Services\LanManServer\Parameters /v RestrictNullSessAccess /t REG_DWORD /d 1 /f
 #Remote calls to the Security Account Manager (SAM) must be restricted to Administrators.</title>
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa /v RestrictRemoteSAM /t REG_SZ /d "O:BAG:BAD:(A;;RC;;;BA)" /f
-#NTLM must be prevented from falling back to a Null session.</title>
+#NTLM must be prevented from falling back to a Null session.</title>https://github.com/rcmaehl/WhyNotWin11/releases/download/2.6.1.1/WhyNotWin11.exehttps://github.com/rcmaehl/WhyNotWin11/releases/download/2.6.1.1/WhyNotWin11.exe
 reg add HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Lsa\MSV1_0 /v allownullsessionfallback /t REG_DWORD /d 0 /f
 #PKU2U authentication using online identities must be prevented.</title>
 reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa\pku2u /v AllowOnlineID /t REG_DWORD /d 0 /f
