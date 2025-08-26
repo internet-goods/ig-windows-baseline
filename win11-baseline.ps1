@@ -454,7 +454,9 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicPro
 #Windows Defender Firewall with Advanced Security must allow outbound connections, unless a rule explicitly blocks the connection when connected to a public network.</xccdf:title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile /v DefaultOutboundAction /t REG_DWORD /d 0 /f
 #Windows Defender Firewall with Advanced Security local firewall rules must not be merged with Group Policy settings when connected to a public network.</xccdf:title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile /v AllowLocalPolicyMerge /t REG_DWORD /d 0 /f
 #Windows Defender Firewall with Advanced Security local connection rules must not be merged with Group Policy settings when connected to a public network.</xccdf:title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile /v AllowLocalIPsecPolicyMerge /t REG_DWORD /d 0 /f
 #Windows Defender Firewall with Advanced Security log size must be configured for public network connections.</xccdf:title>
 reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging /v LogMaxSizeKB /t REG_DWORD /d 32000 /f
 #Windows Defender Firewall with Advanced Security must log dropped packets when connected to a public network.</xccdf:title>
