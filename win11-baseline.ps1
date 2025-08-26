@@ -196,7 +196,7 @@ uditpol /set /subcategory:"Other Logon/Logoff Events" /success:enable /failure:e
 #Windows must be configured to audit Detailed File Share Failures.</title>
 auditpol /set /subcategory:"Detailed File Share" /failure:enable
 #Windows must be configured to audit MPSSVC Rule-Level Policy Change Successes.</title>
-#Windows must be configured to audit MPSSVC Rule-Level Policy Change Failures.</title>
+#Windows must be configured to audit MPSSVC Rule-Level Policy Change Failures.</title>winget uninstall MicrosoftWindows.Client.WebExperience_cw5n1h2txyewy
 auditpol /set /subcategory:"MPSSVC Rule-Level Policy Change" /success:enable /failure:enable
 #The display of slide shows on the lock screen must be disabled.</title>
 #IPv6 source routing must be configured to highest protection.</title>
@@ -866,6 +866,7 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender" /v Dis
 #1968   Microsoft Defender Exploit Guard        ASR: Exclude files and paths from Attack Surface Reduction Rules (Intune)
 #1965   Microsoft Defender Exploit Guard        Network Protection: Prevent users and apps from accessing dangerous websites
 #1767   Administrative Templates: Windows Components    News and interests: Enable news and interests on the taskbar
+winget uninstall "Windows web experience Pack"
 #1733   Administrative Templates: Windows Components    OneDrive: Prevent the usage of OneDrive for file storage
 winget uninstall Microsoft.OneDrive
 #1734   Administrative Templates: Windows Components    Remote Desktop Connection Client: Do not allow passwords to be saved
@@ -919,8 +920,10 @@ Disable-WindowsOptionalFeature -FeatureName "InkAndHandwritingServices" -Online 
 #2103   PowerShell      Disable PowerShell version 2
 #2104   PowerShell      Disable PowerShell version 2 (root)
 #2200   MS Security Guide       LSA Protection
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Lsa /v RunAsPPL /t REG_DWORD /d 2 /f
 #2201   MS Security Guide       Lsass.exe audit mode
 #2202   MS Security Guide       NetBT NodeType configuration
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\NetBT\Parameters /v NodeType /t REG_DWORD /d 2 /f
 #2203   MS Security Guide       WDigest Authentication
 #DUPE
 #2209   MS Security Guide       Enable Structured Exception Handling Overwrite Protection (SEHOP)
