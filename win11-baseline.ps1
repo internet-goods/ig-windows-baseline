@@ -546,7 +546,7 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultWebBluetoot
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v QuicAllowed /t REG_DWORD /d 0 /f
 #V-245539	Medium	Session only based cookies must be enabled.
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultCookiesSetting /t REG_DWORD /d 4 /f
-#assessments
+#assessmentsRunAsPPL
 git clone https://github.com/scipag/HardeningKitty
 Import-Module HardeningKitty\HardeningKitty.psm1
 Invoke-HardeningKitty -EmojiSupport
@@ -942,6 +942,7 @@ reg add "HKLM\System\CurrentControlSet\Control\Session Manager" /v SafeDllSearch
 #2208   MSS (Legacy)    MSS: (NoNameReleaseOnDemand) Allow the computer to ignore NetBIOS name release requests except from WINS servers
 #2400   Scheduled Task  XblGameSave Standby Task
 #2411   System Services Disable mDNS in Dnscache service
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Dnscache\Parameters /v EnableMDNS /t REG_DWORD /d 0 /f
 #2401   System Services Print Spooler (Spooler)
 #2402   System Services Print Spooler (Spooler) (Service Startup type)
 #2412   System Services WebClient (WebClient)
@@ -1019,15 +1020,10 @@ New-NetFirewallRule -DisplayName "HardeningKitty-Block-UDP-NetBIOS (Public Profi
 #2319   Windows Firewall        HardeningKitty-Block-RunScriptHelper-x64
 #2320   Windows Firewall        HardeningKitty-Block-RunScriptHelper-x86
 #2321   Windows Firewall        HardeningKitty-Block-wscript-x64
-
-
-
 auditpol.exe /get /category:* > auditpol_afterhardening.txt
-
 git clone https://github.com/Sneakysecdoggo/Wynis
 cd "Wynis\System Audit"
 .\WynisWIN11-CISv0.9.ps1
-
 #PP-1.1.1;(L1)Ensure 'Enforce password history' is set to '24 or more password(s), value must be 24 or More;PasswordHistorySize = 0
 #PP-1.1.2;(L1)Maximum password age is set to 365 or fewer days, value must be 365 or less but not 0;MaximumPasswordAge = 42
 #PP-1.1.3;(L1)Minimum password age is set to 1 or more day(s), value must be 1 or more but not 0;MinimumPasswordAge = 0
@@ -1195,32 +1191,52 @@ Set-Service SSDPSRV -StartupType Disabled
 #SS5.44;(L1)Ensure Xbox Live Game Save (XblGameSave) is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;3
 #SS5.45;(L1)Ensure Xbox Live Networking Service (XboxNetApiSvc) is set to 'Disabled' or 'Not Installed', value must be 4 or not installed;3
 #WFDP9.1.1;(L1)Ensure 'Windows Firewall: Domain: Firewall state' is set to 'On, value must be True;True
+#DUPE
 #WFDP9.1.2;(L1)Ensure 'Windows Firewall: Domain: Inbound connections' is set to 'Block (default), value must be Block;NotConfigured
+#DUPE
 #WFDP9.1.3;(L1)Ensure 'Windows Firewall: Domain: Outbound connections' is set to 'Allow (default), value must be Allow but if it's block it s fucking badass;NotConfigured
 #WFDP9.1.4;(L1)Ensure 'Windows Firewall: Domain: Settings: Display a notification' is set to 'No', value must false ;True
 reg add HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\WindowsFirewall\DomainProfile /v DisableNotifications /t REG_DWORD /d 0 /f
 #WFDP9.1.5;(L1)Ensure 'Windows Firewall: Domain: Logging: Name' is set to '%SYSTEMROOT%\System32\logfiles\firewall\domainfw.log ;%systemroot%\system32\LogFiles\Firewall\pfirewall.log
 #WFDP9.1.6;(L1)Ensure 'Windows Firewall: Domain: Logging: Size limit (KB)' is set to '16,384 KB or greater, value must 16384 or higthter ;4096
+#DUPE
 #WFDP9.1.7;(L1)Ensure 'Windows Firewall: Domain: Logging: Log dropped packets' is set to 'Yes',value must be true ;False
+#DUPE
 #WFDP9.1.8;(L1)Ensure 'Windows Firewall: Domain: Logging: Log successful connections' is set to 'Yes,value must be true ;False
+#DUPE
 #WFPPRIP9.2.1;(L1)Ensure 'Windows Firewall: Private: Firewall state' is set to 'On, value must be True;True
+#DUPE
 #WFPPRIP9.2.2;(L1)Ensure 'Windows Firewall: Private: Inbound connections' is set to 'Block (default, value must be Block;NotConfigured
+#DUPE
 #WFPPRIP9.2.3;(L1)Ensure 'Windows Firewall: Private: Outbound connections' is set to 'Allow (default)', value must be Allow but if it's block it s fucking badass;NotConfigured
+#DUPE
 #WFPPRIP9.2.4;(L1)Ensure 'Windows Firewall: Private: Settings: Display a notification' is set to 'No, value must false ;True
+#DUPE
 #WFPPRIP9.2.5;(L1)Ensure 'Windows Firewall: Private: Logging: Name' is set to '%SYSTEMROOT%\System32\logfiles\firewall\privatefw.log ;%systemroot%\system32\LogFiles\Firewall\pfirewall.log
 #WFPPRIP9.2.6;(L1)Ensure 'Windows Firewall: Private: Logging: Size limit (KB)' is set to '16,384 KB or greater, value must 16384 or higthter ;4096
+#DUPE
 #WFPPRIP9.2.7;(L1)Ensure 'Windows Firewall: Private: Logging: Log dropped packets' is set to 'Yes',value must be true ;False
+#DUPE
 #WFPPRIP9.2.8;(L1)Ensure 'Windows Firewall: Private: Logging: Log successful connections' is set to 'Yes',value must be true ;False
+#DUPE
 #WFPPUBP9.3.1;(L1)Ensure 'Windows Firewall: Public: Firewall state' is set to 'On, value must be True;True
+#DUPE
 #WFPPUBP9.3.2;(L1)Windows Firewall: Public: Inbound connections' is set to 'Block , value must be Block;NotConfigured
+#DUPE
 #WFPPUBP9.3.3;(L1)Ensure 'Windows Firewall: Public: Outbound connections' is set to 'Allow (default), value must be Allow but if it's block it s fucking badass;NotConfigured
+#DUPE
 #WFPPUBP9.3.4;(L1)Ensure 'Windows Firewall: Public: Settings: Display a notification' is set to 'Yes, value must false ;True
 #WFPPUBP9.3.5;(L1)Ensure 'Windows Firewall: Public: Settings: Apply local firewall rules' is set to 'No, value must 0 ;not configure
+#DUPE
 #WFPPUBP9.3.6;(L1)Ensure 'Windows Firewall: Public: Settings: Apply local connection security rules' is set to 'No', value must 0 ;not configure
+#DUPE
 #WFPPUBP9.3.7;(L1)Ensure 'Windows Firewall: Public: Logging: Name' is set to '%SYSTEMROOT%\System32\logfiles\firewall\publicfw.log;%systemroot%\system32\LogFiles\Firewall\pfirewall.log
 #WFPPUBP9.3.8;(L1)Ensure 'Windows Firewall: Public: Logging: Size limit (KB)' is set to '16,384 KB or greater;4096
+#DUPE
 #WFPPUBP9.3.9;(L1)Ensure 'Windows Firewall: Public: Logging: Log dropped packets' is set to 'Yes',value must be true ;False
+#DUPE
 #WFPPUBP9.3.10;(L1)Ensure 'Windows Firewall: Public: Logging: Log successful connections' is set to 'Yes',value must be true ;False
+#DUPE
 #AAAL17.1.1;(L1)Ensure 'Audit Credential Validation' is set to 'Success and Failure;  Credential Validation                   No Auditing
 #AAGM17.2.2;(L1)Ensure 'Audit Security Group Management' is set to 'Success and Failure';  Security Group Management               Success
 #2;(L1)Ensure 'Audit User Account Management' is set to 'Success and Failure;  User Account Management                 Success
@@ -1303,6 +1319,7 @@ reg add HKLM\Software\Policies\Microsoft\Windows\WCN\UI /v DisableWcnUi /t REG_D
 #WCM18.6.21.1;(L1)Ensure Minimize the number of simultaneous connections to the Internet or a Windows Domain' is set to 'Enabled: 3 = Prevent Wi-Fi when on Ethernet', value must be 3 ;
 #WCM18.6.21.2;(L1)Ensure 'Prohibit connection to non-domain networks when connected to domain authenticated network' is set to 'Enabled'', value must be 1 ;
 #WLAN18.6.23.2.1;(L1)Ensure 'Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services' is set to 'Disabled', value must be 0 ;
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WcmSvc\wifinetworkmanager\config /v AutoConnectAllowedOEM /t REG_DWORD /d 1 /f
 #PRINT18.7.1;(L1)Ensure 'Allow Print Spooler to accept client connections' is set to 'Disabled'', value must be 2 ;not configure
 #PRINT18.7.2;Ensure 'Configure Redirection Guard' is set to 'Enabled: Redirection Guard Enabled', value must be 1 , 2 mean audit mode ;not configure
 #PRINT18.7.3;(L1) Ensure 'Configure RPC connection settings: Protocol to use for outgoing RPC connections' is set to 'Enabled: RPC over TCP', value must be 1 ;not configure
@@ -1314,6 +1331,7 @@ reg add HKLM\Software\Policies\Microsoft\Windows\WCN\UI /v DisableWcnUi /t REG_D
 #PRINT18.7.10;(L1)Ensure 'Point and Print Restrictions: When installing drivers for a new connection' is set to 'Enabled: Show warning and elevation prompt',value must be 1 ;not configure
 #PRINT18.7.11;(L1)Ensure 'Point and Print Restrictions: When updating drivers for an existing connection' is set to 'Enabled: Show warning and elevation prompt',value must be 0 ;not configure
 #NOTI18.8.1.1;(L2) Ensure 'Turn off notifications network usage' is set to 'Enabled',value must be 1 ;not configure
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion /v PushNotifications /t REG_DWORD /d 1 /f
 #APC18.9.3.1;(L1) Ensure 'Include command line in process creation events' is set to 'Enabled',value must be 1 ;
 #DUPE
 #2;(L1) Ensure 'Encryption Oracle Remediation' is set to 'Enabled: Force Updated Clients', value must be 0 ;not configure
