@@ -268,6 +268,7 @@ reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer /v PreX
 reg add HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR /v AppCaptureEnabled /t REG_DWORD /d 0 /f
 #The use of a hardware security device with Windows Hello for Business must be enabled.</title>
 #Windows must be configured to require a minimum pin length of six characters or greater.</title>
+reg add HKLM\SOFTWARE\Policies\Microsoft\PassportForWork\PINComplexity /v MinimumPINLength /t REG_DWORD /d 6 /f
 #Passwords must not be saved in the Remote Desktop Client.</title>
 reg add "HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows NT\Terminal Services" /v DisablePasswordSaving /t REG_DWORD /d 1 /f
 #Local drives must be prevented from sharing with Remote Desktop Session Hosts.</title>
@@ -291,6 +292,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer" /v AlwaysInstallEle
 #Users must be notified if a web-based program attempts to install software.</title>
 reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\Installer /v SafeForScripting /t REG_DWORD /d 0 /f
 #Automatically signing in the last interactive user after a system-initiated restart must be disabled.</title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon /t AutoAdminLogon /d 0 /f
 #PowerShell script block logging must be enabled on Windows.</title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging /v EnableScriptBlockLogging /t REG_DWORD /d 1 /f
 #PowerShell Transcription must be enabled on Windows.</title>
