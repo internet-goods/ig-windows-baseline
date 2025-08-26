@@ -378,7 +378,7 @@ reg add HKLM\SYSTEM\CurrentControlSet\Control\Lsa\MSV1_0 /v NTLMMinServerSec /t 
 #The system must be configured to use FIPS-compliant algorithms for encryption, hashing, and signing.</title>
 reg add HKLM\System\CurrentControlSet\Control\Lsa\FIPSAlgorithmPolic /v Enabled /t REG_DWORD /d 1 /f
 #The default permissions of global system objects must be increased.</title>
-reg aDd HKLM\SYSTEM\CurrentControlSet\Control\Session Manager /v ProtectionMode /t REG_DWORD /d 1 /f
+reg aDd "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager" /v ProtectionMode /t REG_DWORD /d 1 /f
 #User Account Control approval mode for the built-in Administrator must be enabled.</title>
 reg add HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System /v FilterAdministratorToken /t REG_DWORD /d 1 /f
 #User Account Control must prompt administrators for consent on the secure desktop.</title>
@@ -572,9 +572,13 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Sy
 #1303   Security Options        Interactive logon: Don't display last signed-in
 #1304   Security Options        Interactive logon: Don't display username at sign-in
 #1305   Security Options        Microsoft network client: Digitally sign communications (always)
+#DUPE
 #1306   Security Options        Microsoft network client: Digitally sign communications (if server agrees)
+#DUPE
 #1307   Security Options        Microsoft network server: Digitally sign communications (always)
+#DUPE
 #1308   Security Options        Microsoft network server: Digitally sign communications (if client agrees)
+#DUPE
 #1309   Security Options        Network access: Do not allow anonymous enumeration of SAM accounts
 #DUPE
 #1310   Security Options        Network access: Do not allow anonymous enumeration of SAM accounts and shares
@@ -1098,10 +1102,14 @@ cd "Wynis\System Audit"
 #IL2.3.7.8;(L1)Ensure Interactive logon: Prompt user to change password before expiration is set to between 5 and 14 days ;5
 #IL2.3.7.9;(L1)Ensure Interactive logon: Smart card removal behavior is set to Lock Workstation or higher,value must be 1 (Lock Workstation) or 2 (Force Logoff) ;0
 #MNC2.3.8.1;(L1)Ensure Microsoft network client: Digitally sign communications (always) is set to Enabled,value must be 1 ;0
+#DUPE
 #MNC2.3.8.2;(L1)Ensure Microsoft network client: Digitally sign communications (if server agrees) is set to Enabled,value must be 1 ;1
+#DUPE
 #MNC2.3.8.3;(L1)Ensure Microsoft network client: Send unencrypted password to third-party SMB servers is set to Disabled,value must be 0 ;0
+#DUPE
 #MNS2.3.9.1;(L1)Microsoft network server: Amount of idle time required before suspending session is set to 15 or fewer minute(s) but not 0, ;
 #MNS2.3.9.3;(L1)Ensure Microsoft network server: Digitally sign communications (if client agrees) is set to Enabled,must be 1 ;0
+#DUPE
 #MNS2.3.9.4;(L1)Ensure Microsoft network server: Disconnect clients when logon hours expire is set to Enabled,must be 1 ;1
 #NA2.3.10.1;(L1)Ensure Network access: Allow anonymous SID/Name translation is set to Disabled,must be 0 ;
 #NA2.3.10.2;(L1)Ensure Network access: Do not allow anonymous enumeration of SAM accounts is set to Enabled,must be 1 ;1
@@ -1278,7 +1286,9 @@ reg add HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\WindowsFirewall\DomainPro
 #MSSG18.4.2;(L1)Ensure 'Configure RPC packet level privacy setting for incoming connections' is set to 'Enabled', value must be 1;
 #MSSG18.4.3;(L1)Ensure 'Configure SMB v1 client driver' is set to 'Enabled: Disable driver', value must be 4;2
 #MSSG18.4.4;(L1)Ensure Configure SMB v1 server' is set to 'Disabled', value must be 0;
+#DUPE
 #MSSG18.4.5;(L1)Ensure 'Enable Structured Exception Handling Overwrite Protection (SEHOP)' is set to 'Enabled', value must be 0;
+#DUPE
 #MSSG18.4.6;(L1)Ensure 'NetBT NodeType configuration' is set to 'Enabled: P-node (recommended), value must be 2;
 #MSSG18.4.7;(L1)Ensure 'WDigest Authentication' is set to 'Disabled', value must be 0;
 #DUPE
