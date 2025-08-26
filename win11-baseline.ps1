@@ -424,31 +424,31 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DeliveryOptimizat
 dism /online /Disable-Feature /FeatureName:Internet-Explorer-Optional-amd64
 #firewall STIG
 #Windows Defender Firewall with Advanced Security must be enabled when connected to a domain.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile /v EnableFirewall /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile  /v EnableFirewall /t REG_DWORD /d 1 /f
 #Windows Defender Firewall with Advanced Security must be enabled when connected to a private network.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PrivateProfile /v EnableFirewall /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile /v EnableFirewall /t REG_DWORD /d 1 /f
 #Windows Defender Firewall with Advanced Security must be enabled when connected to a public network.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile /v EnableFirewall /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile /v EnableFirewall /t REG_DWORD /d 1 /f
 #Windows Defender Firewall with Advanced Security must block unsolicited inbound connections when connected to a domain.</xccdf:title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile /v DefaultInboundAction /t REG_DWORD /d 0 /f
 #Windows Defender Firewall with Advanced Security must allow outbound connections, unless a rule explicitly blocks the connection when connected to a domain.</xccdf:title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile /v DefaultOutboundAction /t REG_DWORD /d 0 /f
 #Windows Defender Firewall with Advanced Security log size must be configured for domain connections.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging /v LogMaxSizeKB /t REG_DWORD /d 32000 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging /v LogMaxSizeKB /t REG_DWORD /d 32000 /f
 #Windows Defender Firewall with Advanced Security must log dropped packets when connected to a domain.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging /v EnableLogDroppedPackets /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging /v EnableLogDroppedPackets /t REG_DWORD /d 1 /f
 #Windows Defender Firewall with Advanced Security must log successful connections when connected to a domain.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\DomainProfile\Logging /v EnableLogSuccessConnections /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging /v EnableLogSuccessConnections /t REG_DWORD /d 1 /f
 #Windows Defender Firewall with Advanced Security must block unsolicited inbound connections when connected to a private network.</xccdf:title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile /v DefaultInboundAction /t REG_DWORD /d 0 /f
 #Windows Defender Firewall with Advanced Security must allow outbound connections, unless a rule explicitly blocks the connection when connected to a private network.</xccdf:title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile /v DefaultOutboundAction /t REG_DWORD /d 0 /f
 #Windows Defender Firewall with Advanced Security log size must be configured for private network connections.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PrivateProfile\Logging /v LogMaxSizeKB /t REG_DWORD /d 32000 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging /v LogMaxSizeKB /t REG_DWORD /d 32000 /f
 #Windows Defender Firewall with Advanced Security must log dropped packets when connected to a private network.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PrivateProfile\Logging /v EnableLogDroppedPackets /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging /v EnableLogDroppedPackets /t REG_DWORD /d 1 /f
 #Windows Defender Firewall with Advanced Security must log successful connections when connected to a private network.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PrivateProfile\Logging /v EnableLogSuccessConnections /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging /v EnableLogSuccessConnections /t REG_DWORD /d 1 /f
 #Windows Defender Firewall with Advanced Security must block unsolicited inbound connections when connected to a public network.</xccdf:title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile /v DefaultInboundAction /t REG_DWORD /d 0 /f
 #Windows Defender Firewall with Advanced Security must allow outbound connections, unless a rule explicitly blocks the connection when connected to a public network.</xccdf:title>
@@ -458,11 +458,11 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicPro
 #Windows Defender Firewall with Advanced Security local connection rules must not be merged with Group Policy settings when connected to a public network.</xccdf:title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile /v AllowLocalIPsecPolicyMerge /t REG_DWORD /d 0 /f
 #Windows Defender Firewall with Advanced Security log size must be configured for public network connections.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging /v LogMaxSizeKB /t REG_DWORD /d 32000 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging /v LogMaxSizeKB /t REG_DWORD /d 32000 /f
 #Windows Defender Firewall with Advanced Security must log dropped packets when connected to a public network.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging /v EnableLogDroppedPackets /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging /v EnableLogDroppedPackets /t REG_DWORD /d 1 /f
 #Windows Defender Firewall with Advanced Security must log successful connections when connected to a public network.</xccdf:title>
-reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\SharedAccess\Parameters\FirewallPolicy\PublicProfile\Logging /v EnableLogSuccessConnections /t REG_DWORD /d 1 /f
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging /v EnableLogSuccessConnections /t REG_DWORD /d 1 /f
 #chrome STIG
 #V-221558	Medium	Firewall traversal from remote host must be disabled.
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v RemoteAccessHostFirewallTraversal /t REG_DWORD /d 0 /f
@@ -1189,6 +1189,7 @@ Set-Service SSDPSRV -StartupType Disabled
 #WFDP9.1.2;(L1)Ensure 'Windows Firewall: Domain: Inbound connections' is set to 'Block (default), value must be Block;NotConfigured
 #WFDP9.1.3;(L1)Ensure 'Windows Firewall: Domain: Outbound connections' is set to 'Allow (default), value must be Allow but if it's block it s fucking badass;NotConfigured
 #WFDP9.1.4;(L1)Ensure 'Windows Firewall: Domain: Settings: Display a notification' is set to 'No', value must false ;True
+reg add HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\WindowsFirewall\DomainProfile /v DisableNotifications /t REG_DWORD /d 0 /f
 #WFDP9.1.5;(L1)Ensure 'Windows Firewall: Domain: Logging: Name' is set to '%SYSTEMROOT%\System32\logfiles\firewall\domainfw.log ;%systemroot%\system32\LogFiles\Firewall\pfirewall.log
 #WFDP9.1.6;(L1)Ensure 'Windows Firewall: Domain: Logging: Size limit (KB)' is set to '16,384 KB or greater, value must 16384 or higthter ;4096
 #WFDP9.1.7;(L1)Ensure 'Windows Firewall: Domain: Logging: Log dropped packets' is set to 'Yes',value must be true ;False
