@@ -665,9 +665,12 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\DNSClient" /v
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\CloudContent /v DisableWindowsConsumerFeatures /t REG_DWORD /d 1 /f
 #1604   Administrative Templates: Network       WLAN Settings: Allow Windows to automatically connect to suggested open hotspots, to networks shared by contacts, and to hotspots offering paid services
 #2108   Administrative Templates: PowerShellCore        Turn on PowerShell Module Logging
-#DUPE
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging /v EnableModuleLogging /t REG_DWORD /d 1 /f
+reg add HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging /v EnableModuleLogging /t REG_DWORD /d 1 /f
 #2109   Administrative Templates: PowerShellCore        Turn on PowerShell Module Logging (PowerShell Policy)
 #2110   Administrative Templates: PowerShellCore        Turn on PowerShell Module Logging - Module Names
+reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\PowerShell\ModuleLogging /v ModuleNames /t REG_DWORD /d * /f
+reg add HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ModuleLogging /v ModuleNames /t REG_DWORD /d * /f
 #2111   Administrative Templates: PowerShellCore        Turn on PowerShell Script Block Logging
 #DUPE
 #2112   Administrative Templates: PowerShellCore        Turn on PowerShell Script Block Logging (Invocation)
@@ -898,8 +901,11 @@ Disable-WindowsOptionalFeature -FeatureName "InkAndHandwritingServices" -Online 
 #2000   Administrative Templates: Windows Components    File Explorer: Configure Windows Defender SmartScreen
 #2001   Administrative Templates: Windows Components    File Explorer: Configure Windows Defender SmartScreen to warn and prevent bypass
 #2105   PowerShell      Turn on PowerShell Module Logging
+#DUPE
 #2106   PowerShell      Turn on PowerShell Module Logging - Module Names
+#DUPE
 #2100   PowerShell      Turn on PowerShell Script Block Logging
+#DUPE
 #2101   PowerShell      Turn on PowerShell Script Block Logging (Invocation)
 #2102   PowerShell      Turn on PowerShell Transcription
 #DUPE
@@ -962,11 +968,32 @@ Set-ProcessMitigation -System -Enable TerminateOnError
 #1964   Microsoft Defender Exploit Guard        Exploit protection: Override validate heap integrity
 #1953   Microsoft Defender Exploit Guard        Force use of Data Execution Prevention (DEP)
 #2300   Windows Firewall        HardeningKitty-Block-TCP-NetBIOS
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-NetBIOS (Domain Profile)" -Direction Inbound -LocalPort 139 -Protocol TCP -Action Block -Profile Domain
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-NetBIOS (Private Profile)" -Direction Inbound -LocalPort 139 -Protocol TCP -Action Block -Profile Private
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-NetBIOS (Public Profile)" -Direction Inbound -LocalPort 139 -Protocol TCP -Action Block -Profile Public
 #2301   Windows Firewall        HardeningKitty-Block-TCP-RDP
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-RDP (Domain Profile)" -Direction Inbound -LocalPort 3389 -Protocol TCP -Action Block -Profile Domain
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-RDP (Private Profile)" -Direction Inbound -LocalPort 3389 -Protocol TCP -Action Block -Profile Private
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-RDP (Public Profile)" -Direction Inbound -LocalPort 3389 -Protocol TCP -Action Block -Profile Public
 #2302   Windows Firewall        HardeningKitty-Block-TCP-RPC
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-RPC (Domain Profile)" -Direction Inbound -LocalPort 135 -Protocol TCP -Action Block -Profile Domain
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-RPC (Private Profile)" -Direction Inbound -LocalPort 135 -Protocol TCP -Action Block -Profile Private
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-RPC (Public Profile)" -Direction Inbound -LocalPort 135 -Protocol TCP -Action Block -Profile Public
 #2303   Windows Firewall        HardeningKitty-Block-TCP-SMB
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-SMB (Domain Profile)" -Direction Inbound -LocalPort 445 -Protocol TCP -Action Block -Profile Domain
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-SMB (Private Profile)" -Direction Inbound -LocalPort 445 -Protocol TCP -Action Block -Profile Private
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-SMB (Public Profile)" -Direction Inbound -LocalPort 445 -Protocol TCP -Action Block -Profile Public
 #2304   Windows Firewall        HardeningKitty-Block-TCP-WinRM
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-WinRM (Domain Profile)" -Direction Inbound -LocalPort 5985 -Protocol TCP -Action Block -Profile Domain
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-WinRM (Private Profile)" -Direction Inbound -LocalPort 5985 -Protocol TCP -Action Block -Profile Private
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-WinRM (Public Profile)" -Direction Inbound -LocalPort 5985 -Protocol TCP -Action Block -Profile Public
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-WinRMS (Domain Profile)" -Direction Inbound -LocalPort 5986 -Protocol TCP -Action Block -Profile Domain
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-WinRMS (Private Profile)" -Direction Inbound -LocalPort 5986 -Protocol TCP -Action Block -Profile Private
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-TCP-WinRMS (Public Profile)" -Direction Inbound -LocalPort 5986 -Protocol TCP -Action Block -Profile Public
 #2305   Windows Firewall        HardeningKitty-Block-UDP-NetBIOS
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-UDP-NetBIOS (Domain Profile)" -Direction Inbound -LocalPort 138,139 -Protocol UDP -Action Block -Profile Domain
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-UDP-NetBIOS (Private Profile)" -Direction Inbound -LocalPort 138,139 -Protocol UDP -Action Block -Profile Private
+New-NetFirewallRule -DisplayName "HardeningKitty-Block-UDP-NetBIOS (Public Profile)" -Direction Inbound -LocalPort 138,139 -Protocol UDP -Action Block -Profile Public
 #2306   Windows Firewall        HardeningKitty-Block-UDP-RPC
 #2307   Windows Firewall        HardeningKitty-Block-calc-x64
 #2308   Windows Firewall        HardeningKitty-Block-calc-x86
