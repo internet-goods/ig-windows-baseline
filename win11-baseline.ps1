@@ -108,9 +108,11 @@ Set-ProcessMitigation -System -Enable SEHOP
 #The Windows PowerShell 2.0 feature must be disabled on the system.</title>
 Disable-WindowsOptionalFeature -Online -FeatureName MicrosoftWindowsPowershellV2 -Remove 
 #The Server Message Block (SMB) v1 protocol must be disabled on the system.</title>
-#The Server Message Block (SMB) v1 protocol must be disabled on the SMB server.</title>
-#The Server Message Block (SMB) v1 protocol must be disabled on the SMB client.</title>
 Disable-WindowsOptionalFeature -Online -FeatureName SMB1Protocol
+#The Server Message Block (SMB) v1 protocol must be disabled on the SMB server.</title>
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters /v SMB1 /t REG_DWORD /d 0 /f
+#The Server Message Block (SMB) v1 protocol must be disabled on the SMB client.</title>
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\LanmanClient\Parameters /v SMB1 /t REG_DWORD /d 0 /f
 #The Secondary Logon service must be disabled on Windows.</title>
 #Windows account lockout duration must be configured to 15 minutes or greater.</title>
 net accounts /lockoutduration:30
@@ -306,6 +308,7 @@ reg add HKLM\Software\Policies\Microsoft\Windows\WinRM\Client /v AllowDigest /t 
 #Windows must be configured to prevent Windows apps from being activated by voice while the system is locked.</title>
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppPrivacy /v LetAppsActivateWithVoice /t REG_DWORD /d 0 /f
 #The convenience PIN for Windows must be disabled.</title>
+reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System /v AllowDomainPINLogon /t REG_DWORD /d 0 /f
 #Windows Ink Workspace must be configured to disallow access above the lock.</title>
 reg add HKLM\Software\Policies\Microsoft\WindowsInkWorkspace /v AllowWindowsInkWorkspace /t REG_DWORD /d 1 /f
 #Windows Kernel (Direct Memory Access) DMA Protection must be enabled.</title>
@@ -543,12 +546,12 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultWebBluetoot
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v QuicAllowed /t REG_DWORD /d 0 /f
 #V-245539	Medium	Session only based cookies must be enabled.
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome /v DefaultCookiesSetting /t REG_DWORD /d 4 /f
-
 #assessments
 git clone https://github.com/scipag/HardeningKitty
 Import-Module HardeningKitty\HardeningKitty.psm1
 Invoke-HardeningKitty -EmojiSupport
 #1000   Features        SMBv1 Support
+#DUPE
 #1103   Account Policies        Store passwords using reversible encryption
 #DUPE
 #1101   Account Policies        Account lockout duration
@@ -717,9 +720,11 @@ reg add HKLM\SYSTEM\CurrentControlSet\Control\DeviceGuard\Scenarios\SystemGuard 
 #1645   Administrative Templates: System        Internet Communication Management: Internet Communication settings: Turn off Windows Customer Experience Improvement Program
 #1650   Administrative Templates: System        Kernel DMA Protection: Enumeration policy for external devices incompatible with Kernel DMA Protection
 #1660   Administrative Templates: System        Logon: Turn on convenience PIN sign-in
+#DUPE
 #1661   Administrative Templates: System        Logon: Turn off app notifications on the lock screen
 #1662   Administrative Templates: System        Logon: Do not display network selection UI
 #1670   Administrative Templates: System        Mitigation Options: Untrusted Font Blocking
+reg add HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Kernel /v MitigationOptions /t REG_DWORD /d 1000000000000 /f
 #1680   Administrative Templates: System        OS Policies: Allow Clipboard synchronization across devices
 #DUPE
 #1685   Administrative Templates: System        Sleep Settings: Require a password when a computer wakes (plugged in)
@@ -878,6 +883,7 @@ reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search" 
 #1743   Administrative Templates: Windows Components    Search: Allow indexing of encrypted files
 #DUPE
 #1744   Administrative Templates: Windows Components    Search: Allow search and Cortana to use location
+reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search" /v AllowSearchToUseLocation /t REG_DWORD /d 0 /f
 #1745   Administrative Templates: Windows Components    Search: Set what information is shared in Search
 #1746   Administrative Templates: Windows Components    Windows Error Reporting: Disable Windows Error Reporting
 reg add "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error Reporting" /v Disabled /t REG_DWORD /d 1 /f
@@ -1349,6 +1355,7 @@ reg add HKLM\SOFTWARE\Policies\Microsoft\Windows\DeviceGuard\Scenarios\KernelSha
 #LOGON18.9.27.5;(L1)Ensure Turn off app notifications on the lock screen is set to Enabled, value must be 1 ;
 #LOGON18.9.27.6;(L1)Ensure 'Turn off picture password sign-in' is set to 'Enabled', value must be1 ;
 #LOGON18.9.27.7;(L1)Ensure 'Turn on convenience PIN sign-in' is set to 'Disabled', value must be 0 ;
+#DUPE
 #OP18.9.30.1;(L2) Ensure 'Allow Clipboard synchronization across devices' is set to 'Disabled', value must be 0 ;
 reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System /v AllowCrossDeviceClipboard /t REG_DWORD /d 0 /f
 #OP18.9.30.2;(L2) Ensure 'Allow upload of User Activities' is set to 'Disabled', value must be 0 ;
