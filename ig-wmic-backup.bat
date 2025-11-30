@@ -2,7 +2,12 @@ echo google gemini save current wmic persistence listeners to a file using a bat
 for /f "tokens=1-3 delims=/ " %%a in ('date /t') do (
     set "CurrentDate=%%c-%%a-%%b"
 )
-set "OutputFilePath=c:\Windows\Temp\ig-windows-baseline\wmic\%COMPUTERNAME%-wmi_listeners_data-%CurrentDate%.txt"
+set "BackupDir=c:\Windows\Temp\ig-windows-baseline\wmic"
+IF NOT EXIST "%BackupDir%" (
+    ECHO Creating backup root directory: %BackupDir%
+    mkdir "%BackupDir%"
+)
+set "OutputFilePath=%BackupDir%\wmic\%COMPUTERNAME%-wmi_listeners_data-%CurrentDate%.txt"
 
 echo Exporting WMI Persistence Listeners to %OutputFilePath%
 
