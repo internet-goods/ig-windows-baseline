@@ -9,7 +9,8 @@ if not exist "%BackupDir%" (
 )
 REM set "OutputFilePathTXT=%BackupDir%\%COMPUTERNAME%-reg-query-keyname-%CurrentDate%.txt"
 echo Exporting HKLM Registry keys...
-
+reg query HKLM\Software\Microsoft\Windows\CurrentVersion\RunServices > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSoftwareMicrosoftWindowsCurrentVersionRunServices-%CurrentDate%.txt
+reg query HKLM\Software\Microsoft\Windows\CurrentVersion\RunServicesOnce > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSoftwareMicrosoftWindowsCurrentVersionRunServicesOnce-%CurrentDate%.txt
 reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Run > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSoftwareMicrosoftWindowsCurrentVersionRun-%CurrentDate%.txt
 reg query HKLM\Software\Microsoft\Windows\CurrentVersion\RunOnce > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSoftwareMicrosoftWindowsCurrentVersionRunOnce-%CurrentDate%.txt
 reg query HKLM\Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSoftwareMicrosoftWindowsCurrentVersionPoliciesExplorerRun-%CurrentDate%.txt
