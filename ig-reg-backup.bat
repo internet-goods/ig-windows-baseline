@@ -30,5 +30,5 @@ REM HKCU\Software\Microsoft\Windows\CurrentVersion\Shell Extensions
 
 echo TBD HKCU Registry Key extraction method reg save
 REM HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows\Load
-
+REM 
 endlocal
