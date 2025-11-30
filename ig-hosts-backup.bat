@@ -11,4 +11,4 @@ IF NOT EXIST "%BackupDir%" (
     ECHO Creating backup root directory: %BackupDir%
     mkdir "%BackupDir%"
 )
-copy C:\Windows\Temp\ig-windows-baseline\hosts %BackupDir%\%COMPUTERNAME%-hosts-%CurrentDate%.txt /Y
+copy %WINDIR%\System32\drivers\etc\hosts %BackupDir%\%COMPUTERNAME%-hosts-%CurrentDate%.txt /Y
