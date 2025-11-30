@@ -7,7 +7,7 @@ IF NOT EXIST "%BackupDir%" (
     ECHO Creating backup root directory: %BackupDir%
     mkdir "%BackupDir%"
 )
-set "OutputFilePath=%BackupDir%\wmic\%COMPUTERNAME%-wmi_listeners_data-%CurrentDate%.txt"
+set "OutputFilePath=%BackupDir%\%COMPUTERNAME%-wmi_listeners_data-%CurrentDate%.txt"
 
 echo Exporting WMI Persistence Listeners to %OutputFilePath%
 
