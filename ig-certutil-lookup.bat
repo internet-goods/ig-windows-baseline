@@ -1,4 +1,3 @@
-@echo off
 setlocal
 :: Get the current date in YYYY-MM-DD format
 for /f "tokens=1-3 delims=/ " %%a in ('date /t') do (
