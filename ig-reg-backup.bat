@@ -18,11 +18,14 @@ reg query HKLM\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\RunOnce > %
 echo Winlogon and Session Manager Keys (System Boot/Logon)
 reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Userinit" > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSoftwareMicrosoftWindowsNTCurrentVersionWinlogonUserinit-%CurrentDate%.txt
 reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Shell"    > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSoftwareMicrosoftWindowsNTCurrentVersionWinlogonShell-%CurrentDate%.txt
+reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify"    > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSoftwareMicrosoftWindowsNTCurrentVersionWinlogonNotify-%CurrentDate%.txt
+reg query "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Winlogon\GpExtensions"    > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSoftwareMicrosoftWindowsNTCurrentVersionWinlogonGpExtensions-%CurrentDate%.txt
 reg query "HKLM\System\CurrentControlSet\Control\Session Manager\BootExecute" > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSystemCurrentControlSetControlSessionManagerBootExecute-%CurrentDate%.txt
 reg query "HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows\Appinit_Dlls" > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSOFTWAREMicrosoftWindowsNTCurrentVersionWindowsAppinit_Dlls-%CurrentDate%.txt
-echo shell folder hijacking
+echo shell hijacking
 reg query "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSOFTWAREMicrosoftWindowsCurrentVersionExplorerShellFolders-%CurrentDate%.txt
-
+reg query "HKLM\Software\Microsoft\Windows\CurrentVersion\Shell Extensions" > %BackupDir%\%COMPUTERNAME%-reg-query-HKLMSOFTWAREMicrosoftWindowsCurrentVersionExplorerShellExtensions-%CurrentDate%.txt
+REM HKCU\Software\Microsoft\Windows\CurrentVersion\Shell Extensions
 
 echo TBD HKCU Registry Key extraction method reg save
 REM HKEY_CURRENT_USER\Software\Microsoft\Windows NT\CurrentVersion\Windows\Load
