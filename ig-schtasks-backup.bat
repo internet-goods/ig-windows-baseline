@@ -8,7 +8,7 @@ for /f "tokens=1-3 delims=/ " %%a in ('date /t') do (
 )
 
 :: Define the base backup directory (e.g., C:\TaskBackups)
-set "BackupDir=C:\Windows\Temp\ig-windows-baseline"
+set "BackupDir=C:\Windows\Temp\ig-windows-baseline\schtasks"
 
 :: Create the date-specific directory
 set "TargetDir=%BackupDir%"
