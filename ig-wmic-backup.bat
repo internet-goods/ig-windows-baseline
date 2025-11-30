@@ -29,5 +29,6 @@ echo ---------------------------------------------------- >> %OutputFilePath%
 wmic /namespace:"\\root\subscription" path __FilterToConsumerBinding get /format:list >> %OutputFilePath% 2>&1
 
 echo. >> %OutputFilePath%
-wmic service get Name,State,StartMode,PathName /format:csv > %BackupDir%\%COMPUTERNAME%-wmi_service-%CurrentDate%.csv"
+wmic service get * /format:csv > %BackupDir%\%COMPUTERNAME%-wmi_service-%CurrentDate%.csv"
+wmic nicconfig get * /format:csv > %BackupDir%\%COMPUTERNAME%-wmi_nicconfig-%CurrentDate%.csv"
 echo Export complete. Data saved to %OutputFilePath%
