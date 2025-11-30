@@ -21,3 +21,4 @@ winget install -e --id Malwarebytes.Malwarebytes
 winget install -e --id Microsoft.Sysinternals.ProcessExplorer
 winget install -e --id Microsoft.Sysinternals.Autoruns
 winget install -e --id Microsoft.Sysinternals.Coreinfo
+winget install -e --id OISF.Suricata
