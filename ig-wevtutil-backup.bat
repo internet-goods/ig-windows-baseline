@@ -2,7 +2,6 @@ set "BackupDir=C:\Windows\Temp\ig-windows-baseline\wevtutil"
 if not exist "%BackupDir%" (
     mkdir "%BackupDir%"
 )
-echo Backup & Compress Windows Logs
 set SECURITYEVTX     = %BackupDir%\%COMPUTERNAME%-Security-%date:~4,2%%date:~7,2%%date:~10,4%-%TIME:~0,2%%TIME:~3,2%.evtx
 set APPLICATIONEVTX  = %BackupDir%\%COMPUTERNAME%-Application-%date:~4,2%%date:~7,2%%date:~10,4%-%TIME:~0,2%%TIME:~3,2%.evtx
 set SYSTEMEVTX       = %BackupDir%\%COMPUTERNAME%-System-%date:~4,2%%date:~7,2%%date:~10,4%-%TIME:~0,2%%TIME:~3,2%.evtx
@@ -17,10 +16,8 @@ wevtutil epl System %SYSTEMEVTX%
 wevtutil epl "Microsoft-Windows-Sysmon/Operational" %SYSMONEVTX%
 wevtutil epl "Windows PowerShell" %POWERSHELLEVTX%
 wevtutil epl "Microsoft-Windows-PowerShell/Operational" %POWERSHELLOPEVTX%
-echo Backup Domain Controller Logs
 wevtutil epl "Directory Service" %DIRECTORYSVCEVTX%
 wevtutil epl "DFS Replication" %DFSREPLICATION%
-echo compress with TAR
 tar -czvf %SECURITYEVTX%.tar.gz --options gzip:compression-level=9 %SECURITYEVTX%
 tar -czvf %APPLICATIONEVTX%.tar.gz --options gzip:compression-level=9 %APPLICATIONEVTX%
 tar -czvf %SYSTEMEVTX%.tar.gz --options gzip:compression-level=9 %SYSTEMEVTX%
