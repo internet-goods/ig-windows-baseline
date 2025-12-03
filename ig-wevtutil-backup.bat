@@ -2,7 +2,7 @@ set "BackupDir=C:\Windows\Temp\ig-windows-baseline\wevtutil"
 if not exist "%BackupDir%" (
     mkdir "%BackupDir%"
 )
-set SECURITYEVTX     = 
+REM set SECURITYEVTX     = 
 set APPLICATIONEVTX  = %BackupDir%\%COMPUTERNAME%-Application-%date:~4,2%%date:~7,2%%date:~10,4%-%TIME:~0,2%%TIME:~3,2%.evtx
 set SYSTEMEVTX       = %BackupDir%\%COMPUTERNAME%-System-%date:~4,2%%date:~7,2%%date:~10,4%-%TIME:~0,2%%TIME:~3,2%.evtx
 set SYSMONEVTX       = %BackupDir%\%COMPUTERNAME%-Sysmon-%date:~4,2%%date:~7,2%%date:~10,4%-%TIME:~0,2%%TIME:~3,2%.evtx
