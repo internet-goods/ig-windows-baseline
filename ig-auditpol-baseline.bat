@@ -11,7 +11,7 @@ auditpol /set /subcategory:"Account Lockout" /success:enable
 auditpol /set /subcategory:"Audit Policy Change" /success:enable /failure:enable
 auditpol /set /subcategory:"Authentication Policy Change" /success:enable /failure:enable
 auditpol /set /subcategory:"Authorization Policy Change" /success:enable /failure:enable
-auditpol /set /subcategory:'Sensitive Privilege Use' /success:enable /failure:enable
+auditpol /set /subcategory:"Sensitive Privilege Use" /success:enable /failure:enable
 auditpol /set /subcategory:"IPsec Driver" /failure:enable
 auditpol /set /subcategory:"Other System Events" /success:enable /failure:enable
 auditpol /set /subcategory:"Security State Change" /success:enable /failure:enable
