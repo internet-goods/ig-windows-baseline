@@ -5,3 +5,5 @@ dism /online /Disable-Feature /FeatureName:SMB1Protocol
 dism /online /Disable-Feature /FeatureName:MicrosoftWindowsPowershellV2Root
 dism /online /Disable-Feature /FeatureName:SNMP
 dism /online /Disable-Feature /FeatureName:InkAndHandwritingServices
+dism /online /Enable-Feature /FeatureName:VirtualMachinePlatform
+ECHO dism /online /Enable-Feature /FeatureName:Microsoft-Windows-Subsystem-Linux
