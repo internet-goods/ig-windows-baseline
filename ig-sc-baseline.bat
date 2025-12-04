@@ -1,0 +1,20 @@
+sc DoSvc stop
+sc DoSvc start= disabled
+sc upnphost stop
+sc upnphost start=disabled
+sc XboxGipSvc stop
+sc XboxGipSvc start=disabled
+sc XblAuthManager stop
+sc XblAuthManager start=disabled
+sc XblGameSave stop
+sc XblGameSave start=disabled
+sc XboxNetApiSvc stop
+sc XboxNetApiSvc stop
+sc xbgm stop
+sc xbgm start=disabled
+sc SharedAccess stop
+sc SharedAccess start=disabled
+sc DiagTrack stop
+sc DiagTrack start=disabled
+sc WerSvc stop
+sc WerSvc start=disabled
