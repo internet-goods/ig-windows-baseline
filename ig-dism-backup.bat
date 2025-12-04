@@ -1,0 +1,6 @@
+set "BackupDir=C:\Windows\Temp\ig-windows-baseline\dism"
+if not exist "%BackupDir%" (
+    mkdir "%BackupDir%"
+    echo Created directory: %BackupDir%
+)
+dism /Online /Get-Features > %TargetDir%\%COMPUTERNAME%-dismfeatures-%date:~4,2%%date:~7,2%%date:~10,4%-%TIME:~3,2%%TIME:~6,2%.txt
