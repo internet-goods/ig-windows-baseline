@@ -1,0 +1,23 @@
+set "BackupDir=C:\Windows\Temp\ig-windows-baseline\wevtutil\%date:~4,2%%date:~7,2%%date:~10,4%"
+ECHO winscp output from ig-wevtutil-backup.bat to a fileserver for ingest by so-import-evtx
+ECHO prompt setup keys and write a winscp script to copy c:\windows\temp\filename to a linux server using keys and not password
+ECHO Step 1 — Create SSH Keys on Windows Open PuTTYgen
+ECHO Select RSA (2048 or 4096 bits)
+ECHO Click Generate
+ECHO Save the two files: Private key: C:\Keys\id_rsa.ppk Public key text (copy from PuTTYgen window)
+ECHO Step 2 — Install your public key on the Linux server
+ECHO mkdir -p ~/.ssh; chmod 700 ~/.ssh; vim ~/.ssh/authorized_keys
+ECHO Paste the public key (the single long line from PuTTYgen).
+ECHO chmod 600 ~/.ssh/authorized_keys
+ECHO # Connect using private key
+ECHO CREATE C:\Scripts\winscp_copy.txt script
+ECHO open sftp://username@your-linux-server -privatekey="C:\Keys\id_rsa.ppk"
+ECHO put "C:\Windows\Temp\ig-windows-baseline\wevtutil\%date:~4,2%%date:~7,2%%date:~10,4%\*" /home/internet-goods/
+ECHO close
+ECHO exit
+ECHO RUN THE SCRIPT C:\Scripts\run_copy.bat
+ECHO winscp.com /script="C:\Scripts\winscp_copy.txt" /log="C:\Scripts\winscp.log"
+ECHO schedule the script
+ECHO echo run_copy.bat
+ECHO "C:\Program Files (x86)\WinSCP\winscp.com" /script="C:\FileTransfer\winscp_copy.txt" /log="C:\FileTransfer\winscp.log"
+ECHO schtasks /create /tn "WinSCP File Upload" /tr "C:\FileTransfer\run_copy.bat" /sc daily /st 02:00 /ru "YourUsername" /rp YourPassword
