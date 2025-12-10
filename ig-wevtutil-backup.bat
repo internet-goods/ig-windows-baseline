@@ -1,4 +1,4 @@
-set "BackupDir=C:\Windows\Temp\ig-windows-baseline\wevtutil"
+set "BackupDir=C:\Windows\Temp\ig-windows-baseline\wevtutil\%date:~4,2%%date:~7,2%%date:~10,4%"
 if not exist "%BackupDir%" (
     mkdir "%BackupDir%"
 )
