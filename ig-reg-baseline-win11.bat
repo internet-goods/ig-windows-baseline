@@ -1,3 +1,17 @@
+ECHO PCIDSS
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client /v Enabled /t REG_DWORD /d 0 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Client /v DisabledByDefault /t REG_DWORD /d 1 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server /v Enabled /t REG_DWORD /d 0 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.0\Server /v DisabledByDefault /t REG_DWORD /d 1 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client /v Enabled /t REG_DWORD /d 0 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Client /v DisabledByDefault /t REG_DWORD /d 1 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server /v Enabled /t REG_DWORD /d 0 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.1\Server /v DisabledByDefault /t REG_DWORD /d 0 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client /v Enabled /t REG_DWORD /d 1 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Client /v DisabledByDefault /t REG_DWORD /d 0 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\Protocols\TLS 1.2\Server /v Enabled /t REG_DWORD /d 1 /f
+reg add HKLM\SYSTEM\CurrentControlSet\Control\SecurityProviders\SCHANNEL\\Protocols\TLS 1.2\Server /v DisabledByDefault /t REG_DWORD /d 0 /f
+
 ECHO STIG WIN11 REG KEYS
 ECHO REFACTOR OF win11-baseline.ps1
 #Reversible password encryption must be disabled.</title>
@@ -1048,3 +1062,5 @@ reg add HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\SQMClient /v CEIPEnable /
 #PLB19.7.42.2.1;(L2)Ensure 'Prevent Codec Download' is set to 'Enabled', value must be 1;not configure
 #https://learn.microsoft.com/en-us/answers/questions/241800/completely-disable-and-remove-xbox-apps-and-relate
 reg add HKLM\SOFTWARE\Microsoft\WindowsRuntime\ActivatableClassID\Windows.GameBar.PresenceServer.Internal.PresenceWriter /v ActivationType /t REG_DWORD /d 0 /f
+echo https://github.com/SigmaHQ/sigma/blob/master/rules/windows/registry/registry_set/registry_set_enabling_turnoffcheck.yml
+reg add HKLM\Policies\Microsoft\Windows\ScriptedDiagnostics /v TurnOffCheck /t REG_DWORD /d 0
