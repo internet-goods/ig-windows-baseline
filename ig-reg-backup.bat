@@ -1,3 +1,4 @@
+echo bnckup registry persistence hooks
 setlocal
 for /f "tokens=1-3 delims=/ " %%a in ('date /t') do (
     set "CurrentDate=%%c-%%a-%%b"
