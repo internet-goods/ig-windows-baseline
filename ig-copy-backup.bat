@@ -1,7 +1,6 @@
-@echo off
-ECHO Baseline Hosts file looking for malicious insertions
+ECHO Baseline Hosts and other file looking for malicious insertions
 echo based on ig-schdtasks-backup.bat
-set "BackupDir=C:\Windows\Temp\ig-windows-baseline\hosts"
+set "BackupDir=C:\Windows\Temp\ig-windows-baseline\copy"
 :: Get the current date in YYYY-MM-DD format
 for /f "tokens=1-3 delims=/ " %%a in ('date /t') do (
     set "CurrentDate=%%c-%%a-%%b"
@@ -12,3 +11,7 @@ IF NOT EXIST "%BackupDir%" (
     mkdir "%BackupDir%"
 )
 copy %WINDIR%\System32\drivers\etc\hosts %BackupDir%\%COMPUTERNAME%-hosts-%CurrentDate%.txt /Y
+copy %WINDIR%\win.ini                    %BackupDir%\%COMPUTERNAME%-win.ini-%CurrentDate%.txt /Y
+copy %WINDIR%\system.ini                    %BackupDir%\%COMPUTERNAME%-system.ini-%CurrentDate%.txt /Y
+echo powershell profiles to investigate
+dir C:\Users\*\Documents\WindowsPowerShell\profile.ps1 
