@@ -84,6 +84,9 @@ netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in ac
 netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=private
 netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=public
 netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=domain
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=private
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=public
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=domain
 
 
 echo or enable existing
