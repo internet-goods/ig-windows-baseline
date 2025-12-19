@@ -78,6 +78,13 @@ netsh advfirewall firewall add rule name="Network Discovery (NB-Name-In)" dir=in
 netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=public
 netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=private
 netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=domain
+netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=public
+netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=private
+netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=domain
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=private
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=public
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=domain
+
 
 echo or enable existing
 REM netsh advfirewall firewall set rule name="Block NB-Name-In" new enable=yes profile=public
