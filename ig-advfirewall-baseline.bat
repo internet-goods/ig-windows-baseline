@@ -86,7 +86,15 @@ netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir
 netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=domain
 netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=private
 netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=public
-netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=domain
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in action=block protocol=icmpv4 profile=public
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=in action=block protocol=icmpv6 profile=public
+echo enable
+netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-In)" dir=in action=allow protocol=UDP localport=68 remoteport=67
+
+
+
+
 
 
 echo or enable existing
