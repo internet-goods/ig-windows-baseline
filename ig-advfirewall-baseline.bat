@@ -8,7 +8,7 @@ if %errorLevel% == 0 (
     exit /b
 )
 
-echo Hardening Windows 11 Firewall to DISA STIG Standards...
+echo Hardening Windows Firewall to DISA STIG Standards...
 
 :: 1. Enable Firewall for All Profiles (Domain, Private, Public)
 :: STIG V-253303, V-253304, V-253305
@@ -64,3 +64,16 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notif
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "DisableUnicastResponsesToMulticastBroadcast" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" /v "DisableUnicastResponsesToMulticastBroadcast" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "DisableUnicastResponsesToMulticastBroadcast" /t REG_DWORD /d 1 /f
+:: 11. block problematic protocols explicitly
+ECHO tbd clear the rules then rebuild
+netsh advfirewall firewall add rule name="Block LLMNR-UDP-In" dir=in action=block protocol=UDP localport=5355 profile=public
+netsh advfirewall firewall add rule name="Block LLMNR-UDP-In" dir=in action=block protocol=UDP localport=5355 profile=private
+netsh advfirewall firewall add rule name="Block LLMNR-UDP-In" dir=in action=block protocol=UDP localport=5355 profile=domain
+netsh advfirewall firewall add rule name="Block NB-Datagram-In" dir=in action=block protocol=UDP localport=138 profile=public
+netsh advfirewall firewall add rule name="Block NB-Datagram-In" dir=in action=block protocol=UDP localport=138 profile=private
+netsh advfirewall firewall add rule name="Block NB-Datagram-In" dir=in action=block protocol=UDP localport=138 profile=domain
+netsh advfirewall firewall add rule name="Block NB-Name-In" dir=in action=block protocol=UDP localport=137 profile=public
+netsh advfirewall firewall add rule name="Block NB-Name-In" dir=in action=block protocol=UDP localport=137 profile=private
+netsh advfirewall firewall add rule name="Block NB-Name-In" dir=in action=block protocol=UDP localport=137 profile=domain
+echo or enable existing
+REM netsh advfirewall firewall set rule name="Block NB-Name-In" new enable=yes profile=public
