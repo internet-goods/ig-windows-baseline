@@ -53,16 +53,18 @@ $HardeningRules = @(
     @{ Name="Block-LLMNR-UDP-Out"; DisplayName="Network Discovery (LLMNR-UDP-Out)"; Direction="Outbound"; Protocol="UDP"; Port="5355" },
     
     # NetBIOS (Name Service / Datagram)
-    @{ Name="Block-NetBIOS-NS-In";  DisplayName="Hardening: Block NetBIOS NS";     Direction="Inbound";  Protocol="UDP"; Port="137" },
-    @{ Name="Block-NetBIOS-DG-In";  DisplayName="Hardening: Block NetBIOS Datagram"; Direction="Inbound"; Protocol="UDP"; Port="138" },
-    
-    # mDNS (Multicast DNS)
-    @{ Name="Block-mDNS-In";        DisplayName="Hardening: Block mDNS Inbound";   Direction="Inbound";  Protocol="UDP"; Port="5353" },
-    @{ Name="Block-mDNS-Out";       DisplayName="Hardening: Block mDNS Outbound";  Direction="Outbound"; Protocol="UDP"; Port="5353" },
-    
+    @{ Name="Block-NetBIOS-NS-In";  DisplayName="Network Discovery (NB-Name-In)";     Direction="Inbound";  Protocol="UDP"; Port="137" },
+    @{ Name="Block-NetBIOS-NS-In";  DisplayName="Network Discovery (NB-Name-Out)";     Direction="Outbound";  Protocol="UDP"; Port="137" },
+    @{ Name="Block-NetBIOS-DG-In";  DisplayName="Network Discovery (NB-Datagram-In)"; Direction="Inbound"; Protocol="UDP"; Port="138" },
+    @{ Name="Block-NetBIOS-DG-Out";  DisplayName="Network Discovery (NB-Datagram-Out)"; Direction="Outbound"; Protocol="UDP"; Port="138" },
     # SSDP / UPnP (Simple Service Discovery Protocol)
     @{ Name="Block-SSDP-In";        DisplayName="Hardening: Block SSDP Inbound";   Direction="Inbound";  Protocol="UDP"; Port="1900" },
     @{ Name="Block-UPnP-TCP-In";    DisplayName="Hardening: Block UPnP TCP In";    Direction="Inbound";  Protocol="TCP"; Port="2869" }
+    # mDNS (Multicast DNS) not a default
+    @{ Name="Block-mDNS-In";        DisplayName="Hardening: Block mDNS Inbound";   Direction="Inbound";  Protocol="UDP"; Port="5353" },
+    @{ Name="Block-mDNS-Out";       DisplayName="Hardening: Block mDNS Outbound";  Direction="Outbound"; Protocol="UDP"; Port="5353" },
+    
+
 )
 
 # --- Execute ---
