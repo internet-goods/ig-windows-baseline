@@ -66,31 +66,31 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" /v "Di
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "DisableUnicastResponsesToMulticastBroadcast" /t REG_DWORD /d 1 /f
 :: 11. block problematic protocols explicitly
 ECHO tbd clear the rules then rebuild
-netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=public
-netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=private
-netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=domain
-netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in action=block protocol=UDP localport=138 profile=public
-netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in action=block protocol=UDP localport=138 profile=private
-netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in action=block protocol=UDP localport=138 profile=domain
-netsh advfirewall firewall add rule name="Network Discovery (NB-Name-In)" dir=in action=block protocol=UDP localport=137 profile=public
-netsh advfirewall firewall add rule name="Network Discovery (NB-Name-In)" dir=in action=block protocol=UDP localport=137 profile=private
-netsh advfirewall firewall add rule name="Network Discovery (NB-Name-In)" dir=in action=block protocol=UDP localport=137 profile=domain
-netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=public
-netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=private
-netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=domain
-netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=public
-netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=private
-netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=domain
-netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=private
-netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=public
-netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=domain
-netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=private
-netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=public
-netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=
-netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in action=block protocol=icmpv4 profile=public
-netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=in action=block protocol=icmpv6 profile=public
+echo netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=public
+echo netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=private
+echo netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=domain
+echo netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in action=block protocol=UDP localport=138 profile=public
+echo netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in action=block protocol=UDP localport=138 profile=private
+echo netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in action=block protocol=UDP localport=138 profile=domain
+echo netsh advfirewall firewall add rule name="Network Discovery (NB-Name-In)" dir=in action=block protocol=UDP localport=137 profile=public
+echo netsh advfirewall firewall add rule name="Network Discovery (NB-Name-In)" dir=in action=block protocol=UDP localport=137 profile=private
+echo netsh advfirewall firewall add rule name="Network Discovery (NB-Name-In)" dir=in action=block protocol=UDP localport=137 profile=domain
+echo netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=public
+echo netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=private
+echo netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=domain
+echo netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=public
+echo netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=private
+echo netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=domain
+echo netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=private
+echo netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=public
+echo netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=domain
+echo netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=private
+echo netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=public
+echo netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=
+echo netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in action=block protocol=icmpv4 profile=public
+echo netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=in action=block protocol=icmpv6 profile=public
 echo enable
-netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-In)" dir=in action=allow protocol=UDP localport=68 remoteport=67
+echo netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-In)" dir=in action=allow protocol=UDP localport=68 remoteport=67
 
 
 
