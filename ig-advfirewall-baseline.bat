@@ -74,11 +74,11 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\publicfw.log" /f
 :: 12block problematic protocols explicitly
 netsh advfirewall firewall set rule name="Core Networking - Router Advertisement (ICMPv6-In)" dir=in new enable=No
-ECHO tbd clear the rules then rebuild
-echo netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=public
+ECHO tbd clear the rules then rebuild, no, keep defaults, dont test them just turn them on/off, test them with powershell script
+netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in new enable=No
 echo netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=private
 echo netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=domain
-echo netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in action=block protocol=UDP localport=138 profile=public
+netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in action=block protocol=UDP localport=138 profile=public
 echo netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in action=block protocol=UDP localport=138 profile=private
 echo netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in action=block protocol=UDP localport=138 profile=domain
 echo netsh advfirewall firewall add rule name="Network Discovery (NB-Name-In)" dir=in action=block protocol=UDP localport=137 profile=public
