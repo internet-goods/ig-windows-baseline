@@ -65,13 +65,13 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "Dis
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" /v "DisableUnicastResponsesToMulticastBroadcast" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "DisableUnicastResponsesToMulticastBroadcast" /t REG_DWORD /d 1 /f
 :: 11. Domain Profile
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\pfirewall.log" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\domainfw.log" /f
 
 :: Private Profile
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\pfirewall.log" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\privatefw.log" /f
 
 :: Public Profile
-reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\pfirewall.log" /f
+reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\publicfw.log" /f
 :: 12block problematic protocols explicitly
 ECHO tbd clear the rules then rebuild
 echo netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=public
