@@ -40,7 +40,7 @@ function Enforce-BlockFirewallRules {
                                 -LocalPort $Rule.Port `
                                 -Action Block `
                                 -Enabled True `
-                                -Group "Security Hardening"
+                                -Group "IG Security"
             Write-Host "New Block rule created." -ForegroundColor Green
         }
     }
@@ -63,7 +63,7 @@ $HardeningRules = @(
     # mDNS (Multicast DNS) not a default
     @{ Name="Block-mDNS-In";        DisplayName="Hardening: Block mDNS Inbound";   Direction="Inbound";  Protocol="UDP"; Port="5353" },
     @{ Name="Block-mDNS-Out";       DisplayName="Hardening: Block mDNS Outbound";  Direction="Outbound"; Protocol="UDP"; Port="5353" },
-    
+    @{ Name="Block-QUIC-Out";       DisplayName="Hardening: Block QUIC Outbound";  Direction="Outbound"; Protocol="UDP"; Port="443" },
 
 )
 
