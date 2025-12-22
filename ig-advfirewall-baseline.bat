@@ -73,6 +73,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
 :: Public Profile
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\publicfw.log" /f
 :: 12block problematic protocols explicitly
+netsh advfirewall firewall set rule name="Core Networking - Router Advertisement (ICMPv6-In)" dir=in new enable=No
 ECHO tbd clear the rules then rebuild
 echo netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=public
 echo netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in action=block protocol=UDP localport=5355 profile=private
