@@ -66,36 +66,38 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" /v "Di
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "DisableUnicastResponsesToMulticastBroadcast" /t REG_DWORD /d 1 /f
 :: 11. Domain Profile
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\domainfw.log" /f
-
-:: Private Profile
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\privatefw.log" /f
-
-:: Public Profile
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\publicfw.log" /f
-:: 12block problematic protocols explicitly
+
+:: 12 disabled rules
 netsh advfirewall firewall set rule name="Core Networking - Router Advertisement (ICMPv6-In)" dir=in new enable=No
 ECHO tbd clear the rules then rebuild, no, keep defaults, dont test them just turn them on/off, test them with powershell script
+ECHO IN
 netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in new enable=No
 netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in new enable=No
 netsh advfirewall firewall add rule name="Network Discovery (NB-Name-In)" dir=in new enable=No
 netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in new enable=No
-echo netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=private
-echo netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in action=block protocol=TCP localport=2869 profile=domain
-echo netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=public
-echo netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=private
-echo netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in action=block protocol=UDP localport=1900 profile=domain
-echo netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=private
-echo netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=public
-echo netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in action=block protocol=TCP localport=445 profile=domain
-echo netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=private
-echo netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=public
-echo netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" dir=in action=block protocol=TCP localport=139 profile=
-echo netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in action=block protocol=icmpv4 profile=public
-echo netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=in action=block protocol=icmpv6 profile=public
-echo enable
-echo netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-In)" dir=in action=allow protocol=UDP localport=68 remoteport=67
+netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=in new enable=No
+ECHO OUT
+netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (NB-Name-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (UPnP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (SSDP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=out new enable=No
+
+ECHO BLOCK ON PUBLIC
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=public new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=public new enable=No 
 
 
+echo enabled rules
+netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-In)" new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=private new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=domain new enable=Yes
 
 
 
