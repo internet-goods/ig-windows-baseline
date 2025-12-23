@@ -72,14 +72,66 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging"
 :: 12 disabled rules
 netsh advfirewall firewall set rule name="Core Networking - Router Advertisement (ICMPv6-In)" dir=in new enable=No
 ECHO tbd clear the rules then rebuild, no, keep defaults, dont test them just turn them on/off, test them with powershell script
-ECHO IN
+ECHO IN DISABLE
+netsh advfirewall firewall add rule name="Core Networking - Destination Unreachable (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Destination Unreachable Fragmentation Needed (ICMPv4-In)" dir=in new enable=No
+REM Core Networking - Dynamic Host Configuration Protocol (DHCP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Internet Group Management Protocol (IGMP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - IPHTTPS (TCP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - IPv6 (IPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Multicast Listener Done (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Multicast Listener Query (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Multicast Listener Report (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Multicast Listener Report v2 (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Neighbor Discovery Advertisement (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Neighbor Discovery Solicitation (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Packet Too Big (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Parameter Problem (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Parameter Problem (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Router Advertisement (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Router Solicitation (ICMPv6-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Teredo (UDP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Time Exceeded (ICMPv6-In)" dir=in new enable=No
+
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=public new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=private new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=domain new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=in new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (LLMNR-UDP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Datagram-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Name-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=public new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=private new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=domain new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=public new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=private new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=domain new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (Spooler Service - RPC-EPMAP)" dir=in profile=public new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (Spooler Service - RPC-EPMAP)" dir=in profile=private new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (Spooler Service - RPC-EPMAP)" dir=in profile=private new enable=Yes
+
 netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-In)" dir=in new enable=No
 netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-In)" dir=in new enable=No
 netsh advfirewall firewall add rule name="Network Discovery (NB-Name-In)" dir=in new enable=No
-netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (Pub-WSD-In)" dir=in new enable=No
 netsh advfirewall firewall add rule name="Network Discovery (SSDP-In)" dir=in new enable=No
-netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-In)" new enable=No
-netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (UPnP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (WSD Events-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (WSD EventsSecure-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (WSD-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Performance Logs and Alerts (DCOM-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Performance Logs and Alerts (TCP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (DCOM-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (PNRP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (RA Server TCP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (SSDP TCP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (SSDP UDP-In)" dir=in new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (TCP-In)" dir=in new enable=No
+
+
+
 ECHO OUT
 netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-Out)" dir=out new enable=No
 netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-Out)" dir=out new enable=No
@@ -90,20 +142,13 @@ netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-O
 netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=out new enable=No
 
 ECHO BLOCK ON PUBLIC
-netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=public new enable=No
+
 netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=public new enable=No 
 
 
 echo enabled rules
 netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-In)" new enable=Yes
-netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=private new enable=Yes
-netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=domain new enable=Yes
-netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=private new enable=Yes
-netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=domain new enable=Yes
 
 
-echo or enable existing
-REM netsh advfirewall firewall set rule name="Block NB-Name-In" new enable=yes profile=public
 
-echo or enable existing
-REM netsh advfirewall firewall set rule name="Block NB-Name-In" new enable=yes profile=public
+
