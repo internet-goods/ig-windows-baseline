@@ -131,6 +131,7 @@ netsh advfirewall firewall add rule name="Remote Assistance (SSDP UDP-In)" dir=i
 netsh advfirewall firewall add rule name="Remote Assistance (TCP-In)" dir=in new enable=No
 
 ECHO OUT
+
 netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-Out)" dir=out new enable=No
 netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-Out)" dir=out new enable=No
 netsh advfirewall firewall add rule name="Network Discovery (NB-Name-Out)" dir=out new enable=No
@@ -138,7 +139,50 @@ netsh advfirewall firewall add rule name="Network Discovery (UPnP-Out)" dir=out 
 netsh advfirewall firewall add rule name="Network Discovery (SSDP-Out)" dir=out new enable=No
 netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-Out)" dir=out new enable=No
 netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=out new enable=No
-
+netsh advfirewall firewall add rule name="Core Networking - DNS (UDP-Out)" dir=out new enable=Yes
+netsh advfirewall firewall add rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-Out)" dir=out new enable=Yes
+netsh advfirewall firewall add rule name="Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-Out)" dir=out new enable=No
+REM Core Networking - Group Policy (LSASS-Out)      Core Networking Domain  Yes     Allow   %SystemRoot%\system32\lsass.exe Any     Any     TCP     Any     Any     Any
+REM Core Networking - Group Policy (NP-Out) Core Networking Domain  Yes     Allow   System  Any     Any     TCP     Any     445     Any
+REM Core Networking - Group Policy (TCP-Out)        Core Networking Domain  Yes     Allow   %SystemRoot%\system32\svchost.exe       Any     Any     TCP     Any     Any     Any
+netsh advfirewall firewall add rule name="Core Networking - Internet Group Management Protocol (IGMP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - IPHTTPS (TCP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - IPv6 (IPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Multicast Listener Done (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Multicast Listener Query (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Multicast Listener Report (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Multicast Listener Report v2 (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Neighbor Discovery Advertisement (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Neighbor Discovery Solicitation (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Packet Too Big (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Parameter Problem (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Router Advertisement (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Router Solicitation (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Teredo (UDP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Core Networking - Time Exceeded (ICMPv6-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4-Out)" new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (LLMNR-UDP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Datagram-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Name-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (NB-Session-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-Out)" dir=out profile=public new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-Out)" dir=out profile=private new enable=No
+netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-Out)" dir=out profile=domain new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (LLMNR-UDP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (NB-Datagram-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (NB-Name-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (Pub WSD-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (SSDP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (UPnPHost-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (UPnP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (WSD Events-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (WSD EventsSecure-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Network Discovery (WSD-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (PNRP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (RA Server TCP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (SSDP TCP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (SSDP UDP-Out)" dir=out new enable=No
+netsh advfirewall firewall add rule name="Remote Assistance (TCP-Out)" dir=out new enable=No
 
 
 
