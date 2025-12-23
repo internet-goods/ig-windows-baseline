@@ -98,9 +98,12 @@ echo enabled rules
 netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-In)" new enable=Yes
 netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=private new enable=Yes
 netsh advfirewall firewall add rule name="File and Printer Sharing (SMB-In)" dir=in profile=domain new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=private new enable=Yes
+netsh advfirewall firewall add rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=domain new enable=Yes
 
 
-
+echo or enable existing
+REM netsh advfirewall firewall set rule name="Block NB-Name-In" new enable=yes profile=public
 
 echo or enable existing
 REM netsh advfirewall firewall set rule name="Block NB-Name-In" new enable=yes profile=public
