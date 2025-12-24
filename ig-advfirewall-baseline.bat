@@ -160,7 +160,8 @@ netsh advfirewall firewall set rule name="Core Networking - Router Advertisement
 netsh advfirewall firewall set rule name="Core Networking - Router Solicitation (ICMPv6-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Core Networking - Teredo (UDP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Core Networking - Time Exceeded (ICMPv6-Out)" dir=out new enable=No
-netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4-Out)" new enable=Yes
+netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4-Out)" dir=out new enable=Yes
+netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv6-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (LLMNR-UDP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Datagram-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Name-Out)" dir=out new enable=No
