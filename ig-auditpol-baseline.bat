@@ -22,3 +22,4 @@ auditpol /set /subcategory:"Other Logon/Logoff Events" /success:enable /failure:
 auditpol /set /subcategory:"Detailed File Share" /failure:enable
 auditpol /set /subcategory:"MPSSVC Rule-Level Policy Change" /success:enable /failure:enable
 auditpol /set /subcategory:"Plug and Play Events" /success:enable
+auditpol /set /subcategory:"Group Membership" /sucess:enable /failure:enable
