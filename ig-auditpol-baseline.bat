@@ -1,4 +1,4 @@
-auditpol /set /subcategory:"Credential Validation" /success:enable /failure:enable
+uauditpol /set /subcategory:"Credential Validation" /success:enable /failure:enable
 auditpol /set /subcategory:"Security Group Management" /success:enable /failure:enable
 auditpol /set /subcategory:"User Account Management" /success:enable /failure:enable
 auditpol /set /subcategory:"Process Creation" /success:enable /failure:enable
@@ -24,4 +24,4 @@ auditpol /set /subcategory:"MPSSVC Rule-Level Policy Change" /success:enable /fa
 auditpol /set /subcategory:"Plug and Play Events" /success:enable
 auditpol /set /subcategory:"Group Membership" /sucess:enable /failure:enable
 auditpol /set /subcategory:"Other Object Access Events" /success:enable
-auditppl /set /subcategory:"Removable Storage" /success:enable /failure:enable
+auditpol /set /subcategory:"Removable Storage" /success:enable /failure:enable
