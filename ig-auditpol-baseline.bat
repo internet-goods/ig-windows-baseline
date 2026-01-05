@@ -2,7 +2,7 @@ auditpol /set /subcategory:"Credential Validation" /success:enable /failure:enab
 auditpol /set /subcategory:"Security Group Management" /success:enable /failure:enable
 auditpol /set /subcategory:"User Account Management" /success:enable /failure:enable
 auditpol /set /subcategory:"Process Creation" /success:enable /failure:enable
-auditpol /set /subcategory:"Account Lockout" /success:enable
+auditpol /set /subcategory:"Account Lockout" /success:enable /failure:enable
 auditpol /set /subcategory:"Logoff" /success:enable
 auditpol /set /subcategory:"Logon" /success:enable /failure:enable
 auditpol /set /subcategory:"Special Logon" /success:enable /failure:enable
