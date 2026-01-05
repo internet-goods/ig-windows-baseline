@@ -23,4 +23,5 @@ auditpol /set /subcategory:"Detailed File Share" /failure:enable
 auditpol /set /subcategory:"MPSSVC Rule-Level Policy Change" /success:enable /failure:enable
 auditpol /set /subcategory:"Plug and Play Events" /success:enable
 auditpol /set /subcategory:"Group Membership" /sucess:enable /failure:enable
-auditpol /set /suvcategort:"Other Object Access Events" /success:enable
+auditpol /set /subcategory:"Other Object Access Events" /success:enable
+auditppl /set /subcategory:"Removable Storage" /success:enable /failure:enable
