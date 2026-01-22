@@ -84,6 +84,9 @@ echo enabled out rules currently ignored by DefaultOutboundAction=0
 netsh advfirewall firewall set rule name="Core Networking - DNS (UDP-Out)" dir=out new enable=Yes
 netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-Out)" dir=out new enable=Yes
 netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4-Out)" dir=out new enable=Yes
+netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-Out)" dir=out profile=private new enable=Yes
+netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-Out)" dir=out profile=domain new enable=Yes
+
 
 ECHO disable rules for a ipv4 windows host to test first then run -delete 
 netsh advfirewall firewall set rule name="Core Networking - Router Advertisement (ICMPv6-In)" dir=in new enable=No
@@ -147,7 +150,6 @@ netsh advfirewall firewall set rule name="Network Discovery (SSDP-Out)" dir=out 
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Session-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=out new enable=No
 
-
 netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-Out)" dir=out new enable=No
 REM Core Networking - Group Policy (LSASS-Out)      Core Networking Domain  Yes     Allow   %SystemRoot%\system32\lsass.exe Any     Any     TCP     Any     Any     Any
 REM Core Networking - Group Policy (NP-Out) Core Networking Domain  Yes     Allow   System  Any     Any     TCP     Any     445     Any
@@ -174,8 +176,6 @@ netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Datagram-
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Name-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Session-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-Out)" dir=out profile=public new enable=No
-netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-Out)" dir=out profile=private new enable=No
-netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-Out)" dir=out profile=domain new enable=No
 
 netsh advfirewall firewall set rule name="Network Discovery (LLMNR-UDP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (NB-Datagram-Out)" dir=out new enable=No
@@ -195,6 +195,101 @@ netsh advfirewall firewall set rule name="Remote Assistance (SSDP UDP-Out)" dir=
 netsh advfirewall firewall set rule name="Remote Assistance (TCP-Out)" dir=out new enable=No
 IF /I "%1"=="-DELETE" (
 echo TODO Delete rules to clean up list
+netsh advfirewall firewall delete rule name="Core Networking - Router Advertisement (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Destination Unreachable (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Destination Unreachable Fragmentation Needed (ICMPv4-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Internet Group Management Protocol (IGMP-In)"
+netsh advfirewall firewall delete rule name="Core Networking - IPHTTPS (TCP-In)"
+netsh advfirewall firewall delete rule name="Core Networking - IPv6 (IPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Multicast Listener Done (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Multicast Listener Query (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Multicast Listener Report (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Multicast Listener Report v2 (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Neighbor Discovery Advertisement (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Neighbor Discovery Solicitation (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Packet Too Big (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Parameter Problem (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Parameter Problem (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Router Advertisement (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Router Solicitation (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Teredo (UDP-In)"
+netsh advfirewall firewall delete rule name="Core Networking - Time Exceeded (ICMPv6-In)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (Echo Request - ICMPv6)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (LLMNR-UDP-In)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Datagram-In)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Name-In)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Session-In)" 
+
+
+netsh advfirewall firewall delete rule name="Network Discovery (LLMNR-UDP-In)"
+netsh advfirewall firewall delete rule name="Network Discovery (NB-Datagram-In)"
+netsh advfirewall firewall delete rule name="Network Discovery (NB-Name-In)"
+netsh advfirewall firewall delete rule name="Network Discovery (Pub-WSD-In)"
+netsh advfirewall firewall delete rule name="Network Discovery (SSDP-In)"
+netsh advfirewall firewall delete rule name="Network Discovery (UPnP-In)"
+netsh advfirewall firewall delete rule name="Network Discovery (WSD Events-In)"
+netsh advfirewall firewall delete rule name="Network Discovery (WSD EventsSecure-In)"
+netsh advfirewall firewall delete rule name="Network Discovery (WSD-In)"
+
+netsh advfirewall firewall delete rule name="Performance Logs and Alerts (DCOM-In)"
+netsh advfirewall firewall delete rule name="Performance Logs and Alerts (TCP-In)"
+
+netsh advfirewall firewall delete rule name="Remote Assistance (DCOM-In)"
+netsh advfirewall firewall delete rule name="Remote Assistance (PNRP-In)"
+netsh advfirewall firewall delete rule name="Remote Assistance (RA Server TCP-In)"
+netsh advfirewall firewall delete rule name="Remote Assistance (SSDP TCP-In)"
+netsh advfirewall firewall delete rule name="Remote Assistance (SSDP UDP-In)"
+netsh advfirewall firewall delete rule name="Remote Assistance (TCP-In)"
+
+netsh advfirewall firewall delete rule name="Network Discovery (LLMNR-UDP-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (NB-Datagram-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (NB-Name-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (UPnP-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (SSDP-Out)"
+
+netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Session-Out)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (Echo Request - ICMPv6)"
+
+netsh advfirewall firewall delete rule name="Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Internet Group Management Protocol (IGMP-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - IPHTTPS (TCP-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - IPv6 (IPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Multicast Listener Done (ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Multicast Listener Query (ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Multicast Listener Report (ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Multicast Listener Report v2 (ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Neighbor Discovery Advertisement (ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Neighbor Discovery Solicitation (ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Packet Too Big (ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Parameter Problem (ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Router Advertisement (ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Router Solicitation (ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Teredo (UDP-Out)"
+netsh advfirewall firewall delete rule name="Core Networking - Time Exceeded (ICMPv6-Out)"
+
+netsh advfirewall firewall delete rule name="File and Printer Sharing (Echo Request - ICMPv6-Out)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (LLMNR-UDP-Out)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Datagram-Out)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Name-Out)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Session-Out)"
+
+netsh advfirewall firewall delete rule name="Network Discovery (LLMNR-UDP-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (NB-Datagram-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (NB-Name-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (Pub WSD-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (SSDP-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (UPnPHost-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (UPnP-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (WSD Events-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (WSD EventsSecure-Out)"
+netsh advfirewall firewall delete rule name="Network Discovery (WSD-Out)"
+
+netsh advfirewall firewall delete rule name="Remote Assistance (PNRP-Out)"
+netsh advfirewall firewall delete rule name="Remote Assistance (RA Server TCP-Out)"
+netsh advfirewall firewall delete rule name="Remote Assistance (SSDP TCP-Out)"
+netsh advfirewall firewall delete rule name="Remote Assistance (SSDP UDP-Out)"
+netsh advfirewall firewall delete rule name="Remote Assistance (TCP-Out)"
 )
 
 
