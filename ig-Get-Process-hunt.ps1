@@ -98,4 +98,79 @@ foreach ($path in $Paths) {
     }
 }
 
-Write-Host "`n--- Scan Complete ---" -ForegroundColor Cyan
+# ----------------------------
+# 4. Registry Persistence (Fileless-friendly)
+# ----------------------------
+Write-Host "[+] Checking registry persistence..."
+
+$runKeys = @(
+    "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run",
+    "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
+)
+
+foreach ($key in $runKeys) {
+    if (Test-Path $key) {
+        Get-ItemProperty $key | ForEach-Object {
+            $_.PSObject.Properties | Where-Object {
+                $_.Value -match "powershell|wscript|mshta|rundll32"
+            } | ForEach-Object {
+                Write-Host  "Registry Persistence" "$key -> $($_.Value)"
+            }
+        }
+    }
+}
+
+
+# ----------------------------
+# 1. Suspicious PowerShell Usage
+# ----------------------------
+Write-Host "[+] Checking PowerShell command lines..."
+
+Get-CimInstance Win32_Process | Where-Object {
+    $_.Name -match "powershell.exe|pwsh.exe" -and
+    $_.CommandLine -match "EncodedCommand|IEX|Invoke-Expression|DownloadString|FromBase64String"
+} | ForEach-Object {
+    Write-Host "Suspicious PowerShell" $_.CommandLine
+}
+
+# ----------------------------
+# 2. LOLbins with Network Behavior
+# ----------------------------
+Write-Host "[+] Checking LOLbins..."
+
+$lolbins = "mshta.exe","rundll32.exe","regsvr32.exe","wmic.exe","bitsadmin.exe","certutil.exe"
+
+Get-CimInstance Win32_Process | Where-Object {
+    $lolbins -contains $_.Name -and
+    $_.CommandLine -match "http|https|ftp"
+} | ForEach-Object {
+    Write-Host  "LOLbin Network Abuse" $_.CommandLine
+}
+
+
+# ----------------------------
+# 5. Suspicious Parent/Child Chains
+# ----------------------------
+Write-Host "[+] Checking process ancestry..."
+
+Get-CimInstance Win32_Process | Where-Object {
+    $_.ParentProcessId -ne 0
+} | ForEach-Object {
+    $parent = Get-CimInstance Win32_Process -Filter "ProcessId=$($_.ParentProcessId)" -ErrorAction SilentlyContinue
+    if ($parent -and $parent.Name -match "winword.exe|excel.exe|outlook.exe|chrome.exe" -and
+        $_.Name -match "powershell.exe|mshta.exe|cmd.exe") {
+        Write-Host  "Suspicious Process Chain" "$($parent.Name) -> $($_.Name)"
+    }
+}
+
+# ----------------------------
+# 6. AMSI Bypass Indicators (Heuristic)
+# ----------------------------
+Write-Host "[+] Checking AMSI bypass hints..."
+
+Get-CimInstance Win32_Process | Where-Object {
+    $_.Name -match "powershell.exe" -and
+    $_.CommandLine -match "AmsiUtils|amsiInitFailed"
+} | ForEach-Object {
+   Write-Host  "AMSI Bypass Attempt" $_.CommandLine
+}
