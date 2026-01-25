@@ -2,7 +2,11 @@
 # Multi-Method Injection Hunter
 # Run as Administrator for full visibility
 # --------------------------------------------------------------------------
-
+#Method	Target Technique	Why it works
+#DLL Path Check	DLL Side-loading	System binaries should only load system DLLs from System32.
+#RWX Scanning	Shellcode Injection	Legitimate code is usually Read/Execute. Write/Execute is a red flag.
+#Empty CmdLine	Process Hollowing	When a process is "hollowed," the metadata in the PEB (Command Line) is often lost or blank.
+#Unsigned Modules	DLL Injection	Lists DLLs running from \Temp\ or \Users\Public\.
 Write-Host "[+] Starting Injection Hunt..." -ForegroundColor Cyan
 
 # --- METHOD 1: DLL Side-Loading & Path Anomalies ---
