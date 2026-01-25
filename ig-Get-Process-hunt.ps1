@@ -44,4 +44,58 @@ Get-CimInstance Win32_Process | Where-Object {
     [string]::IsNullOrWhiteSpace($_.CommandLine) 
 } | Select-Object Name, ProcessId, ParentProcessId
 
-Write-Host "`n[+] Hunt Complete." -ForegroundColor Cyan
+
+# Fileless Malware Indicator Scanner
+# Focus: Process Behavior, WMI Persistence, and Hidden Registry Scripts
+
+Write-Host "--- Scanning for Fileless Malware Indicators ---" -ForegroundColor Cyan
+
+### 1. Check for Suspicious PowerShell Processes
+# Look for hidden windows, encoded commands, or IEX (Invoke-Expression)
+Write-Host "[*] Auditing active PowerShell processes..." -ForegroundColor Yellow
+$SuspiciousPS = Get-WmiObject Win32_Process | Where-Object { 
+    $_.Name -eq "powershell.exe" -and (
+        $_.CommandLine -like "*hidden*" -or 
+        $_.CommandLine -like "*-enc*" -or 
+        $_.CommandLine -like "*bypass*" -or
+        $_.CommandLine -like "*IEX*"
+    )
+}
+
+if ($SuspiciousPS) {
+    $SuspiciousPS | Select-Object ProcessId, CommandLine | Format-Table -AutoSize
+} else {
+    Write-Host "No obvious suspicious PowerShell flags found." -ForegroundColor Green
+}
+
+### 2. Check WMI Persistence (Common for Fileless Backdoors)
+# Fileless malware often creates "Event Consumers" to run code on startup
+Write-Host "`n[*] Auditing WMI Event Consumers (Persistence Check)..." -ForegroundColor Yellow
+$WmiConsumers = Get-WmiObject -Namespace "root\subscription" -Class __EventConsumer
+
+# We look for 'CommandLineEventConsumer' which contains actual commands
+$CmdConsumers = $WmiConsumers | Where-Object { $_.__CLASS -eq "CommandLineEventConsumer" }
+
+foreach ($cons in $CmdConsumers) {
+    Write-Host "Found WMI Consumer: $($cons.Name)" -ForegroundColor Red
+    Write-Host "Command: $($cons.CommandLineTemplate)"
+}
+
+### 3. Check Registry 'Run' Keys for Script Execution
+# Attackers often put short PowerShell scripts directly into the registry
+Write-Host "`n[*] Auditing Registry Autoruns for encoded scripts..." -ForegroundColor Yellow
+$Paths = "HKCU:\Software\Microsoft\Windows\CurrentVersion\Run", "HKLM:\Software\Microsoft\Windows\CurrentVersion\Run"
+
+foreach ($path in $Paths) {
+    if (Test-Path $path) {
+        $Values = Get-ItemProperty -Path $path
+        foreach ($val in $Values.PSObject.Properties) {
+            if ($val.Value -like "*powershell*" -or $val.Value -like "*base64*") {
+                Write-Host "Suspicious Registry Key in $path" -ForegroundColor Red
+                Write-Host "Name: $($val.Name) | Value: $($val.Value)"
+            }
+        }
+    }
+}
+
+Write-Host "`n--- Scan Complete ---" -ForegroundColor Cyan
