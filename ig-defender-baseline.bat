@@ -42,18 +42,21 @@ reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v DisableAntiVi
 reg.exe add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender" /v PassiveMode /t REG_DWORD /d 0 /f
 reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WinDefend" /v FailureActionsOnNonCrashFailures /t REG_DWORD /d 1 /f
 reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\WdNisSvc" /v FailureActionsOnNonCrashFailures /t REG_DWORD /d 1 /f
+reg.exe add "HKLM\SYSTEM\CurrentControlSet\Services\MpsSvc" /v Start /t REG_DWORD /d 2 /f
 sc start WinDefend
 sc start WdNisSvc
 sc start Sense
 sc start WdBoot
 sc start WdFilter
 sc start WdNisDrv
+sc start MpsSvc
 sc query WinDefend
 sc query WdNisSvc
 sc query Sense
 sc query WdBoot
 sc query WdFilter
 sc query WdNisDrv
+sc query MpsSvc
 wmic /namespace:\\root\SecurityCenter2 path AntiVirusProduct get displayName,productState
 wevtutil qe "Microsoft-Windows-Windows Defender/Operational" /c:5 /f:text
 sc query WinDefend | find "RUNNING" && echo Defender AV running
