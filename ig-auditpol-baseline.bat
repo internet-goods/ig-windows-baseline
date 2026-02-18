@@ -1,4 +1,4 @@
-uauditpol /set /subcategory:"Credential Validation" /success:enable /failure:enable
+auditpol /set /subcategory:"Credential Validation" /success:enable /failure:enable
 auditpol /set /subcategory:"Security Group Management" /success:enable /failure:enable
 auditpol /set /subcategory:"User Account Management" /success:enable /failure:enable
 auditpol /set /subcategory:"Process Creation" /success:enable /failure:enable
