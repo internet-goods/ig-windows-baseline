@@ -4,7 +4,6 @@ echo Hardening Windows Firewall to DISA STIG Standards...
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "EnableFirewall" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile" /v "EnableFirewall" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "EnableFirewall" /t REG_DWORD /d 1 /f
-
 :: 2. Set Default Inbound Action to Block and Outbound to Allow (unless restricted)
 :: STIG V-253306, V-253308, V-253310
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "DefaultInboundAction" /t REG_DWORD /d 1 /f
@@ -13,7 +12,6 @@ reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "Def
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "DefaultOutboundAction" /t REG_DWORD /d 0 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile" /v "DefaultOutboundAction" /t REG_DWORD /d 0 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "DefaultOutboundAction" /t REG_DWORD /d 0 /f
-
 :: 3. Disable Allow Local Policy Merge (Prevents local users from creating rules)
 :: STIG V-253313, V-253314, V-253315
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "AllowLocalPolicyMerge" /t REG_DWORD /d 0 /f
@@ -22,23 +20,19 @@ reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "All
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "AllowLocalIPsecPolicyMerge" /t REG_DWORD /d 0 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile" /v "AllowLocalIPsecPolicyMerge" /t REG_DWORD /d 0 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "AllowLocalIPsecPolicyMerge" /t REG_DWORD /d 0 /f
-
 :: 4. Enable Logging for Dropped Packets
 :: STIG V-253318, V-253320, V-253322
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" /v "LogDroppedPackets" /t REG_DWORD /d 1 /f
-
 :: 5. Enable Logging for Successful Connections (Optional but recommended by some STIGs)
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v "LogSuccessConnections" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" /v "LogSuccessConnections" /t REG_DWORD /d 1 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" /v "LogSuccessConnections" /t REG_DWORD /d 1 /f
-
 :: 6. Set Log File Size (Max 16MB per STIG recommendation)
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\DomainProfile\Logging" /v "LogFileSize" /t REG_DWORD /d 16384 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging" /v "LogFileSize" /t REG_DWORD /d 16384 /f
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" /v "LogFileSize" /t REG_DWORD /d 16384 /f
-
 :: 7. Prevent Windows Firewall from being disabled via UI
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Firewall and network protection" /v "UILockdown" /t REG_DWORD /d 1 /f
 :: 8. others maye for oldwin
@@ -48,7 +42,6 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile" /v "Dis
 :: 9. defender for Windows 10 (version 1803 and later) and Windows 11
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" /v DisableNotifications /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\Windows Defender Security Center\Notifications" /v DisableEnhancedNotifications /t REG_DWORD /d 1 /f
-
 :: 10. multicast Unless you have a specific, known application that requires this communication method, you should keep the setting enabled for better security.
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "DisableUnicastResponsesToMulticastBroadcast" /t REG_DWORD /d 1 /f
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile" /v "DisableUnicastResponsesToMulticastBroadcast" /t REG_DWORD /d 1 /f
@@ -59,25 +52,23 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PrivateProfile\Logging
 reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging" /v LogFilePath /t REG_SZ /d "%%systemroot%%\system32\LogFiles\Firewall\publicfw.log" /f
 
 :: 12 baseline rules 
-ECHO BASELINE ENABLED RULES for a IPv4 host
-netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=private new enable=Yes
-netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=domain new enable=Yes
+ECHO rules for a ipv4 windows host to test first then run -delete
+ECHO ALL PROFILES SETTINGS ENABLED
 netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-In)" new enable=Yes
-netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-In)" dir=in profile=private new enable=Yes
-netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-In)" dir=in profile=domain new enable=Yes
-netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=private new enable=Yes
+ECHO DOMAIN SETTINGS ENABLED
+netsh advfirewall firewall set rule name="Core Networking Diagnostics - ICMP Echo Request (ICMPv4-In)" dir=in profile=domain new enable=Yes
 netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=domain new enable=Yes
-netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC-EPMAP)" dir=in profile=private new enable=Yes
-netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC-EPMAP)" dir=in profile=private new enable=Yes
-echo enabled out rules currently ignored by DefaultOutboundAction=0
-netsh advfirewall firewall set rule name="Core Networking - DNS (UDP-Out)" dir=out new enable=Yes
-netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-Out)" dir=out new enable=Yes
-netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4-Out)" dir=out new enable=Yes
-netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-Out)" dir=out profile=private new enable=Yes
-netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-Out)" dir=out profile=domain new enable=Yes
-
-
-ECHO disable rules for a ipv4 windows host to test first then run -delete 
+netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-In)" dir=in profile=domain new enable=Yes
+netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=domain new enable=Yes
+netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=domain new enable=Yes
+netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC-EPMAP)" dir=in profile=domain new enable=Yes
+netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service Worker - RPC)" dir=in profile=domain new enable=Yes
+ECHO PUBLIC SETTINGS DISABLED
+netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-In)" dir=in profile=public new enable=No
+netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=public new enable=No
+netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC-EPMAP)" dir=in profile=public new enable=No
+netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=public new enable=No
+ECHO ALL PROFILE SETTINGS DISABLED
 netsh advfirewall firewall set rule name="Core Networking - Router Advertisement (ICMPv6-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Core Networking - Destination Unreachable (ICMPv6-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Core Networking - Destination Unreachable Fragmentation Needed (ICMPv4-In)" dir=in new enable=No
@@ -103,13 +94,6 @@ netsh advfirewall firewall set rule name="File and Printer Sharing (LLMNR-UDP-In
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Datagram-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Name-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Session-In)" new enable=No
-
-echo stealthmode disable ICMPv4 SMB rpc on public
-netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-In)" dir=in profile=public new enable=No
-netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=public new enable=No
-netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC-EPMAP)" dir=in profile=public new enable=No
-netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=public new enable=No
-
 netsh advfirewall firewall set rule name="Network Discovery (LLMNR-UDP-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (NB-Datagram-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (NB-Name-In)" dir=in new enable=No
@@ -119,30 +103,22 @@ netsh advfirewall firewall set rule name="Network Discovery (UPnP-In)" dir=in ne
 netsh advfirewall firewall set rule name="Network Discovery (WSD Events-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (WSD EventsSecure-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (WSD-In)" dir=in new enable=No
-
 netsh advfirewall firewall set rule name="Performance Logs and Alerts (DCOM-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Performance Logs and Alerts (TCP-In)" dir=in new enable=No
-
 netsh advfirewall firewall set rule name="Remote Assistance (DCOM-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Remote Assistance (PNRP-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Remote Assistance (RA Server TCP-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Remote Assistance (SSDP TCP-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Remote Assistance (SSDP UDP-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Remote Assistance (TCP-In)" dir=in new enable=No
-
 netsh advfirewall firewall set rule name="Network Discovery (LLMNR-UDP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (NB-Datagram-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (NB-Name-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (UPnP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (SSDP-Out)" dir=out new enable=No
-
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Session-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv6)" dir=out new enable=No
-
 netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-Out)" dir=out new enable=No
-REM Core Networking - Group Policy (LSASS-Out)      Core Networking Domain  Yes     Allow   %SystemRoot%\system32\lsass.exe Any     Any     TCP     Any     Any     Any
-REM Core Networking - Group Policy (NP-Out) Core Networking Domain  Yes     Allow   System  Any     Any     TCP     Any     445     Any
-REM Core Networking - Group Policy (TCP-Out)        Core Networking Domain  Yes     Allow   %SystemRoot%\system32\svchost.exe       Any     Any     TCP     Any     Any     Any
 netsh advfirewall firewall set rule name="Core Networking - Internet Group Management Protocol (IGMP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Core Networking - IPHTTPS (TCP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Core Networking - IPv6 (IPv6-Out)" dir=out new enable=No
@@ -158,16 +134,45 @@ netsh advfirewall firewall set rule name="Core Networking - Router Advertisement
 netsh advfirewall firewall set rule name="Core Networking - Router Solicitation (ICMPv6-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Core Networking - Teredo (UDP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Core Networking - Time Exceeded (ICMPv6-Out)" dir=out new enable=No
-
 netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv6-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (LLMNR-UDP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Datagram-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Name-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Session-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-Out)" dir=out profile=public new enable=No
-
 netsh advfirewall firewall set rule name="Network Discovery (LLMNR-UDP-Out)" dir=out new enable=No
-netsh advfirewall firewall set rule name="Network Discovery (NB-Datagram-Out)" dir=out new enable=No
+netsh advfirewall firewall set rule name="Network Discovery (NB-Dat$Esc = [char]27
+$BgBlue  = "$Esc[44m"
+$BgRed   = "$Esc[41m"
+$BgWhite = "$Esc[107m"
+$FgWhite = "$Esc[97m"
+$FgBlack = "$Esc[30m"
+$Reset   = "$Esc[0m"
+
+# Field of Stars (7 rows inside the blue union)
+for ($i = 0; $i -lt 7; $i++) {
+    if ($i % 2 -eq 0) {
+        $stars = "$FgWhite* * * * * *$Reset" # 6 stars
+    } else {
+        $stars = "$FgWhite * * * * * $Reset" # 5 stars
+    }
+
+    # Stripe background alternates red and white
+    $stripeBg = if ($i % 2 -eq 0) { $BgRed } else { $BgWhite }
+    
+    # 35 spaces for the stripe tail after the blue union
+    $tail = "$stripeBg" + (" " * 35) + "$Reset"
+    
+    Write-Host "$BgBlue$stars$Reset$tail"
+}
+
+# Remaining 6 stripes below the star field
+for ($i = 7; $i -lt 13; $i++) {
+    $stripeBg = if ($i % 2 -eq 0) { $BgRed } else { $BgWhite }
+    $fullStripe = "$stripeBg" + (" " * 48) + "$Reset"
+    
+    Write-Host $fullStripe
+}agram-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (NB-Name-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (Pub WSD-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (SSDP-Out)" dir=out new enable=No
@@ -176,7 +181,6 @@ netsh advfirewall firewall set rule name="Network Discovery (UPnP-Out)" dir=out 
 netsh advfirewall firewall set rule name="Network Discovery (WSD Events-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (WSD EventsSecure-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (WSD-Out)" dir=out new enable=No
-
 netsh advfirewall firewall set rule name="Remote Assistance (PNRP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Remote Assistance (RA Server TCP-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Remote Assistance (SSDP TCP-Out)" dir=out new enable=No
@@ -209,8 +213,6 @@ netsh advfirewall firewall delete rule name="File and Printer Sharing (LLMNR-UDP
 netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Datagram-In)"
 netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Name-In)"
 netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Session-In)" 
-
-
 netsh advfirewall firewall delete rule name="Network Discovery (LLMNR-UDP-In)"
 netsh advfirewall firewall delete rule name="Network Discovery (NB-Datagram-In)"
 netsh advfirewall firewall delete rule name="Network Discovery (NB-Name-In)"
@@ -220,26 +222,21 @@ netsh advfirewall firewall delete rule name="Network Discovery (UPnP-In)"
 netsh advfirewall firewall delete rule name="Network Discovery (WSD Events-In)"
 netsh advfirewall firewall delete rule name="Network Discovery (WSD EventsSecure-In)"
 netsh advfirewall firewall delete rule name="Network Discovery (WSD-In)"
-
 netsh advfirewall firewall delete rule name="Performance Logs and Alerts (DCOM-In)"
 netsh advfirewall firewall delete rule name="Performance Logs and Alerts (TCP-In)"
-
 netsh advfirewall firewall delete rule name="Remote Assistance (DCOM-In)"
 netsh advfirewall firewall delete rule name="Remote Assistance (PNRP-In)"
 netsh advfirewall firewall delete rule name="Remote Assistance (RA Server TCP-In)"
 netsh advfirewall firewall delete rule name="Remote Assistance (SSDP TCP-In)"
 netsh advfirewall firewall delete rule name="Remote Assistance (SSDP UDP-In)"
 netsh advfirewall firewall delete rule name="Remote Assistance (TCP-In)"
-
 netsh advfirewall firewall delete rule name="Network Discovery (LLMNR-UDP-Out)"
 netsh advfirewall firewall delete rule name="Network Discovery (NB-Datagram-Out)"
 netsh advfirewall firewall delete rule name="Network Discovery (NB-Name-Out)"
 netsh advfirewall firewall delete rule name="Network Discovery (UPnP-Out)"
 netsh advfirewall firewall delete rule name="Network Discovery (SSDP-Out)"
-
 netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Session-Out)"
 netsh advfirewall firewall delete rule name="File and Printer Sharing (Echo Request - ICMPv6)"
-
 netsh advfirewall firewall delete rule name="Core Networking - Dynamic Host Configuration Protocol for IPv6(DHCPV6-Out)"
 netsh advfirewall firewall delete rule name="Core Networking - Internet Group Management Protocol (IGMP-Out)"
 netsh advfirewall firewall delete rule name="Core Networking - IPHTTPS (TCP-Out)"
@@ -256,13 +253,11 @@ netsh advfirewall firewall delete rule name="Core Networking - Router Advertisem
 netsh advfirewall firewall delete rule name="Core Networking - Router Solicitation (ICMPv6-Out)"
 netsh advfirewall firewall delete rule name="Core Networking - Teredo (UDP-Out)"
 netsh advfirewall firewall delete rule name="Core Networking - Time Exceeded (ICMPv6-Out)"
-
 netsh advfirewall firewall delete rule name="File and Printer Sharing (Echo Request - ICMPv6-Out)"
 netsh advfirewall firewall delete rule name="File and Printer Sharing (LLMNR-UDP-Out)"
 netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Datagram-Out)"
 netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Name-Out)"
 netsh advfirewall firewall delete rule name="File and Printer Sharing (NB-Session-Out)"
-
 netsh advfirewall firewall delete rule name="Network Discovery (LLMNR-UDP-Out)"
 netsh advfirewall firewall delete rule name="Network Discovery (NB-Datagram-Out)"
 netsh advfirewall firewall delete rule name="Network Discovery (NB-Name-Out)"
@@ -273,7 +268,6 @@ netsh advfirewall firewall delete rule name="Network Discovery (UPnP-Out)"
 netsh advfirewall firewall delete rule name="Network Discovery (WSD Events-Out)"
 netsh advfirewall firewall delete rule name="Network Discovery (WSD EventsSecure-Out)"
 netsh advfirewall firewall delete rule name="Network Discovery (WSD-Out)"
-
 netsh advfirewall firewall delete rule name="Remote Assistance (PNRP-Out)"
 netsh advfirewall firewall delete rule name="Remote Assistance (RA Server TCP-Out)"
 netsh advfirewall firewall delete rule name="Remote Assistance (SSDP TCP-Out)"
