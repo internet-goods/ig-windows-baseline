@@ -55,6 +55,7 @@ reg add "HKLM\SOFTWARE\Policies\Microsoft\WindowsFirewall\PublicProfile\Logging"
 ECHO rules for a ipv4 windows host to test first then run -delete
 ECHO ALL PROFILES SETTINGS ENABLED
 netsh advfirewall firewall set rule name="Core Networking - Dynamic Host Configuration Protocol (DHCP-In)" new enable=Yes
+netsh advfirewall firewall set rule group="Remote Desktop" new enable=Yes
 ECHO DOMAIN SETTINGS ENABLED
 netsh advfirewall firewall set rule name="Core Networking Diagnostics - ICMP Echo Request (ICMPv4-In)" dir=in profile=domain new enable=Yes
 netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=domain new enable=Yes
@@ -63,11 +64,6 @@ netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request
 netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=domain new enable=Yes
 netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC-EPMAP)" dir=in profile=domain new enable=Yes
 netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service Worker - RPC)" dir=in profile=domain new enable=Yes
-ECHO PUBLIC SETTINGS DISABLED
-netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-In)" dir=in profile=public new enable=No
-netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC)" dir=in profile=public new enable=No
-netsh advfirewall firewall set rule name="File and Printer Sharing (Spooler Service - RPC-EPMAP)" dir=in profile=public new enable=No
-netsh advfirewall firewall set rule name="File and Printer Sharing (Echo Request - ICMPv4)" dir=in profile=public new enable=No
 ECHO ALL PROFILE SETTINGS DISABLED
 netsh advfirewall firewall set rule name="Core Networking - Router Advertisement (ICMPv6-In)" dir=in new enable=No
 netsh advfirewall firewall set rule name="Core Networking - Destination Unreachable (ICMPv6-In)" dir=in new enable=No
