@@ -1,15 +1,4 @@
-:: Check for administrative privileges, code by gemini
-net session >nul 2>&1
-if %errorLevel% == 0 (
-    echo [OK] Running with Administrator privileges.
-) else (
-    echo [ERROR] Please run this script as an Administrator.
-    pause
-    exit /b
-)
-
 echo Hardening Windows Firewall to DISA STIG Standards...
-
 :: 1. Enable Firewall for All Profiles (Domain, Private, Public)
 :: STIG V-253303, V-253304, V-253305
 reg add "HKLM\Software\Policies\Microsoft\WindowsFirewall\DomainProfile" /v "EnableFirewall" /t REG_DWORD /d 1 /f
