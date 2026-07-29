@@ -141,38 +141,7 @@ netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Name-Out)
 netsh advfirewall firewall set rule name="File and Printer Sharing (NB-Session-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="File and Printer Sharing (SMB-Out)" dir=out profile=public new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (LLMNR-UDP-Out)" dir=out new enable=No
-netsh advfirewall firewall set rule name="Network Discovery (NB-Dat$Esc = [char]27
-$BgBlue  = "$Esc[44m"
-$BgRed   = "$Esc[41m"
-$BgWhite = "$Esc[107m"
-$FgWhite = "$Esc[97m"
-$FgBlack = "$Esc[30m"
-$Reset   = "$Esc[0m"
-
-# Field of Stars (7 rows inside the blue union)
-for ($i = 0; $i -lt 7; $i++) {
-    if ($i % 2 -eq 0) {
-        $stars = "$FgWhite* * * * * *$Reset" # 6 stars
-    } else {
-        $stars = "$FgWhite * * * * * $Reset" # 5 stars
-    }
-
-    # Stripe background alternates red and white
-    $stripeBg = if ($i % 2 -eq 0) { $BgRed } else { $BgWhite }
-    
-    # 35 spaces for the stripe tail after the blue union
-    $tail = "$stripeBg" + (" " * 35) + "$Reset"
-    
-    Write-Host "$BgBlue$stars$Reset$tail"
-}
-
-# Remaining 6 stripes below the star field
-for ($i = 7; $i -lt 13; $i++) {
-    $stripeBg = if ($i % 2 -eq 0) { $BgRed } else { $BgWhite }
-    $fullStripe = "$stripeBg" + (" " * 48) + "$Reset"
-    
-    Write-Host $fullStripe
-}agram-Out)" dir=out new enable=No
+netsh advfirewall firewall set rule name="Network Discovery (NB-Datagram-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (NB-Name-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (Pub WSD-Out)" dir=out new enable=No
 netsh advfirewall firewall set rule name="Network Discovery (SSDP-Out)" dir=out new enable=No
