@@ -238,6 +238,11 @@ netsh advfirewall firewall delete rule name="Remote Assistance (RA Server TCP-Ou
 netsh advfirewall firewall delete rule name="Remote Assistance (SSDP TCP-Out)"
 netsh advfirewall firewall delete rule name="Remote Assistance (SSDP UDP-Out)"
 netsh advfirewall firewall delete rule name="Remote Assistance (TCP-Out)"
+netsh advfirewall firewall delete rule name="Microsoft Edge (mDNS-In)"
+netsh advfirewall firewall delete rule name="Google Chrome (mDNS-In)"
+netsh advfirewall firewall delete rule name="Core Networking Diagnostics - ICMP Echo Request (ICMPv6-In)"
+netsh advfirewall firwwall delete rule name="File and Printer Sharing (Restrictive) (Echo Request - ICMPv6-In)"
+netsh advfirewall firewall delete rule name="File and Printer Sharing (Restrictive) (LLMNR-UDP-In)"
 )
 
 
