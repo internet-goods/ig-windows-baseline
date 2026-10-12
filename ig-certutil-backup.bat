@@ -14,7 +14,7 @@ if not exist "%BackupDir%" (
 echo Exporting certutil ca...
 certutil -store Root > %BackupDir%\%COMPUTERNAME%-certutilstoreroot-%CurrentDate%.txt"
 certutil -ping > %BackupDir%\%COMPUTERNAME%-certutilping-%CurrentDate%.txt"
-certutil -store -user My "Code Signing" %BackupDir%\%COMPUTERNAME%-certutilmycodesigning-%CurrentDate%.txt"
-certutil -store CA "Code Signing" %BackupDir%\%COMPUTERNAME%-certutilcacodesigning-%CurrentDate%.txt"
+certutil -store -user My "Code Signing" > %BackupDir%\%COMPUTERNAME%-certutilmycodesigning-%CurrentDate%.txt"
+certutil -store CA "Code Signing" > %BackupDir%\%COMPUTERNAME%-certutilcacodesigning-%CurrentDate%.txt"
 echo Tasks saved to: %OutputFilePathTXT%
 endlocal
