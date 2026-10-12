@@ -14,5 +14,7 @@ if not exist "%BackupDir%" (
 set "OutputFilePathTXT=%BackupDir%\%COMPUTERNAME%-certutilstoreroot-%CurrentDate%.txt"
 echo Exporting certutil ca...
 certutil -store Root > "%OutputFilePathTXT%"
+set "OutputFilePathTXT=%BackupDir%\%COMPUTERNAME%-certutilping-%CurrentDate%.txt"
+certutil -ping > "%OutputFilePathTXT%"
 echo Tasks saved to: %OutputFilePathTXT%
 endlocal
