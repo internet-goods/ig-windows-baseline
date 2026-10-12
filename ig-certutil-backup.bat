@@ -11,10 +11,10 @@ if not exist "%BackupDir%" (
     echo Created directory: %BackupDir%
 )
 :: Define the filename for the output
-set "OutputFilePathTXT=%BackupDir%\%COMPUTERNAME%-certutilstoreroot-%CurrentDate%.txt"
 echo Exporting certutil ca...
-certutil -store Root > "%OutputFilePathTXT%"
-set "OutputFilePathTXT=%BackupDir%\%COMPUTERNAME%-certutilping-%CurrentDate%.txt"
-certutil -ping > "%OutputFilePathTXT%"
+certutil -store Root > %BackupDir%\%COMPUTERNAME%-certutilstoreroot-%CurrentDate%.txt"
+certutil -ping > %BackupDir%\%COMPUTERNAME%-certutilping-%CurrentDate%.txt"
+certutil -store -user My "Code Signing" %BackupDir%\%COMPUTERNAME%-certutilmycodesigning-%CurrentDate%.txt"
+certutil -store CA "Code Signing" %BackupDir%\%COMPUTERNAME%-certutilcacodesigning-%CurrentDate%.txt"
 echo Tasks saved to: %OutputFilePathTXT%
 endlocal
